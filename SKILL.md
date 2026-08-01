@@ -41,9 +41,10 @@ Preserve facts and qualifications, separate confirmed facts from assumptions,
 and never invent context. Remove jargon, filler, repeated updates, and
 irrelevant tool details. Reorganize the response instead of merely shortening
 it. Keep the brief crisp, dense with useful information, and self-contained.
-Use the user's explanatory voice, with longer sentences, commas, and several
-related clauses when they make the reasoning easier to follow. Do not break
-connected ideas into short, choppy sentences.
+Use the user's explanatory voice by joining related facts and reasons into
+longer sentences, with commas and words such as "because", "while", and "so".
+Do not give each fact its own short sentence, and do not use sentence fragments.
+Use bullets only when they make the options easier to compare.
 
 ## Word choice and tone
 
