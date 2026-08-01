@@ -9,7 +9,10 @@ description: >-
   Also use it whenever the user asks to simplify, clean up, tighten, reword, or
   make writing clearer or easier to read. Default to this style for prose
   written for the user unless they ask for a different one. Do not apply it to
-  code itself, only to the words around it.
+  code itself, only to the words around it. When the user invokes
+  "/plain-writing deslopify" or asks to deslopify an agent response, rewrite
+  the response in a clear structure for a sharp CEO or technical reader who
+  has no project context and needs to understand all relevant details.
 ---
 
 # Plain writing
@@ -22,6 +25,23 @@ by default when you write prose for them.
 The rules are in four groups: word choice and tone, sentences and paragraphs,
 punctuation and formatting, and patterns to avoid. Each rule is followed by a
 before and after so you can see it. After the rules comes how to revise.
+
+## The deslopify command
+
+When the user says `/plain-writing deslopify`, rewrite the previous agent
+response, or the text after the command, in a clear structure for a sharp CEO
+or technical reader who has no project context and needs to understand all
+relevant details. Return only the rewrite.
+
+Start with the main conclusion, then explain the relevant background, what
+happened, how it works, the tradeoffs, the options, the recommendation, the
+evidence, the risks, and the unknowns. Include technical details when the reader
+needs them to understand the subject, and define any technical term that may be
+unfamiliar.
+
+Follow the plain-writing guidelines below. E.g., don't use jargon, and write in
+a more explanatory voice, using longer sentences and commas to connect related
+ideas instead of a series of short sentences.
 
 ## Word choice and tone
 
