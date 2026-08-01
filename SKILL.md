@@ -126,22 +126,20 @@ ideas instead of a series of short sentences.
    changes, so the server returns early. Moreover, the cache keeps the previous
    output, so a repeated render does no work.
 
-11. **Keep related clauses together, and do not stack examples.** A sentence
-    may contain several clauses when they form one explanation and the
-    connection between them is clear. Split the sentence when the ideas are
-    unrelated or the sentence becomes hard to follow, not because it has
-    reached a fixed number of clauses. If the clauses form a list that is easier
-    to scan, use bullet points. When an example helps, give one example and
-    introduce it with "e.g.". Do not give three or more example sentences in a
-    row to support the same point.
-    Before: The parser reads the file. The validator checks the fields. The
+11. **Never write three or more clauses in one sentence, or three or more
+    example sentences in a row.** A sentence may contain one or two related
+    clauses. If it contains three or more clauses, split it into separate
+    sentences. If the clauses form a list, use bullet points. When an example
+    helps, give one example and introduce it with "e.g.". Do not give three or
+    more example sentences back to back to support the same point.
+    Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
-    After: The parser reads the file, the validator checks the fields, and the
-    writer saves the record.
+    After: The parser reads the file, and the validator checks the fields. The
+    writer then saves the record.
 
 12. **Prefer long, explanatory sentences over short, punchy ones.** The user
     writes the way people explain things out loud, in longer sentences with
-    commas and several related clauses that carry the reasoning along. A
+    commas and one or two related clauses that carry the reasoning along. A
     sentence should end because the thought is complete, not because a short
     sentence would sound stronger. Plain writing here means explanatory, not
     terse.
