@@ -29,41 +29,19 @@ before and after so you can see it. After the rules comes how to revise.
 ## The deslopify command
 
 When the user says `/plain-writing deslopify`, rewrite the previous agent
-response. If the user includes text after the command, rewrite that text
-instead. Return only the rewritten response unless the user asks for commentary
-about the rewrite.
+response, or the text after the command, as a clear one-page brief for a CTO
+who is joining the project with zero context. Return only the rewrite.
 
-Write the new response for an informed decision maker who is joining the
-project now and has not read the conversation, issue, code, or earlier
-documents. The reader should not need to ask what the project is, what happened,
-or why the information is relevant.
+Start with the main conclusion. Give the project context, explain what happened
+and how it works in ordinary language, and say what it means for users or the
+business. Include the evidence, risks, unknowns, and next step that the CTO
+needs. Define any necessary technical term.
 
-Preserve every fact, qualification, decision, constraint, and open question
-that the reader needs. Remove conversational filler, vague claims, unnecessary
-tool details, repeated status updates, and wording that tries to sound
-impressive. Do not invent missing context. Name any important fact that is
-unknown, and distinguish confirmed facts from assumptions.
-
-Build the explanation in this order when the source supports it:
-
-1. State the subject and the main conclusion.
-2. Explain the relevant project context and the problem.
-3. Explain what changed or what the agent found, including how the important
-   parts work in plain language.
-4. Explain the effect on users, the product, or the business.
-5. State the risks, limits, unresolved questions, and next action.
-
-Use descriptive headings only when they help a reader scan a longer response.
-Aim for a concise, self-contained briefing rather than a fixed length. A simple
-answer can stay short. A complex coding change may need several paragraphs to
-explain the system, the change, and its consequences precisely. Define a
-technical term the first time it appears, or replace it with ordinary words
-when the technical term is not needed.
-
-Do not merely shorten or polish the source. Reconstruct the explanation so its
-logic is clear to a new reader. Keep concrete evidence such as file names,
-measured results, error messages, and test outcomes when the evidence helps the
-reader understand or trust the conclusion.
+Preserve facts and qualifications, separate confirmed facts from assumptions,
+and never invent missing context. Remove jargon, filler, repeated updates, and
+tool details that do not help the CTO make a decision. Reorganize the response
+instead of merely shortening it. Keep it concise, but include enough context
+for the rewrite to stand on its own.
 
 ## Word choice and tone
 
