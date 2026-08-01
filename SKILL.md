@@ -29,19 +29,18 @@ before and after so you can see it. After the rules comes how to revise.
 ## The deslopify command
 
 When the user says `/plain-writing deslopify`, rewrite the previous agent
-response, or the text after the command, as a clear one-page brief for a CTO
-who is joining the project with zero context. Return only the rewrite.
+response, or the text after the command, as a one-page decision brief for a CTO
+who knows the company but has zero project context. Return only the rewrite.
 
-Start with the main conclusion. Give the project context, explain what happened
-and how it works in ordinary language, and say what it means for users or the
-business. Include the evidence, risks, unknowns, and next step that the CTO
-needs. Define any necessary technical term.
+Include exactly what the CTO needs to make a decision. State the recommendation
+and why. Then give the relevant background, tradeoffs, viable options, evidence,
+risks, and unknowns. Explain technical details only when they affect the
+decision, and define any unavoidable technical term.
 
 Preserve facts and qualifications, separate confirmed facts from assumptions,
-and never invent missing context. Remove jargon, filler, repeated updates, and
-tool details that do not help the CTO make a decision. Reorganize the response
-instead of merely shortening it. Keep it concise, but include enough context
-for the rewrite to stand on its own.
+and never invent context. Remove jargon, filler, repeated updates, and
+irrelevant tool details. Reorganize the response instead of merely shortening
+it. Keep the brief crisp, dense with useful information, and self-contained.
 
 ## Word choice and tone
 

@@ -42,10 +42,10 @@ unexplained technical terms, or does not make the main point clear.
 /plain-writing deslopify
 ```
 
-The skill rewrites the agent's previous response as a one-page brief for a CTO
-who is joining the project with no context. The rewrite explains the project,
-the main conclusion, what changed, what it means for the business, and any
-risks or open questions. It does not invent missing details.
+The skill rewrites the agent's previous response as a one-page decision brief
+for a CTO who knows the company but is joining the project with no context. The
+rewrite gives the relevant background, tradeoffs, options, recommendation,
+evidence, risks, and unknowns. It does not invent missing details.
 
 You can also put text after the command when you want to rewrite text other than
 the previous response.
