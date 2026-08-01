@@ -39,13 +39,9 @@ evidence, the risks, and the unknowns. Include technical details when the reader
 needs them to understand the subject, and define any technical term that may be
 unfamiliar.
 
-Follow all of the plain-writing guidelines in this skill. Preserve facts and
-qualifications, separate confirmed facts from assumptions, remove filler and
-irrelevant tool details, and reorganize the response instead of merely
-shortening it. Use the user's explanatory voice by joining related facts and
-reasons into longer sentences, with commas and words such as "because", "while",
-and "so". Do not give each fact its own short sentence, and use bullets only
-when they make the structure easier to understand.
+Follow the plain-writing guidelines below. E.g., don't use jargon, and write in
+the user's explanatory voice, using longer sentences and commas to connect
+related ideas instead of a series of short sentences.
 
 ## Word choice and tone
 
