@@ -40,8 +40,8 @@ needs them to understand the subject, and define any technical term that may be
 unfamiliar.
 
 Follow the plain-writing guidelines below. E.g., don't use jargon, and write in
-the user's explanatory voice, using longer sentences and commas to connect
-related ideas instead of a series of short sentences.
+a more explanatory voice, using longer sentences and commas to connect related
+ideas instead of a series of short sentences.
 
 ## Word choice and tone
 
