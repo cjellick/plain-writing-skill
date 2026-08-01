@@ -11,8 +11,8 @@ description: >-
   written for the user unless they ask for a different one. Do not apply it to
   code itself, only to the words around it. When the user invokes
   "/plain-writing deslopify" or asks to deslopify an agent response, rewrite
-  the response as a self-contained briefing for a reader who has no prior
-  project context.
+  the response in a clear structure for a sharp CEO or technical reader who
+  has no project context and needs to understand all relevant details.
 ---
 
 # Plain writing
@@ -29,22 +29,23 @@ before and after so you can see it. After the rules comes how to revise.
 ## The deslopify command
 
 When the user says `/plain-writing deslopify`, rewrite the previous agent
-response, or the text after the command, as a one-page decision brief for a CTO
-who knows the company but has zero project context. Return only the rewrite.
+response, or the text after the command, in a clear structure for a sharp CEO
+or technical reader who has no project context and needs to understand all
+relevant details. Return only the rewrite.
 
-Include exactly what the CTO needs to make a decision. State the recommendation
-and why. Then give the relevant background, tradeoffs, viable options, evidence,
-risks, and unknowns. Explain technical details only when they affect the
-decision, and define any unavoidable technical term.
+Start with the main conclusion, then explain the relevant background, what
+happened, how it works, the tradeoffs, the options, the recommendation, the
+evidence, the risks, and the unknowns. Include technical details when the reader
+needs them to understand the subject, and define any technical term that may be
+unfamiliar.
 
-Preserve facts and qualifications, separate confirmed facts from assumptions,
-and never invent context. Remove jargon, filler, repeated updates, and
-irrelevant tool details. Reorganize the response instead of merely shortening
-it. Keep the brief crisp, dense with useful information, and self-contained.
-Use the user's explanatory voice by joining related facts and reasons into
-longer sentences, with commas and words such as "because", "while", and "so".
-Do not give each fact its own short sentence, and do not use sentence fragments.
-Use bullets only when they make the options easier to compare.
+Follow all of the plain-writing guidelines in this skill. Preserve facts and
+qualifications, separate confirmed facts from assumptions, remove filler and
+irrelevant tool details, and reorganize the response instead of merely
+shortening it. Use the user's explanatory voice by joining related facts and
+reasons into longer sentences, with commas and words such as "because", "while",
+and "so". Do not give each fact its own short sentence, and use bullets only
+when they make the structure easier to understand.
 
 ## Word choice and tone
 
