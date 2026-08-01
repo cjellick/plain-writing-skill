@@ -142,7 +142,7 @@ Use bullets only when they make the options easier to compare.
 
 12. **Prefer long, explanatory sentences over short, punchy ones.** The user
     writes the way people explain things out loud, in longer sentences with
-    commas and one or two related clauses that carry the reasoning along. A
+    commas and several related clauses that carry the reasoning along. A
     sentence should end because the thought is complete, not because a short
     sentence would sound stronger. Plain writing here means explanatory, not
     terse.
