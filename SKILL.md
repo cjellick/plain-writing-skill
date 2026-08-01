@@ -41,6 +41,9 @@ Preserve facts and qualifications, separate confirmed facts from assumptions,
 and never invent context. Remove jargon, filler, repeated updates, and
 irrelevant tool details. Reorganize the response instead of merely shortening
 it. Keep the brief crisp, dense with useful information, and self-contained.
+Use the user's explanatory voice, with longer sentences, commas, and several
+related clauses when they make the reasoning easier to follow. Do not break
+connected ideas into short, choppy sentences.
 
 ## Word choice and tone
 
@@ -125,16 +128,16 @@ it. Keep the brief crisp, dense with useful information, and self-contained.
    changes, so the server returns early. Moreover, the cache keeps the previous
    output, so a repeated render does no work.
 
-11. **Never write three or more clauses in one sentence, or three or more
-    example sentences in a row.** A sentence may contain one or two related
-    clauses. If it contains three or more clauses, split it into separate
-    sentences. If the clauses form a list, use bullet points. When an example
-    helps, give one example and introduce it with "e.g.". Do not give three or
-    more example sentences back to back to support the same point.
-    Before: The parser reads the file, the validator checks the fields, and the
+11. **Keep related clauses together.** A sentence may contain several clauses
+    when they form one explanation and the connection between them is clear.
+    Split the sentence when the ideas are unrelated or the sentence becomes
+    hard to follow, not because it has reached a fixed number of clauses. If
+    the clauses form a list that is easier to scan, use bullet points. When an
+    example helps, give one example and introduce it with "e.g.".
+    Before: The parser reads the file. The validator checks the fields. The
     writer saves the record.
-    After: The parser reads the file, and the validator checks the fields. The
-    writer then saves the record.
+    After: The parser reads the file, the validator checks the fields, and the
+    writer saves the record.
 
 12. **Prefer long, explanatory sentences over short, punchy ones.** The user
     writes the way people explain things out loud, in longer sentences with
