@@ -32,3 +32,21 @@ git clone https://github.com/shreyashankar/plain-writing-skill ~/.claude/skills/
 
 Then ask the agent to write or revise some text. It applies the rules on its
 own.
+
+## Deslopify an agent response
+
+Use the command below when an agent response assumes too much context, uses
+unexplained technical terms, or does not make the main point clear.
+
+```
+/plain-writing deslopify
+```
+
+The skill rewrites the agent's previous response as a self-contained briefing
+for someone who is new to the project. The rewrite explains the project
+context, the main conclusion, what changed, why it matters, and any risks or
+open questions. It keeps confirmed facts separate from assumptions and does not
+invent missing details.
+
+You can also put text after the command when you want to rewrite text other than
+the previous response.

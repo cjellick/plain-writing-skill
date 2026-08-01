@@ -9,7 +9,10 @@ description: >-
   Also use it whenever the user asks to simplify, clean up, tighten, reword, or
   make writing clearer or easier to read. Default to this style for prose
   written for the user unless they ask for a different one. Do not apply it to
-  code itself, only to the words around it.
+  code itself, only to the words around it. When the user invokes
+  "/plain-writing deslopify" or asks to deslopify an agent response, rewrite
+  the response as a self-contained briefing for a reader who has no prior
+  project context.
 ---
 
 # Plain writing
@@ -22,6 +25,45 @@ by default when you write prose for them.
 The rules are in four groups: word choice and tone, sentences and paragraphs,
 punctuation and formatting, and patterns to avoid. Each rule is followed by a
 before and after so you can see it. After the rules comes how to revise.
+
+## The deslopify command
+
+When the user says `/plain-writing deslopify`, rewrite the previous agent
+response. If the user includes text after the command, rewrite that text
+instead. Return only the rewritten response unless the user asks for commentary
+about the rewrite.
+
+Write the new response for an informed decision maker who is joining the
+project now and has not read the conversation, issue, code, or earlier
+documents. The reader should not need to ask what the project is, what happened,
+or why the information is relevant.
+
+Preserve every fact, qualification, decision, constraint, and open question
+that the reader needs. Remove conversational filler, vague claims, unnecessary
+tool details, repeated status updates, and wording that tries to sound
+impressive. Do not invent missing context. Name any important fact that is
+unknown, and distinguish confirmed facts from assumptions.
+
+Build the explanation in this order when the source supports it:
+
+1. State the subject and the main conclusion.
+2. Explain the relevant project context and the problem.
+3. Explain what changed or what the agent found, including how the important
+   parts work in plain language.
+4. Explain the effect on users, the product, or the business.
+5. State the risks, limits, unresolved questions, and next action.
+
+Use descriptive headings only when they help a reader scan a longer response.
+Aim for a concise, self-contained briefing rather than a fixed length. A simple
+answer can stay short. A complex coding change may need several paragraphs to
+explain the system, the change, and its consequences precisely. Define a
+technical term the first time it appears, or replace it with ordinary words
+when the technical term is not needed.
+
+Do not merely shorten or polish the source. Reconstruct the explanation so its
+logic is clear to a new reader. Keep concrete evidence such as file names,
+measured results, error messages, and test outcomes when the evidence helps the
+reader understand or trust the conclusion.
 
 ## Word choice and tone
 
