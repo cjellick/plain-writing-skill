@@ -126,12 +126,14 @@ ideas instead of a series of short sentences.
    changes, so the server returns early. Moreover, the cache keeps the previous
    output, so a repeated render does no work.
 
-11. **Keep related clauses together.** A sentence may contain several clauses
-    when they form one explanation and the connection between them is clear.
-    Split the sentence when the ideas are unrelated or the sentence becomes
-    hard to follow, not because it has reached a fixed number of clauses. If
-    the clauses form a list that is easier to scan, use bullet points. When an
-    example helps, give one example and introduce it with "e.g.".
+11. **Keep related clauses together, and do not stack examples.** A sentence
+    may contain several clauses when they form one explanation and the
+    connection between them is clear. Split the sentence when the ideas are
+    unrelated or the sentence becomes hard to follow, not because it has
+    reached a fixed number of clauses. If the clauses form a list that is easier
+    to scan, use bullet points. When an example helps, give one example and
+    introduce it with "e.g.". Do not give three or more example sentences in a
+    row to support the same point.
     Before: The parser reads the file. The validator checks the fields. The
     writer saves the record.
     After: The parser reads the file, the validator checks the fields, and the
