@@ -59,10 +59,10 @@ ideas instead of a series of short sentences.
    Before: The score is a calibrated proxy for whether the property holds.
    After: The score estimates how likely the property is to hold.
 
-3. **No puffery or empty emphasis.** Some words add emphasis but no information,
-   so drop them. Avoid the following words: "really", "real", "matters",
-   "worth", "carries weight", "boasts", "a testament to", "pivotal",
-   "renowned", and "quietly". State the actual point, or cut the sentence.
+3. **No puffery or empty emphasis.** Drop words that add emphasis but no
+   information, e.g., "really", "real", "matters", "worth", "carries weight",
+   "boasts", "a testament to", "pivotal", "renowned", and "quietly". State the
+   actual point, or cut the sentence.
    Before: This result matters, and it carries weight for the design.
    After: The scores barely moved, so we can skip the model on most documents.
 
