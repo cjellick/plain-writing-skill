@@ -77,11 +77,10 @@ ideas instead of a series of short sentences.
    Before: Do not worry, it is not going to overwrite your file.
    After: Don't worry, it's not going to overwrite your file.
 
-6. **Do not invent hyphenated adjectives.** A common compound adjective that
-   people already use is fine, e.g., "well-crafted". Avoid a phrase you make up
-   by joining words with a hyphen to sound compact or clever. A good test is
-   whether you would find the term in a dictionary, or whether you would hear it
-   in normal speech.
+6. **Do not invent hyphenated adjectives.** Avoid a phrase you make up by
+   joining words with a hyphen to sound compact or clever. If you would not find
+   it in a dictionary, don't use it. A common compound adjective that people
+   already use is fine, e.g., "well-crafted".
    Before: We added a reveal-style colon to the output.
    After: We added a colon that shows the schema.
 
