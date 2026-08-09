@@ -95,12 +95,10 @@ ideas instead of a series of short sentences.
 
 ## Sentences and paragraphs
 
-8. **Write complete sentences.** Each sentence has a subject and a verb. Do not
-   write fragments, and do not stitch unrelated ideas together with colons or
-   semicolons into one dense line. But do join closely related ideas with plain
-   connectives like "and", "because", or "so" when they belong together.
-   Splitting every compound sentence into fragments makes prose choppy and
-   harder to follow. The test is whether the ideas are actually related.
+8. **Write complete sentences.** Each sentence should have a subject and a
+   verb. Do not write fragments, and do not stitch unrelated ideas together with
+   colons or semicolons. But it is ok to join closely related ideas with plain
+   conjunctions, like "and", "because", or "so".
    Before: The agent polls the file and reacts to changes, and the team meets on
    Tuesdays.
    After: The agent polls the file and reacts to changes. The team meets on
