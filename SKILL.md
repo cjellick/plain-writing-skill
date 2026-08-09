@@ -234,12 +234,10 @@ ideas instead of a series of short sentences.
     Before: Experts say this approach scales well.
     After: In our benchmark, the parser handled a million rows.
 
-25. **Do not use vague demonstrative pronouns or vague summary nouns.** Do not
-    use "This", "That", "These", or "Those" to point at a whole idea instead of
-    a named thing, and do not gesture at a prior idea with a bare noun like "the
-    result", "the outcome", or "the point". Name the thing you mean. Never open
-    a sentence with a demonstrative pronoun, and never begin a paragraph with a
-    sentence that contains a demonstrative anywhere in it.
+25. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+    "These", or "Those", especially do not start a sentence with a demonstrative
+    pronoun, and never begin a paragraph with a sentence that contains a
+    demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
