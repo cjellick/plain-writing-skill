@@ -6,6 +6,7 @@ Usage:
   uv run python evals/run_eval.py
   uv run python evals/run_eval.py --limit 5
   uv run python evals/run_eval.py --category long_history --limit 1
+  uv run python evals/run_eval.py --concurrency 5
 """
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ import json
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from anthropic import Anthropic
@@ -175,6 +177,53 @@ Text B (with skill):
     return result
 
 
+def run_one_item(
+    index: int,
+    total: int,
+    item: dict,
+    client: Anthropic,
+    model: str,
+    judge_model: str,
+    skill_text: str,
+    skill_system: str,
+    out_dir: Path,
+    sleep_s: float,
+) -> dict:
+    item_id = item["id"]
+    prompt = item["prompt"]
+    category = item.get("category", "")
+    messages = build_messages(item)
+    history_chars = sum(len(m["content"]) for m in messages[:-1]) if len(messages) > 1 else 0
+    print(
+        f"[{index}/{total}] start {item_id} ({category}) history_chars={history_chars}",
+        flush=True,
+    )
+
+    max_tokens = 1600 if category == "long_history" else 1200
+    baseline = complete(client, model, BASELINE_SYSTEM, messages, max_tokens)
+    time.sleep(sleep_s)
+    with_skill = complete(client, model, skill_system, messages, max_tokens)
+    time.sleep(sleep_s)
+    judgment = judge_pair(client, judge_model, skill_text, prompt, baseline, with_skill)
+
+    row = {
+        "id": item_id,
+        "category": category,
+        "prompt": prompt,
+        "history_file": item.get("history_file"),
+        "history_chars": history_chars,
+        "baseline": baseline,
+        "with_skill": with_skill,
+        "judgment": judgment,
+    }
+    (out_dir / f"{item_id}.json").write_text(json.dumps(row, indent=2) + "\n")
+    print(
+        f"[{index}/{total}] done {item_id} winner={judgment.get('winner')}",
+        flush=True,
+    )
+    return row
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=None, help="Run only the first N matching items")
@@ -191,7 +240,13 @@ def main() -> int:
         help="Judge model (defaults to Haiku for cost)",
     )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--sleep", type=float, default=0.2, help="Pause between API calls")
+    parser.add_argument("--sleep", type=float, default=0.2, help="Pause between API calls inside an item")
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=5,
+        help="Number of dataset items to run in parallel",
+    )
     args = parser.parse_args()
 
     load_dotenv(ROOT / ".env")
@@ -211,64 +266,64 @@ def main() -> int:
     judge_model = args.judge_model
     args.out.mkdir(parents=True, exist_ok=True)
 
-    results = []
-    wins = ties = losses = 0
-
     skill_system = (
         "Follow the plain-writing skill below exactly when you write.\n\n"
         f"{skill_text}\n\n"
         "Return only the requested writing."
     )
 
-    for i, item in enumerate(items, start=1):
-        item_id = item["id"]
-        prompt = item["prompt"]
-        category = item.get("category", "")
-        messages = build_messages(item)
-        history_chars = sum(len(m["content"]) for m in messages[:-1]) if len(messages) > 1 else 0
-        print(
-            f"[{i}/{len(items)}] {item_id} ({category}) history_chars={history_chars}",
-            flush=True,
-        )
+    results_by_id: dict[str, dict] = {}
+    concurrency = max(1, args.concurrency)
+    print(f"Running {len(items)} items with concurrency={concurrency}", flush=True)
 
-        max_tokens = 1600 if category == "long_history" else 1200
-        baseline = complete(client, args.model, BASELINE_SYSTEM, messages, max_tokens)
-        time.sleep(args.sleep)
-        with_skill = complete(client, args.model, skill_system, messages, max_tokens)
-        time.sleep(args.sleep)
-        judgment = judge_pair(
-            client, judge_model, skill_text, prompt, baseline, with_skill
-        )
-        time.sleep(args.sleep)
-
-        skill_better = judgment.get("skill_better")
-        if skill_better is True:
-            wins += 1
-        elif skill_better is False:
-            losses += 1
-        else:
-            ties += 1
-
-        row = {
-            "id": item_id,
-            "category": category,
-            "prompt": prompt,
-            "history_file": item.get("history_file"),
-            "history_chars": history_chars,
-            "baseline": baseline,
-            "with_skill": with_skill,
-            "judgment": judgment,
+    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+        futures = {
+            pool.submit(
+                run_one_item,
+                index,
+                len(items),
+                item,
+                client,
+                args.model,
+                judge_model,
+                skill_text,
+                skill_system,
+                args.out,
+                args.sleep,
+            ): item["id"]
+            for index, item in enumerate(items, start=1)
         }
-        results.append(row)
-        (args.out / f"{item_id}.json").write_text(json.dumps(row, indent=2) + "\n")
+        for future in as_completed(futures):
+            item_id = futures[future]
+            try:
+                row = future.result()
+                results_by_id[item_id] = row
+            except Exception as exc:  # noqa: BLE001 - surface per-item failures
+                print(f"ERROR {item_id}: {exc}", flush=True)
+                results_by_id[item_id] = {
+                    "id": item_id,
+                    "error": str(exc),
+                    "judgment": {"winner": "tie", "skill_better": None, "reason": str(exc)},
+                }
+                (args.out / f"{item_id}.json").write_text(
+                    json.dumps(results_by_id[item_id], indent=2) + "\n"
+                )
+
+    results = [results_by_id[item["id"]] for item in items if item["id"] in results_by_id]
+    wins = sum(1 for r in results if r.get("judgment", {}).get("skill_better") is True)
+    losses = sum(1 for r in results if r.get("judgment", {}).get("skill_better") is False)
+    ties = len(results) - wins - losses
+    errors = sum(1 for r in results if "error" in r)
 
     summary = {
         "model": args.model,
         "judge_model": judge_model,
+        "concurrency": concurrency,
         "n": len(results),
         "skill_wins": wins,
         "baseline_wins": losses,
         "ties": ties,
+        "errors": errors,
         "skill_win_rate_among_decisive": (
             wins / (wins + losses) if (wins + losses) else None
         ),
@@ -279,7 +334,7 @@ def main() -> int:
     )
 
     print(json.dumps(summary, indent=2))
-    return 0
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
