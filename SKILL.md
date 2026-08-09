@@ -204,19 +204,15 @@ after. After the rules come the deslopify command and how to revise.
 ## The deslopify command
 
 When the user says `/plain-writing deslopify`, rewrite the previous agent
-response, or the text after the command, in a clear structure for a sharp CEO
-or technical reader who has no project context and needs to understand all
-relevant details. Return only the rewrite.
+response, or the text after the command, for a sharp CEO or technical reader
+who has no project context. Return only the rewrite.
 
-Start with the main conclusion, then explain the relevant background, what
-happened, how it works, the tradeoffs, the options, the recommendation, the
-evidence, the risks, and the unknowns. Include technical details when the reader
-needs them to understand the subject, and define any technical term that may be
-unfamiliar.
+Start with the main conclusion, then cover the background, how it works, and
+present all information logically and sequentially. Include technical details
+the reader needs (standardize on existing well-known terminology, not new
+terminology), and define unfamiliar terms.
 
-Follow the plain-writing guidelines above. E.g., don't use jargon, and write in
-a more explanatory voice, using longer sentences and commas to connect related
-ideas instead of a series of short sentences.
+Follow the plain-writing rules above.
 
 ## How to revise
 
