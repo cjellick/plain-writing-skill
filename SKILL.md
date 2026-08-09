@@ -72,8 +72,8 @@ ideas instead of a series of short sentences.
    Before: Upload the document. The file is parsed, and the record is saved.
    After: Upload the document. The document is parsed and saved.
 
-5. **Contractions are fine.** They match everyday speech, so use them freely.
-   You do not have to write every word out in full.
+5. **It's ok to use contractions.** They match everyday speech, so use them
+   freely.
    Before: Do not worry, it is not going to overwrite your file.
    After: Don't worry, it's not going to overwrite your file.
 
