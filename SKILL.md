@@ -128,11 +128,12 @@ ideas instead of a series of short sentences.
    output, so a repeated render does no work.
 
 11. **Never write three or more clauses in one sentence, or three or more
-    example sentences in a row.** A sentence may contain one or two related
-    clauses. If it contains three or more clauses, split it into separate
-    sentences. If the clauses form a list, use bullet points. When an example
-    helps, give one example and introduce it with "e.g.". Do not give three or
-    more example sentences back to back to support the same point.
+    example sentences in a row.** It is fine for a sentence to contain one or
+    two related clauses. But it is bad to contain three or more clauses. If you
+    absolutely must have so many clauses, use bullet points. If these list
+    points are examples and you want to inline them, always introduce with
+    "e.g.". Moreover, do not give three or more example sentences back to back
+    to support the same point.
     Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
     After: The parser reads the file, and the validator checks the fields. The
