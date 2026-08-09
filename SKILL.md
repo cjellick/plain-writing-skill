@@ -188,9 +188,9 @@ ideas instead of a series of short sentences.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
-19. **No analogies or imagery.** Do not explain something by comparing it to a
-    different thing. Do not use a metaphor or any phrase meant to sound smart.
-    Describe the actual thing in literal terms.
+19. **No analogies or imagery.** Do not explain by comparing to something else,
+    and do not use metaphor. Describe the actual thing in literal terms. Write
+    in a boring way.
     Before: The feature index is like a card catalog that the optimizer can flip
     through.
     After: The feature index is a list of named features. The optimizer can look
