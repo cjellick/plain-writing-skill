@@ -117,10 +117,10 @@ ideas instead of a series of short sentences.
    model, and they labeled the posts again.
 
 10. **Organize a paragraph as a topic sentence and then support.** Start each
-   paragraph or section with a topic sentence that states the main point. Then
-   give the support: a supporting example or fact, with an extra sentence about
-   it if it needs one. Introduce more support with a plain connective like "For
-   example", "Moreover", or "Or".
+   paragraph or section with a topic sentence that states the main point. Then,
+   the next sentence should be a supporting example or fact, with an extra
+   sentence about it if it needs one. Then, introduce more support with a plain
+   connective like "For example", "Moreover", or "Or".
    Before: The parser skips files with no changes. The cache holds the previous
    output. Most renders are fast.
    After: Most renders are fast. For example, the parser skips files with no
