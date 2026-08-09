@@ -45,10 +45,9 @@ ideas instead of a series of short sentences.
 
 ## Word choice and tone
 
-1. **Use simple, everyday words.** Prefer the common word over the fancy one.
-   Short familiar words are faster to read, and you should also avoid words AI
-   tools overuse, e.g., "delve", "tapestry", "landscape", "robust", "leverage",
-   and "reach".
+1. **Use simple, everyday words.** Don't pick a fancy synonym when a plain word
+   works. Also avoid words AI tools overuse, e.g., "delve", "tapestry",
+   "landscape", "robust", "leverage", and "reach".
    Before: We leverage the cache to unlock a more robust query experience.
    After: We use the cache to make repeated queries faster.
 
