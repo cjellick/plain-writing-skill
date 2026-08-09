@@ -117,7 +117,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=None, help="Run only the first N items")
     parser.add_argument("--model", default="claude-sonnet-4-5-20250929")
-    parser.add_argument("--judge-model", default=None, help="Defaults to --model")
+    parser.add_argument(
+        "--judge-model",
+        default="claude-haiku-4-5-20251001",
+        help="Judge model (defaults to Haiku for cost)",
+    )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--sleep", type=float, default=0.2, help="Pause between API calls")
     args = parser.parse_args()
@@ -135,7 +139,7 @@ def main() -> int:
         return 1
 
     client = Anthropic(api_key=api_key)
-    judge_model = args.judge_model or args.model
+    judge_model = args.judge_model
     args.out.mkdir(parents=True, exist_ok=True)
 
     results = []
