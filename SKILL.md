@@ -117,21 +117,28 @@ after. After the rules comes the deslopify command.
 
 12. **Prefer long, explanatory sentences over short, punchy ones.** Write the
     way people explain things out loud, in longer sentences with commas, and the
-    most straightforward or simplest way to communicate the point. Don't ever
-    write catchy, short phrases.
+    most straightforward or simplest way to communicate the point. Do not break
+    one thought into a stack of short sentences. Don't ever write catchy, short
+    phrases.
     Before: The gate runs on every merge. It blocks regressions. Nobody
     bypasses it.
     After: The gate runs on every merge, and it blocks changes that fail a
     regression case. A regression cannot make it to production, unless someone
     deliberately overrides the check.
 
-13. **Be precise and unambiguous.** Say exactly what changes, who does what,
-    or by what mechanism. Prefer a concrete statement over an evocative
-    abstraction, e.g., don't say things like "improvement stops being
-    guesswork".
+13. **Be precise and unambiguous, and cut unnecessary clauses.** Say exactly
+    what changes, who does what, or by what mechanism. Prefer a concrete
+    statement over an evocative abstraction, e.g., don't say things like
+    "improvement stops being guesswork". Also drop trailing or side clauses
+    that add no fact, e.g., "before we call the work done", "as we move
+    forward", or "for the time being". Keep the sentence long when the content
+    needs it, but do not pad it.
     Before: With trusted scores, improvement stops being guesswork.
     After: With trusted scores, you can measure whether each change helped,
     so you keep or revert each change based on the measured result.
+    Before: We still need to validate recall on long queries before we call
+    the work done.
+    After: We still need to validate recall on long queries.
 
 ## Punctuation and formatting
 
@@ -142,10 +149,16 @@ after. After the rules comes the deslopify command.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
-15. **Don't use colons, unless you are introducing a list.** Do not use a
-    colon to join clauses or to set up a point.
+15. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
+    to glue two clauses or to set up a point in essay-like writing. A colon is
+    fine when you introduce a list. A colon is also fine as a short label in
+    updates, briefs, status notes, and PR descriptions, e.g., "Summary:",
+    "Changes:", or "Remaining work:".
     Before: Read for the schema: the feature fires.
     After: Read for the schema. The feature fires.
+    Before (allowed in a PR or update): Summary: Replace em dashes in
+    generated docs.
+    After (same text is fine): Summary: Replace em dashes in generated docs.
 
 16. **Use straight quotes, not curly quotes.**
     Before: The system logs each “event” as it happens.
