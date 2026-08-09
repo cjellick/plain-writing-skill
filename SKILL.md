@@ -66,9 +66,9 @@ ideas instead of a series of short sentences.
    Before: This result matters, and it carries weight for the design.
    After: The scores barely moved, so we can skip the model on most documents.
 
-4. **Repeat a word rather than swap in a synonym.** When the same thing comes up
-   again, use the same word for it. Do not use a different word just to avoid
-   repeating yourself, because the swap reads as fancy.
+4. **Stick to the same word; repetition is fine.** When the same idea comes up
+   again, use the same word. Do not switch to a synonym just to avoid
+   repetition.
    Before: Upload the document. The file is parsed, and the record is saved.
    After: Upload the document. The document is parsed and saved.
 
