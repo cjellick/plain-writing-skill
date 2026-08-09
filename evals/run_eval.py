@@ -5,6 +5,7 @@ Usage:
   uv sync
   uv run python evals/run_eval.py
   uv run python evals/run_eval.py --limit 5
+  uv run python evals/run_eval.py --category long_history --limit 1
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parents[1]
 EVALS = Path(__file__).resolve().parent
+SOURCES = EVALS / "sources"
 DATASET = EVALS / "dataset.jsonl"
 SKILL = ROOT / "SKILL.md"
 DEFAULT_OUT = EVALS / "outputs"
@@ -45,25 +47,73 @@ Return ONLY valid JSON with these keys:
 """
 
 
-def load_dataset(path: Path, limit: int | None = None) -> list[dict]:
+def load_dataset(
+    path: Path,
+    limit: int | None = None,
+    category: str | None = None,
+    ids: set[str] | None = None,
+) -> list[dict]:
     items = []
     with path.open() as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
-            items.append(json.loads(line))
+            item = json.loads(line)
+            if category and item.get("category") != category:
+                continue
+            if ids and item.get("id") not in ids:
+                continue
+            items.append(item)
             if limit is not None and len(items) >= limit:
                 break
     return items
 
 
-def complete(client: Anthropic, model: str, system: str, prompt: str) -> str:
+def load_history_messages(item: dict) -> list[dict]:
+    history_file = item.get("history_file")
+    if not history_file:
+        return []
+    path = SOURCES / history_file
+    payload = json.loads(path.read_text())
+    messages = payload.get("messages") or []
+    cleaned = []
+    for message in messages:
+        role = message.get("role")
+        content = message.get("content", "")
+        if role not in ("user", "assistant"):
+            continue
+        if not isinstance(content, str) or not content.strip():
+            continue
+        cleaned.append({"role": role, "content": content})
+    return cleaned
+
+
+def build_messages(item: dict) -> list[dict]:
+    history = load_history_messages(item)
+    prompt = item["prompt"]
+    if not history:
+        return [{"role": "user", "content": prompt}]
+    messages = list(history)
+    if messages and messages[-1]["role"] == "user":
+        messages[-1]["content"] += "\n\n" + prompt
+    else:
+        messages.append({"role": "user", "content": prompt})
+    return messages
+
+
+def complete(
+    client: Anthropic,
+    model: str,
+    system: str,
+    messages: list[dict],
+    max_tokens: int = 1200,
+) -> str:
     message = client.messages.create(
         model=model,
-        max_tokens=1200,
+        max_tokens=max_tokens,
         system=system,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
     )
     parts = []
     for block in message.content:
@@ -93,7 +143,13 @@ Text A (baseline, no skill):
 Text B (with skill):
 {with_skill}
 """
-    raw = complete(client, model, JUDGE_SYSTEM, user)
+    raw = complete(
+        client,
+        model,
+        JUDGE_SYSTEM,
+        [{"role": "user", "content": user}],
+        max_tokens=800,
+    )
     raw = raw.strip()
     if raw.startswith("```"):
         raw = raw.strip("`")
@@ -121,7 +177,13 @@ Text B (with skill):
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=None, help="Run only the first N items")
+    parser.add_argument("--limit", type=int, default=None, help="Run only the first N matching items")
+    parser.add_argument("--category", default=None, help="Only run this category")
+    parser.add_argument(
+        "--ids",
+        default=None,
+        help="Comma-separated item ids to run, e.g. 41,42",
+    )
     parser.add_argument("--model", default="claude-sonnet-4-5-20250929")
     parser.add_argument(
         "--judge-model",
@@ -139,7 +201,8 @@ def main() -> int:
         return 1
 
     skill_text = SKILL.read_text()
-    items = load_dataset(DATASET, args.limit)
+    ids = {part.strip() for part in args.ids.split(",")} if args.ids else None
+    items = load_dataset(DATASET, args.limit, args.category, ids)
     if not items:
         print(f"No items found in {DATASET}", file=sys.stderr)
         return 1
@@ -161,11 +224,17 @@ def main() -> int:
         item_id = item["id"]
         prompt = item["prompt"]
         category = item.get("category", "")
-        print(f"[{i}/{len(items)}] {item_id} ({category})", flush=True)
+        messages = build_messages(item)
+        history_chars = sum(len(m["content"]) for m in messages[:-1]) if len(messages) > 1 else 0
+        print(
+            f"[{i}/{len(items)}] {item_id} ({category}) history_chars={history_chars}",
+            flush=True,
+        )
 
-        baseline = complete(client, args.model, BASELINE_SYSTEM, prompt)
+        max_tokens = 1600 if category == "long_history" else 1200
+        baseline = complete(client, args.model, BASELINE_SYSTEM, messages, max_tokens)
         time.sleep(args.sleep)
-        with_skill = complete(client, args.model, skill_system, prompt)
+        with_skill = complete(client, args.model, skill_system, messages, max_tokens)
         time.sleep(args.sleep)
         judgment = judge_pair(
             client, judge_model, skill_text, prompt, baseline, with_skill
@@ -184,6 +253,8 @@ def main() -> int:
             "id": item_id,
             "category": category,
             "prompt": prompt,
+            "history_file": item.get("history_file"),
+            "history_chars": history_chars,
             "baseline": baseline,
             "with_skill": with_skill,
             "judgment": judgment,
