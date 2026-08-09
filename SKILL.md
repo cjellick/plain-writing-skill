@@ -166,9 +166,8 @@ ideas instead of a series of short sentences.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
-15. **Use a colon only to introduce a list.** Do not use a colon to join clauses
-    or to set up a point. A colon used for a point invites the clever phrasing
-    the user does not want.
+15. **Don't use colons, unless you are introducing a list.** Do not use a
+    colon to join clauses or to set up a point.
     Before: Read for the schema: the feature fires.
     After: Read for the schema. The feature fires.
 
