@@ -104,27 +104,34 @@ after. After the rules comes the deslopify command.
    output, so a repeated render does no work.
 
 11. **Never write three or more clauses in one sentence, or three or more
-    example sentences in a row.** It is fine for a sentence to contain one or
-    two related clauses. But it is bad to contain three or more clauses. If you
-    absolutely must have so many clauses, use bullet points. If these list
-    points are examples and you want to inline them, always introduce with
-    "e.g.". Moreover, do not give three or more example sentences back to back
-    to support the same point.
+    example sentences in a row.** In ordinary prose, a sentence may have one or
+    two related clauses. Do not pack three or more clauses into one prose
+    sentence. If you need that many points, use bullet points, or a numbered
+    First / Second / Third sequence under rule 9. If list points are examples
+    and you want to inline them, introduce with "e.g.". Also do not give three
+    or more example sentences back to back to support the same point.
     Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
     After: The parser reads the file, and the validator checks the fields. The
     writer then saves the record.
 
-12. **Prefer long, explanatory sentences over short, punchy ones.** Write the
-    way people explain things out loud, in longer sentences with commas, and the
-    most straightforward or simplest way to communicate the point. Do not break
-    one thought into a stack of short sentences. Don't ever write catchy, short
-    phrases.
+12. **Prefer long, explanatory sentences over short, punchy ones.** In ordinary
+    prose, write the way people explain things out loud: longer sentences with
+    commas, and the simplest way to say the point. Do not break one thought into
+    a stack of short sentences, and don't write catchy short phrases. Short
+    lines are fine only in labeled briefs, bullets, or a First / Second / Third
+    sequence, e.g., "To do: validate recall on long queries."
     Before: The gate runs on every merge. It blocks regressions. Nobody
     bypasses it.
     After: The gate runs on every merge, and it blocks changes that fail a
     regression case. A regression cannot make it to production, unless someone
     deliberately overrides the check.
+    Before: Search ranking now uses a scored model instead of heuristics. The
+    change reduced p95 latency from 900 ms to 220 ms. We still need to validate
+    recall on long queries.
+    After: Search ranking now uses a scored model instead of heuristics, and
+    p95 latency fell from 900 ms to 220 ms. To do: validate recall on long
+    queries.
 
 13. **Be precise and unambiguous, and cut unnecessary clauses.** Say exactly
     what changes, who does what, or by what mechanism. Prefer a concrete
@@ -171,9 +178,11 @@ after. After the rules comes the deslopify command.
 
 ## Patterns to avoid
 
-18. **Do not assign actions to inanimate things.** If the subject of a sentence
-    is inanimate, the only verbs should be "is" or "are". Common phrases such as
-    "the paper argues" are fine.
+18. **Do not give inanimate things fake agency.** Do not write as if a system
+    or object transforms, decides, or intends on its own when a person or
+    process is the real actor. Ordinary factual verbs for tools and systems are
+    fine, e.g., "The API returns JSON", "The job writes the file", or "The
+    paper argues". Prefer a human or process subject when that is clearer.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
@@ -185,10 +194,15 @@ after. After the rules comes the deslopify command.
     After: The feature index is a list of named features. The optimizer can look
     up which feature matches a request.
 
-20. **Never use any form of negative parallelism, e.g., "not just X, it is
-    Y".** State what the thing is.
+20. **Never use negative parallelism of the form "not just X, it is Y" or
+    "not only X, but Y".** State what the thing is. A plain refusal or
+    correction is fine, including a short quote of a customer's hype phrase
+    when you replace it with a concrete fact.
     Before: It is not just a parser, it is a full toolchain.
     After: It is a parser and a formatter.
+    Before: We do not describe the API as "enterprise-grade robust," because
+    that phrase can mean different things.
+    After: The API has a 99.9% monthly uptime SLO.
 
 21. **Do not stack rhetorical questions.** AI writing often asks two or three
     rhetorical questions in a row to sound thoughtful. Don't do this. Just state
