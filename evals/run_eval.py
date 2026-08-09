@@ -6,7 +6,7 @@ Usage:
   uv run python evals/run_eval.py
   uv run python evals/run_eval.py --limit 5
   uv run python evals/run_eval.py --category long_history --limit 1
-  uv run python evals/run_eval.py --concurrency 5
+  uv run python evals/run_eval.py --concurrency 4
 """
 
 from __future__ import annotations
@@ -19,8 +19,9 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from anthropic import Anthropic
 from dotenv import load_dotenv
+from openai import OpenAI
+from openai import APIConnectionError, APIStatusError, APITimeoutError, RateLimitError
 
 ROOT = Path(__file__).resolve().parents[1]
 EVALS = Path(__file__).resolve().parent
@@ -28,6 +29,9 @@ SOURCES = EVALS / "sources"
 DATASET = EVALS / "dataset.jsonl"
 SKILL = ROOT / "SKILL.md"
 DEFAULT_OUT = EVALS / "outputs"
+
+DEFAULT_MODEL = "gpt-5.5"
+DEFAULT_JUDGE_MODEL = "gpt-5-mini"
 
 BASELINE_SYSTEM = (
     "You are a helpful writing assistant. Write a clear, complete response. "
@@ -105,27 +109,66 @@ def build_messages(item: dict) -> list[dict]:
 
 
 def complete(
-    client: Anthropic,
+    client: OpenAI,
     model: str,
     system: str,
     messages: list[dict],
     max_tokens: int = 1200,
+    retries: int = 6,
+    reasoning_effort: str = "low",
 ) -> str:
-    message = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        system=system,
-        messages=messages,
-    )
-    parts = []
-    for block in message.content:
-        if getattr(block, "type", None) == "text":
-            parts.append(block.text)
-    return "".join(parts).strip()
+    payload = [{"role": "system", "content": system}, *messages]
+    delay = 2.0
+    last_exc: Exception | None = None
+    token_budget = max_tokens
+    for attempt in range(retries):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=payload,
+                max_completion_tokens=token_budget,
+                reasoning_effort=reasoning_effort,
+            )
+            choice = response.choices[0]
+            content = choice.message.content
+            if not content:
+                finish = choice.finish_reason
+                details = getattr(response.usage, "completion_tokens_details", None)
+                reasoning_tokens = getattr(details, "reasoning_tokens", None)
+                if finish == "length" and attempt < retries - 1:
+                    token_budget = min(token_budget * 2, 16000)
+                    print(
+                        f"retry {attempt + 1}/{retries} empty content "
+                        f"(finish=length, reasoning_tokens={reasoning_tokens}); "
+                        f"raising budget to {token_budget}",
+                        flush=True,
+                    )
+                    continue
+                raise RuntimeError(
+                    f"Empty completion from {model} "
+                    f"(finish={finish}, reasoning_tokens={reasoning_tokens})"
+                )
+            return content.strip()
+        except (RateLimitError, APITimeoutError, APIConnectionError, APIStatusError) as exc:
+            last_exc = exc
+            status = getattr(exc, "status_code", None)
+            retryable = isinstance(exc, (RateLimitError, APITimeoutError, APIConnectionError)) or (
+                status is not None and status in {408, 409, 429, 500, 502, 503, 504}
+            )
+            if not retryable or attempt == retries - 1:
+                raise
+            print(
+                f"retry {attempt + 1}/{retries} after {type(exc).__name__}: sleep {delay:.1f}s",
+                flush=True,
+            )
+            time.sleep(delay)
+            delay = min(delay * 2, 60.0)
+    assert last_exc is not None
+    raise last_exc
 
 
 def judge_pair(
-    client: Anthropic,
+    client: OpenAI,
     model: str,
     skill_text: str,
     prompt: str,
@@ -150,7 +193,8 @@ Text B (with skill):
         model,
         JUDGE_SYSTEM,
         [{"role": "user", "content": user}],
-        max_tokens=800,
+        max_tokens=2500,
+        reasoning_effort="low",
     )
     raw = raw.strip()
     if raw.startswith("```"):
@@ -181,7 +225,7 @@ def run_one_item(
     index: int,
     total: int,
     item: dict,
-    client: Anthropic,
+    client: OpenAI,
     model: str,
     judge_model: str,
     skill_text: str,
@@ -233,26 +277,26 @@ def main() -> int:
         default=None,
         help="Comma-separated item ids to run, e.g. 41,42",
     )
-    parser.add_argument("--model", default="claude-sonnet-4-5-20250929")
+    parser.add_argument("--model", default=DEFAULT_MODEL, help="Rewriter model")
     parser.add_argument(
         "--judge-model",
-        default="claude-haiku-4-5-20251001",
-        help="Judge model (defaults to Haiku for cost)",
+        default=DEFAULT_JUDGE_MODEL,
+        help="Judge model",
     )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--sleep", type=float, default=0.2, help="Pause between API calls inside an item")
     parser.add_argument(
         "--concurrency",
         type=int,
-        default=5,
+        default=4,
         help="Number of dataset items to run in parallel",
     )
     args = parser.parse_args()
 
     load_dotenv(ROOT / ".env")
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
-        print("ANTHROPIC_API_KEY is missing. Put it in .env at the repo root.", file=sys.stderr)
+        print("OPENAI_API_KEY is missing. Put it in .env at the repo root.", file=sys.stderr)
         return 1
 
     skill_text = SKILL.read_text()
@@ -262,7 +306,7 @@ def main() -> int:
         print(f"No items found in {DATASET}", file=sys.stderr)
         return 1
 
-    client = Anthropic(api_key=api_key)
+    client = OpenAI(api_key=api_key)
     judge_model = args.judge_model
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -274,7 +318,11 @@ def main() -> int:
 
     results_by_id: dict[str, dict] = {}
     concurrency = max(1, args.concurrency)
-    print(f"Running {len(items)} items with concurrency={concurrency}", flush=True)
+    print(
+        f"Running {len(items)} items with concurrency={concurrency} "
+        f"model={args.model} judge={judge_model}",
+        flush=True,
+    )
 
     with ThreadPoolExecutor(max_workers=concurrency) as pool:
         futures = {
