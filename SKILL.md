@@ -51,7 +51,11 @@ ideas instead of a series of short sentences.
    Before: We leverage the cache to unlock a more robust query experience.
    After: We use the cache to make repeated queries faster.
 
-2. **No jargon.** Always use human-understandable language. Don't invent jargon or shorthand (that is, if a word or phrase is not in the Merriam Webster dictionary, don't use it). Use established technical terms only when they are most precise, and briefly define them when readers may not know them.
+2. **No jargon.** Always use human-understandable language, the way two people
+   talk to each other. Don't invent jargon or shorthand (that is, if a word or
+   phrase is not in the Merriam Webster dictionary, don't use it). Use
+   established technical terms only when they are most precise, and briefly
+   define them when readers may not know them.
    Before: The score is a calibrated proxy for whether the property holds.
    After: The score estimates how likely the property is to hold.
 
