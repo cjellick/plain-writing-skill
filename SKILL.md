@@ -18,7 +18,7 @@ for them.
 
 There are four groups of rules: word choice and tone, sentences and paragraphs,
 punctuation and formatting, and patterns to avoid. Each rule has a before and
-after. After the rules come the deslopify command and how to revise.
+after. After the rules comes the deslopify command.
 
 ## Word choice and tone
 
@@ -213,14 +213,3 @@ the reader needs (standardize on existing well-known terminology, not new
 terminology), and define unfamiliar terms.
 
 Follow the plain-writing rules above.
-
-## How to revise
-
-Revise in two passes.
-
-First pass. Read the text once, and fix anything that breaks the rules above.
-
-Second pass. Read the revised text again, as if you had never seen it. Go clause
-by clause, and ask whether each clause adds something the reader needs. If a
-clause or sentence adds nothing the reader needs, remove it. Then check that a
-reader seeing the text for the first time would understand every sentence.
