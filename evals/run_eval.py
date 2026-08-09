@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Run a small before/after eval of the plain-writing skill."""
+"""Run a small before/after eval of the plain-writing skill.
+
+Usage:
+  uv sync
+  uv run python evals/run_eval.py
+  uv run python evals/run_eval.py --limit 5
+"""
 
 from __future__ import annotations
 
