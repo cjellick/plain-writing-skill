@@ -139,12 +139,10 @@ ideas instead of a series of short sentences.
     After: The parser reads the file, and the validator checks the fields. The
     writer then saves the record.
 
-12. **Prefer long, explanatory sentences over short, punchy ones.** The user
-    writes the way people explain things out loud, in longer sentences with
-    commas and one or two related clauses that carry the reasoning along. A
-    sentence should end because the thought is complete, and it should not end
-    because a short sentence would sound stronger. Plain writing here means
-    explanatory, not terse.
+12. **Prefer long, explanatory sentences over short, punchy ones.** Write the
+    way people explain things out loud, in longer sentences with commas, and the
+    most straightforward or simplest way to communicate the point. Don't ever
+    write catchy, short phrases.
     Before: The gate runs on every merge. It blocks regressions. Nobody
     bypasses it.
     After: The gate runs on every merge, and it blocks changes that fail a
