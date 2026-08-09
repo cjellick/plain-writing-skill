@@ -202,8 +202,8 @@ ideas instead of a series of short sentences.
     After: It is a parser and a formatter.
 
 21. **Do not stack rhetorical questions.** AI writing often asks two or three
-    rhetorical questions in a row to sound thoughtful. State the problem directly
-    instead of asking the reader to wonder about it.
+    rhetorical questions in a row to sound thoughtful. Don't do this. Just state
+    the problem directly.
     Before: Does the tool keep the writer's voice? Does it make the argument
     stronger or weaker?
     After: We do not yet know whether the tool keeps the writer's voice, or
