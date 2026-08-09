@@ -85,14 +85,13 @@ ideas instead of a series of short sentences.
    After: We added a colon that shows the schema.
 
 7. **Keep the writing boring, descriptive, and explanatory.** Do not use a
-   catchy phrase, slogan, clever label, metaphorical summary, or wording meant
-   to sound memorable. State the actual concept, action, condition, or
-   relationship in literal terms. This rule applies to headings, topic
-   sentences, callouts, labels, summaries, and ordinary prose.
+   catchy phrase, slogan, clever label, or wording meant to sound memorable.
+   This rule applies everywhere; to headings, topic sentences, callouts,
+   labels, summaries, and ordinary prose.
    Before: Legal requirements as a floor.
    After: Applicable legal constraints.
-   Before: The alignment loop.
-   After: Iterative refinement using development disagreements.
+   Before: # The alignment loop
+   After: # Iterative refinement using development disagreements
 
 ## Sentences and paragraphs
 
