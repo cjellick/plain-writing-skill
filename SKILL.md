@@ -2,8 +2,8 @@
 name: plain-writing
 description: >-
   Write and edit prose in the user's plain style: simple everyday words,
-  complete sentences, no dashes, no jargon, no analogies, no filler, and full
-  clear explanations. Use this whenever you draft or revise any prose for the
+  complete sentences, no dashes, no jargon, no analogies, and full clear
+  explanations. Use this whenever you draft or revise any prose for the
   user, such as documents, Notion pages, reports, summaries, README files,
   research notes, proposals, slide text, emails, or commit and PR descriptions.
   Also use it whenever the user asks to simplify, clean up, tighten, reword, or
@@ -201,13 +201,7 @@ ideas instead of a series of short sentences.
     Before: It is not just a parser, it is a full toolchain.
     After: It is a parser and a formatter.
 
-21. **No filler.** Cut words and phrases that add nothing, e.g., "it is worth
-    noting that". Watch for an "-ing" tail that adds fake analysis. Cut it, or
-    say the plain reason.
-    Before: The cache stores results, highlighting its value for speed.
-    After: The cache stores results, so repeated queries are faster.
-
-22. **Do not stack rhetorical questions.** AI writing often asks two or three
+21. **Do not stack rhetorical questions.** AI writing often asks two or three
     rhetorical questions in a row to sound thoughtful. State the problem directly
     instead of asking the reader to wonder about it.
     Before: Does the tool keep the writer's voice? Does it make the argument
@@ -215,27 +209,27 @@ ideas instead of a series of short sentences.
     After: We do not yet know whether the tool keeps the writer's voice, or
     whether it makes the argument stronger or weaker.
 
-23. **Do not use the dramatic pivot.** Do not set up a statement, and do not
+22. **Do not use the dramatic pivot.** Do not set up a statement, and do not
     undercut it in the next sentence. State the full point in one go.
     Before: The model is still opaque. Users notice the wrong citations, but
     those are only one symptom.
     After: The model is still opaque, and the wrong citations are only one
     symptom of it.
 
-24. **Do not attribute a claim to no one.** Do not hide a claim behind a vague
+23. **Do not attribute a claim to no one.** Do not hide a claim behind a vague
     source, e.g., "experts say" or "studies show". Name the source, or cut the
     claim.
     Before: Experts say this approach scales well.
     After: In our benchmark, the parser handled a million rows.
 
-25. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+24. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
     "These", or "Those", especially do not start a sentence with a demonstrative
     pronoun, and never begin a paragraph with a sentence that contains a
     demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
-26. **Do not open with a count of things.** Never start a sentence, a
+25. **Do not open with a count of things.** Never start a sentence, a
     paragraph, or a topic sentence by announcing how many points are coming,
     e.g., "Two cautions.", "Three things to keep in mind:", "A few notes
     before we start." State the first point directly, and let the next one
