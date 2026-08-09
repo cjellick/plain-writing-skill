@@ -182,10 +182,9 @@ ideas instead of a series of short sentences.
 
 ## Patterns to avoid
 
-18. **Do not assign actions to inanimate things.** An inanimate subject should
-    usually only take "is" or "are", not an action verb. Make a person the actor
-    instead, and remember that common phrases such as "the paper argues" are
-    fine.
+18. **Do not assign actions to inanimate things.** If the subject of a sentence
+    is inanimate, the only verbs should be "is" or "are". Common phrases such as
+    "the paper argues" are fine.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
