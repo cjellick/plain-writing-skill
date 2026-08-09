@@ -160,10 +160,9 @@ ideas instead of a series of short sentences.
 ## Punctuation and formatting
 
 14. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
-    number ranges. Join clauses with a period, or with a word such as "and", and
-    write ranges with "to". Do not use the middle dot (·) as a separator, e.g.,
-    in a title like "Lecture 1 · The Three Gulfs". Use a comma, the word "and",
-    or separate lines instead.
+    number ranges. Join clauses with a period or "and", and write ranges with
+    "to". Do not use the middle dot (·) as a separator; use a comma, "and", or
+    separate lines instead.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
