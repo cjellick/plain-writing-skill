@@ -12,31 +12,13 @@ description: >-
 
 # Plain writing
 
-The plain writing skill captures how the user wants written prose to read. The
-goal is text that anyone can read once and understand. The user has asked for the
-plain style repeatedly, and they correct writing that does not follow it, so
-apply it by default when you write prose for them.
+The plain writing skill captures how the user wants writing to read: plain,
+boring, and easy to understand in one pass. Apply it by default when you write
+for them.
 
-The rules are in four groups: word choice and tone, sentences and paragraphs,
-punctuation and formatting, and patterns to avoid. Each rule is followed by a
-before and after, so you can see it. After the rules comes how to revise.
-
-## The deslopify command
-
-When the user says `/plain-writing deslopify`, rewrite the previous agent
-response, or the text after the command, in a clear structure for a sharp CEO
-or technical reader who has no project context and needs to understand all
-relevant details. Return only the rewrite.
-
-Start with the main conclusion, then explain the relevant background, what
-happened, how it works, the tradeoffs, the options, the recommendation, the
-evidence, the risks, and the unknowns. Include technical details when the reader
-needs them to understand the subject, and define any technical term that may be
-unfamiliar.
-
-Follow the plain-writing guidelines below. E.g., don't use jargon, and write in
-a more explanatory voice, using longer sentences and commas to connect related
-ideas instead of a series of short sentences.
+There are four groups of rules: word choice and tone, sentences and paragraphs,
+punctuation and formatting, and patterns to avoid. Each rule has a before and
+after. After the rules come the deslopify command and how to revise.
 
 ## Word choice and tone
 
@@ -218,6 +200,23 @@ ideas instead of a series of short sentences.
     it can balloon if every item gets a sentence.
     After: The section can drift out of date, because it duplicates facts
     that live elsewhere. It can also balloon if every item gets a sentence.
+
+## The deslopify command
+
+When the user says `/plain-writing deslopify`, rewrite the previous agent
+response, or the text after the command, in a clear structure for a sharp CEO
+or technical reader who has no project context and needs to understand all
+relevant details. Return only the rewrite.
+
+Start with the main conclusion, then explain the relevant background, what
+happened, how it works, the tradeoffs, the options, the recommendation, the
+evidence, the risks, and the unknowns. Include technical details when the reader
+needs them to understand the subject, and define any technical term that may be
+unfamiliar.
+
+Follow the plain-writing guidelines above. E.g., don't use jargon, and write in
+a more explanatory voice, using longer sentences and commas to connect related
+ideas instead of a series of short sentences.
 
 ## How to revise
 
