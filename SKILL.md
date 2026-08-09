@@ -138,7 +138,7 @@ after. After the rules comes the deslopify command.
     so you keep or revert each change based on the measured result.
     Before: We still need to validate recall on long queries before we call
     the work done.
-    After: We still need to validate recall on long queries.
+    After: To do: validate recall on long queries.
 
 ## Punctuation and formatting
 
