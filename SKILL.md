@@ -149,11 +149,10 @@ ideas instead of a series of short sentences.
     regression case. A regression cannot make it to production, unless someone
     deliberately overrides the check.
 
-13. **Be precise and unambiguous.** Every claim says exactly what changes,
-    who does what, or by what mechanism, so a reader cannot take it two
-    ways. Do not use an evocative abstraction where a concrete statement
-    exists, e.g., "improvement stops being guesswork" or "the process gets
-    easier". Name the specific thing that changes.
+13. **Be precise and unambiguous.** Say exactly what changes, who does what,
+    or by what mechanism. Prefer a concrete statement over an evocative
+    abstraction, e.g., don't say things like "improvement stops being
+    guesswork".
     Before: With trusted scores, improvement stops being guesswork.
     After: With trusted scores, you can measure whether each change helped,
     so you keep or revert each change based on the measured result.
