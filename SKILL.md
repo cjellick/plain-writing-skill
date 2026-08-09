@@ -104,9 +104,9 @@ ideas instead of a series of short sentences.
    After: The agent polls the file and reacts to changes. The team meets on
    Tuesdays.
 
-9. **Explain things fully and clearly.** Plain does not mean terse. If an idea is
-   compressed into one cramped sentence, expand it so each point gets its own
-   sentence and the reader can follow it.
+9. **When you present a workflow or sequence, walk through it in order.** Use
+   "First", "Second", "Third", and give each step its own sentence so the
+   reader can follow it, or break up steps with semicolons.
    Before: The groups the features were sorted into were the authors' own
    reading, the example posts were written by hand, and finer detail meant
    training extra small models and labeling again.
