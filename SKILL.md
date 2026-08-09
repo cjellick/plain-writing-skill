@@ -1,113 +1,89 @@
 ---
 name: plain-writing
 description: >-
-  Write and edit prose in the user's plain style: simple everyday words,
-  complete sentences, no dashes, no jargon, no analogies, no filler, and full
-  clear explanations. Use this whenever you draft or revise any prose for the
-  user, such as documents, Notion pages, reports, summaries, README files,
-  research notes, proposals, slide text, emails, or commit and PR descriptions.
-  Also use it whenever the user asks to simplify, clean up, tighten, reword, or
-  make writing clearer or easier to read. Default to this style for prose
-  written for the user unless they ask for a different one. Do not apply it to
-  code itself, only to the words around it. When the user invokes
-  "/plain-writing deslopify" or asks to deslopify an agent response, rewrite
-  the response in a clear structure for a sharp CEO or technical reader who
-  has no project context and needs to understand all relevant details.
+  Writes and edits prose in a plain and boring style: simple everyday words,
+  complete sentences, no dashes, no jargon, and no analogies. Use when
+  drafting or revising documents, Notion pages, reports, summaries, READMEs,
+  emails, slides, commit messages, or PR descriptions, or when the user asks
+  to simplify, clean up, tighten, reword, or make writing clearer. Use when
+  the user invokes /plain-writing deslopify or asks to deslopify an agent
+  response. Do not apply to code, only to the words around it.
 ---
 
 # Plain writing
 
-The plain writing skill captures how the user wants written prose to read. The
-goal is text that anyone can read once and understand. The user has asked for the
-plain style repeatedly, and they correct writing that does not follow it, so
-apply it by default when you write prose for them.
+The plain writing skill captures how the user wants writing to read: plain,
+boring, and easy to understand in one pass. Apply it by default when you write
+for them.
 
-The rules are in four groups: word choice and tone, sentences and paragraphs,
-punctuation and formatting, and patterns to avoid. Each rule is followed by a
-before and after, so you can see it. After the rules comes how to revise.
-
-## The deslopify command
-
-When the user says `/plain-writing deslopify`, rewrite the previous agent
-response, or the text after the command, in a clear structure for a sharp CEO
-or technical reader who has no project context and needs to understand all
-relevant details. Return only the rewrite.
-
-Start with the main conclusion, then explain the relevant background, what
-happened, how it works, the tradeoffs, the options, the recommendation, the
-evidence, the risks, and the unknowns. Include technical details when the reader
-needs them to understand the subject, and define any technical term that may be
-unfamiliar.
-
-Follow the plain-writing guidelines below. E.g., don't use jargon, and write in
-a more explanatory voice, using longer sentences and commas to connect related
-ideas instead of a series of short sentences.
+There are four groups of rules: word choice and tone, sentences and paragraphs,
+punctuation and formatting, and patterns to avoid. Each rule has a before and
+after. After the rules comes the deslopify command.
 
 ## Word choice and tone
 
-1. **Use simple, everyday words.** Prefer the common word over the fancy one.
-   Short familiar words are faster to read, and you should also avoid words AI
-   tools overuse, e.g., "delve", "tapestry", "landscape", "robust", "leverage",
-   and "reach".
+1. **Use simple, everyday words.** Don't pick a fancy synonym when a plain word
+   works. Also avoid words AI tools overuse, e.g., "delve", "tapestry",
+   "landscape", "robust", "leverage", and "reach".
    Before: We leverage the cache to unlock a more robust query experience.
    After: We use the cache to make repeated queries faster.
 
-2. **No jargon.** Always use human-understandable language. Don't invent jargon or shorthand (that is, if a word or phrase is not in the Merriam Webster dictionary, don't use it). Use established technical terms only when they are most precise, and briefly define them when readers may not know them.
+2. **No jargon.** Always use human-understandable language, the way two people
+   talk to each other. Don't invent jargon or shorthand (that is, if a word or
+   phrase is not in the Merriam Webster dictionary, don't use it). Use
+   established technical terms only when they are most precise, and briefly
+   define them when readers may not know them.
    Before: The score is a calibrated proxy for whether the property holds.
    After: The score estimates how likely the property is to hold.
 
-3. **No puffery or empty emphasis.** Some words add emphasis but no information,
-   so drop them. Avoid the following words: "really", "real", "matters",
-   "worth", "carries weight", "boasts", "a testament to", "pivotal",
-   "renowned", and "quietly". State the actual point, or cut the sentence.
+3. **No puffery or empty emphasis.** Drop words that add emphasis but no
+   information, e.g., "really", "real", "matters", "worth", "carries weight",
+   "boasts", "a testament to", "pivotal", "renowned", and "quietly". State the
+   actual point, or cut the sentence.
    Before: This result matters, and it carries weight for the design.
    After: The scores barely moved, so we can skip the model on most documents.
 
-4. **Repeat a word rather than swap in a synonym.** When the same thing comes up
-   again, use the same word for it. Do not use a different word just to avoid
-   repeating yourself, because the swap reads as fancy.
+4. **Stick to the same word; repetition is fine.** When the same idea comes up
+   again, use the same word. Do not switch to a synonym just to avoid
+   repetition.
    Before: Upload the document. The file is parsed, and the record is saved.
    After: Upload the document. The document is parsed and saved.
 
-5. **Contractions are fine.** They match everyday speech, so use them freely.
-   You do not have to write every word out in full.
+5. **It's ok to use contractions.** They match everyday speech, so use them
+   freely.
    Before: Do not worry, it is not going to overwrite your file.
    After: Don't worry, it's not going to overwrite your file.
 
-6. **Do not invent hyphenated adjectives.** A common compound adjective that
-   people already use is fine, e.g., "well-crafted". Avoid a phrase you make up
-   by joining words with a hyphen to sound compact or clever. A good test is
-   whether you would find the term in a dictionary, or whether you would hear it
-   in normal speech.
+6. **Do not invent hyphenated adjectives.** Avoid a phrase you make up by
+   joining words with a hyphen to sound compact or clever. If you would not find
+   it in a dictionary, don't use it. A common compound adjective that people
+   already use is fine, e.g., "well-crafted".
    Before: We added a reveal-style colon to the output.
    After: We added a colon that shows the schema.
 
 7. **Keep the writing boring, descriptive, and explanatory.** Do not use a
-   catchy phrase, slogan, clever label, metaphorical summary, or wording meant
-   to sound memorable. State the actual concept, action, condition, or
-   relationship in literal terms. This rule applies to headings, topic
-   sentences, callouts, labels, summaries, and ordinary prose.
+   catchy phrase, slogan, clever label, or wording meant to sound memorable.
+   This rule applies everywhere; to headings, topic sentences, callouts,
+   labels, summaries, and ordinary prose.
    Before: Legal requirements as a floor.
    After: Applicable legal constraints.
-   Before: The alignment loop.
-   After: Iterative refinement using development disagreements.
+   Before: # The alignment loop
+   After: # Iterative refinement using development disagreements
 
 ## Sentences and paragraphs
 
-8. **Write complete sentences.** Each sentence has a subject and a verb. Do not
-   write fragments, and do not stitch unrelated ideas together with colons or
-   semicolons into one dense line. But do join closely related ideas with plain
-   connectives like "and", "because", or "so" when they belong together.
-   Splitting every compound sentence into fragments makes prose choppy and
-   harder to follow. The test is whether the ideas are actually related.
+8. **Write complete sentences.** Each sentence should have a subject and a
+   verb. Do not write fragments, and do not stitch unrelated ideas together with
+   colons or semicolons. But it is ok to join closely related ideas with plain
+   conjunctions, like "and", "because", or "so".
    Before: The agent polls the file and reacts to changes, and the team meets on
    Tuesdays.
    After: The agent polls the file and reacts to changes. The team meets on
    Tuesdays.
 
-9. **Explain things fully and clearly.** Plain does not mean terse. If an idea is
-   compressed into one cramped sentence, expand it so each point gets its own
-   sentence and the reader can follow it.
+9. **When you present a workflow or sequence, walk through it in order.** Use
+   "First", "Second", "Third", and give each step its own sentence so the
+   reader can follow it, or break up steps with semicolons.
    Before: The groups the features were sorted into were the authors' own
    reading, the example posts were written by hand, and finer detail meant
    training extra small models and labeling again.
@@ -117,10 +93,10 @@ ideas instead of a series of short sentences.
    model, and they labeled the posts again.
 
 10. **Organize a paragraph as a topic sentence and then support.** Start each
-   paragraph or section with a topic sentence that states the main point. Then
-   give the support: a supporting example or fact, with an extra sentence about
-   it if it needs one. Introduce more support with a plain connective like "For
-   example", "Moreover", or "Or".
+   paragraph or section with a topic sentence that states the main point. Then,
+   the next sentence should be a supporting example or fact, with an extra
+   sentence about it if it needs one. Then, introduce more support with a plain
+   connective like "For example", "Moreover", or "Or".
    Before: The parser skips files with no changes. The cache holds the previous
    output. Most renders are fast.
    After: Most renders are fast. For example, the parser skips files with no
@@ -128,139 +104,139 @@ ideas instead of a series of short sentences.
    output, so a repeated render does no work.
 
 11. **Never write three or more clauses in one sentence, or three or more
-    example sentences in a row.** A sentence may contain one or two related
-    clauses. If it contains three or more clauses, split it into separate
-    sentences. If the clauses form a list, use bullet points. When an example
-    helps, give one example and introduce it with "e.g.". Do not give three or
-    more example sentences back to back to support the same point.
+    example sentences in a row.** In ordinary prose, a sentence may have one or
+    two related clauses. Do not pack three or more clauses into one prose
+    sentence. If you need that many points, use bullet points, or a numbered
+    First / Second / Third sequence under rule 9. If list points are examples
+    and you want to inline them, introduce with "e.g.". Also do not give three
+    or more example sentences back to back to support the same point.
     Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
     After: The parser reads the file, and the validator checks the fields. The
     writer then saves the record.
 
-12. **Prefer long, explanatory sentences over short, punchy ones.** The user
-    writes the way people explain things out loud, in longer sentences with
-    commas and one or two related clauses that carry the reasoning along. A
-    sentence should end because the thought is complete, and it should not end
-    because a short sentence would sound stronger. Plain writing here means
-    explanatory, not terse.
+12. **Prefer long, explanatory sentences over short, punchy ones.** In ordinary
+    prose, write the way people explain things out loud: longer sentences with
+    commas, and the simplest way to say the point. Do not break one thought into
+    a stack of short sentences, and don't write catchy short phrases. Short
+    lines are fine only in labeled briefs, bullets, or a First / Second / Third
+    sequence, e.g., "To do: validate recall on long queries."
     Before: The gate runs on every merge. It blocks regressions. Nobody
     bypasses it.
     After: The gate runs on every merge, and it blocks changes that fail a
     regression case. A regression cannot make it to production, unless someone
     deliberately overrides the check.
+    Before: Search ranking now uses a scored model instead of heuristics. The
+    change reduced p95 latency from 900 ms to 220 ms. We still need to validate
+    recall on long queries.
+    After: Search ranking now uses a scored model instead of heuristics, and
+    p95 latency fell from 900 ms to 220 ms. To do: validate recall on long
+    queries.
 
-13. **Be precise and unambiguous.** Every claim says exactly what changes,
-    who does what, or by what mechanism, so a reader cannot take it two
-    ways. Do not use an evocative abstraction where a concrete statement
-    exists, e.g., "improvement stops being guesswork" or "the process gets
-    easier". Name the specific thing that changes.
+13. **Be precise and unambiguous, and cut unnecessary clauses.** Say exactly
+    what changes, who does what, or by what mechanism. Prefer a concrete
+    statement over an evocative abstraction, e.g., don't say things like
+    "improvement stops being guesswork". Also drop trailing or side clauses
+    that add no fact, e.g., "before we call the work done", "as we move
+    forward", or "for the time being". Keep the sentence long when the content
+    needs it, but do not pad it.
     Before: With trusted scores, improvement stops being guesswork.
     After: With trusted scores, you can measure whether each change helped,
     so you keep or revert each change based on the measured result.
+    Before: We still need to validate recall on long queries before we call
+    the work done.
+    After: To do: validate recall on long queries.
 
 ## Punctuation and formatting
 
 14. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
-    number ranges. Join clauses with a period, or with a word such as "and", and
-    write ranges with "to". Do not use the middle dot (·) as a separator, e.g.,
-    in a title like "Lecture 1 · The Three Gulfs". Use a comma, the word "and",
-    or separate lines instead.
+    number ranges. Join clauses with a period or "and", and write ranges with
+    "to". Do not use the middle dot (·) as a separator; use a comma, "and", or
+    separate lines instead.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
-15. **Use a colon only to introduce a list.** Do not use a colon to join clauses
-    or to set up a point. A colon used for a point invites the clever phrasing
-    the user does not want.
+15. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
+    to glue two clauses or to set up a point in essay-like writing. A colon is
+    fine when you introduce a list. A colon is also fine as a short label in
+    updates, briefs, status notes, and PR descriptions, e.g., "Summary:",
+    "Changes:", or "Remaining work:".
     Before: Read for the schema: the feature fires.
     After: Read for the schema. The feature fires.
+    Before (allowed in a PR or update): Summary: Replace em dashes in
+    generated docs.
+    After (same text is fine): Summary: Replace em dashes in generated docs.
 
 16. **Use straight quotes, not curly quotes.**
     Before: The system logs each “event” as it happens.
     After: The system logs each "event" as it happens.
 
-17. **Keep the formatting plain.** Use sentence case in headings, and do not
-    use boldface as decoration. Bold is fine when it names the subject that the
-    rest of a list item explains.
+17. **Keep the formatting plain.** Use sentence case in headings. Do not use
+    bold for decoration.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
 ## Patterns to avoid
 
-18. **Do not assign actions to inanimate things.** An inanimate subject should
-    usually only take "is" or "are", not an action verb. Make a person the actor
-    instead, and remember that common phrases such as "the paper argues" are
-    fine.
+18. **Do not give inanimate things fake agency.** Do not write as if a system
+    or object transforms, decides, or intends on its own when a person or
+    process is the real actor. Ordinary factual verbs for tools and systems are
+    fine, e.g., "The API returns JSON", "The job writes the file", or "The
+    paper argues". Prefer a human or process subject when that is clearer.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
-19. **No analogies or imagery.** Do not explain something by comparing it to a
-    different thing. Do not use a metaphor or any phrase meant to sound smart.
-    Describe the actual thing in literal terms.
+19. **No analogies or imagery.** Do not explain by comparing to something else,
+    and do not use metaphor. Describe the actual thing in literal terms. Write
+    in a boring way.
     Before: The feature index is like a card catalog that the optimizer can flip
     through.
     After: The feature index is a list of named features. The optimizer can look
     up which feature matches a request.
 
-20. **No "not just X, it is Y".** Do not use the negative parallel pattern.
-    State what the thing is.
+20. **Never use negative parallelism of the form "not just X, it is Y" or
+    "not only X, but Y".** State what the thing is. A plain refusal or
+    correction is fine, including a short quote of a customer's hype phrase
+    when you replace it with a concrete fact.
     Before: It is not just a parser, it is a full toolchain.
     After: It is a parser and a formatter.
+    Before: We do not describe the API as "enterprise-grade robust," because
+    that phrase can mean different things.
+    After: The API has a 99.9% monthly uptime SLO.
 
-21. **No filler.** Cut words and phrases that add nothing, e.g., "it is worth
-    noting that". Watch for an "-ing" tail that adds fake analysis. Cut it, or
-    say the plain reason.
-    Before: The cache stores results, highlighting its value for speed.
-    After: The cache stores results, so repeated queries are faster.
-
-22. **Do not stack rhetorical questions.** AI writing often asks two or three
-    rhetorical questions in a row to sound thoughtful. State the problem directly
-    instead of asking the reader to wonder about it.
+21. **Do not stack rhetorical questions.** AI writing often asks two or three
+    rhetorical questions in a row to sound thoughtful. Don't do this. Just state
+    the problem directly.
     Before: Does the tool keep the writer's voice? Does it make the argument
     stronger or weaker?
     After: We do not yet know whether the tool keeps the writer's voice, or
     whether it makes the argument stronger or weaker.
 
-23. **Do not use the dramatic pivot.** Do not set up a statement, and do not
-    undercut it in the next sentence. State the full point in one go.
-    Before: The model is still opaque. Users notice the wrong citations, but
-    those are only one symptom.
-    After: The model is still opaque, and the wrong citations are only one
-    symptom of it.
-
-24. **Do not attribute a claim to no one.** Do not hide a claim behind a vague
-    source, e.g., "experts say" or "studies show". Name the source, or cut the
-    claim.
-    Before: Experts say this approach scales well.
-    After: In our benchmark, the parser handled a million rows.
-
-25. **Do not use vague demonstrative pronouns or vague summary nouns.** Do not
-    use "This", "That", "These", or "Those" to point at a whole idea instead of
-    a named thing, and do not gesture at a prior idea with a bare noun like "the
-    result", "the outcome", or "the point". Name the thing you mean. Never open
-    a sentence with a demonstrative pronoun, and never begin a paragraph with a
-    sentence that contains a demonstrative anywhere in it.
+22. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+    "These", or "Those", especially do not start a sentence with a demonstrative
+    pronoun, and never begin a paragraph with a sentence that contains a
+    demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
-26. **Do not open with a count of things.** Never start a sentence, a
-    paragraph, or a topic sentence by announcing how many points are coming,
-    e.g., "Two cautions.", "Three things to keep in mind:", "A few notes
-    before we start." State the first point directly, and let the next one
-    follow it. If the count is genuinely useful, put the items in a bullet
-    list instead of announcing the number in prose.
+23. **Do not open with a count of things.** Never start by announcing how many
+    points are coming, e.g., "Two cautions." or "Three things to keep in mind."
+    State the first point directly. If you absolutely must present many things,
+    use a bullet list instead.
     Before: Two cautions. First, the section can drift out of date. Second,
     it can balloon if every item gets a sentence.
     After: The section can drift out of date, because it duplicates facts
     that live elsewhere. It can also balloon if every item gets a sentence.
 
-## How to revise
+## The deslopify command
 
-Revise in two passes.
+When the user says `/plain-writing deslopify`, rewrite the previous agent
+response, or the text after the command, for a sharp CEO or technical reader
+who has no project context. Return only the rewrite.
 
-First pass. Read the text once, and fix anything that breaks the rules above.
+Start with the main conclusion, then cover the background, how it works, and
+present all information logically and sequentially. Include technical details
+the reader needs (standardize on existing well-known terminology, not new
+terminology), and define unfamiliar terms.
 
-Second pass. Read the revised text again, as if you had never seen it. Go clause
-by clause, and ask whether each clause adds something the reader needs. If a
-clause or sentence adds nothing the reader needs, remove it. Then check that a
-reader seeing the text for the first time would understand every sentence.
+Follow the plain-writing rules above.
