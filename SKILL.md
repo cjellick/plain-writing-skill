@@ -196,8 +196,8 @@ ideas instead of a series of short sentences.
     After: The feature index is a list of named features. The optimizer can look
     up which feature matches a request.
 
-20. **No "not just X, it is Y".** Do not use the negative parallel pattern.
-    State what the thing is.
+20. **Never use any form of negative parallelism, e.g., "not just X, it is
+    Y".** State what the thing is.
     Before: It is not just a parser, it is a full toolchain.
     After: It is a parser and a formatter.
 
