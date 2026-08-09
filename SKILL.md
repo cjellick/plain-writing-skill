@@ -175,9 +175,8 @@ ideas instead of a series of short sentences.
     Before: The system logs each “event” as it happens.
     After: The system logs each "event" as it happens.
 
-17. **Keep the formatting plain.** Use sentence case in headings, and do not
-    use boldface as decoration. Bold is fine when it names the subject that the
-    rest of a list item explains.
+17. **Keep the formatting plain.** Use sentence case in headings. Do not use
+    bold for decoration.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
