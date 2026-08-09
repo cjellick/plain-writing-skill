@@ -209,27 +209,14 @@ ideas instead of a series of short sentences.
     After: We do not yet know whether the tool keeps the writer's voice, or
     whether it makes the argument stronger or weaker.
 
-22. **Do not use the dramatic pivot.** Do not set up a statement, and do not
-    undercut it in the next sentence. State the full point in one go.
-    Before: The model is still opaque. Users notice the wrong citations, but
-    those are only one symptom.
-    After: The model is still opaque, and the wrong citations are only one
-    symptom of it.
-
-23. **Do not attribute a claim to no one.** Do not hide a claim behind a vague
-    source, e.g., "experts say" or "studies show". Name the source, or cut the
-    claim.
-    Before: Experts say this approach scales well.
-    After: In our benchmark, the parser handled a million rows.
-
-24. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+22. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
     "These", or "Those", especially do not start a sentence with a demonstrative
     pronoun, and never begin a paragraph with a sentence that contains a
     demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
-25. **Do not open with a count of things.** Never start a sentence, a
+23. **Do not open with a count of things.** Never start a sentence, a
     paragraph, or a topic sentence by announcing how many points are coming,
     e.g., "Two cautions.", "Three things to keep in mind:", "A few notes
     before we start." State the first point directly, and let the next one
