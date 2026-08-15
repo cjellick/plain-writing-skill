@@ -14,7 +14,7 @@ the skill.
 - `41`–`50`: long research and support-agent histories.
 - `51`–`65`: Claude Fable 5 coding-agent traces. The writer sees the
   full trace and is asked to rewrite the longest wrap-up.
-- `66`–`67`: chat context and lists-or-tables checks.
+- `66`–`67`: chat context and short-list checks.
 
 History items load a conversation from `evals/sources/` and append the
 item prompt as the last user turn. Fable traces are rebuilt with
@@ -69,10 +69,10 @@ to the skill rewrite on each writing rule.
 | Metric | Result |
 | --- | --- |
 | Items | 15 |
-| Skill wins / baseline wins / ties | 15 / 0 / 0 |
-| Item win rate among decisive | 100% |
-| Criterion skill / baseline / tie | 175 / 70 / 130 |
-| Criterion win rate among decisive | 71% |
+| Skill wins / baseline wins / ties | 14 / 1 / 0 |
+| Item win rate among decisive | 93% |
+| Criterion skill / baseline / tie | 172 / 68 / 135 |
+| Criterion win rate among decisive | 72% |
 | Errors | 0 |
 | Rewriter / judge | gpt-5.5 / gpt-5.5 |
 
@@ -80,23 +80,24 @@ Rules with the largest gap:
 
 | Rule | Skill / baseline / tie | Skill win rate |
 | --- | --- | --- |
+| 2. No jargon. | 15 / 0 / 0 | 100% |
 | 8. Write complete sentences. | 15 / 0 / 0 | 100% |
-| 12. Prefer long, explanatory sentences over short, punchy ones. | 15 / 0 / 0 | 100% |
-| 19. If you are writing an essay, use lists and tables sparingly. If you are writing a brief, use lists and tables, but keep them short. | 15 / 0 / 0 | 100% |
-| 10. Organize a paragraph as a topic sentence and then support. | 13 / 2 / 0 | 87% |
-| 17. Use straight quotes, not curly quotes. | 11 / 1 / 3 | 92% |
-| 15. No dashes or middle dots. | 10 / 0 / 5 | 100% |
-| 16. Don't use colons to join clauses in ordinary prose. | 10 / 0 / 5 | 100% |
-| 2. No jargon. | 11 / 2 / 2 | 85% |
+| 10. Organize a paragraph as a topic sentence and then support. | 15 / 0 / 0 | 100% |
+| 12. Prefer long, explanatory sentences over short, punchy ones. | 14 / 1 / 0 | 93% |
+| 19. You can use lists, but do not overuse them. | 14 / 1 / 0 | 93% |
+| 1. Use simple, everyday words. | 13 / 2 / 0 | 87% |
+| 17. Use straight quotes, not curly quotes. | 10 / 0 / 5 | 100% |
+| 15. No dashes or middle dots. | 9 / 0 / 6 | 100% |
 
 Rules where the baseline won more often:
 
 | Rule | Skill / baseline / tie | Skill win rate |
 | --- | --- | --- |
-| 21. No analogies or imagery. | 2 / 3 / 10 | 40% |
-| 25. Do not open with a count of things. | 3 / 5 / 7 | 38% |
-| 13. Be precise and unambiguous, and cut unnecessary clauses. | 6 / 9 / 0 | 40% |
-| 11. Never write three or more clauses in one sentence, or three or more example sentences in a row. | 0 / 14 / 1 | 0% |
+| 5. It's ok to use contractions. | 0 / 1 / 14 | 0% |
+| 4. Stick to the same word; repetition is fine. | 6 / 9 / 0 | 40% |
+| 25. Do not open with a count of things. | 2 / 5 / 8 | 29% |
+| 11. Never write three or more clauses in one sentence, or three or more example sentences in a row. | 3 / 12 / 0 | 20% |
+| 13. Be precise and unambiguous, and cut unnecessary clauses. | 3 / 12 / 0 | 20% |
 
 ## Fable examples
 
@@ -105,7 +106,7 @@ skill-based rewritten text. Long texts are cut after about 900 characters.
 
 ### Item 51: `csharp-newrelic-synthetic-monitor`
 
-Judge: skill_better=True (11-7-7).
+Judge: skill_better=True (12-5-8).
 
 Raw text:
 
@@ -123,30 +124,30 @@ How the implementation addresses the outstanding review findings, alongside the 
 Baseline-rewritten:
 
 ```
-Implemented the scripted API monitor reconciler and verified it with the acceptance tests.
+Implemented the scripted API monitor reconciler and verified it with the acceptance suite.
 
 `dotnet test` passes:
 
 - Failed: 0
 - Passed: 15
+- Skipped: 0
 - Total: 15
 
 Changed files:
 
-- `src/NerdGraphClient.cs`
-- `src/MonitorReconciler.cs`
-- `src/Exceptions.cs`
+- Added `src/NerdGraphClient.cs`
+- Added `src/MonitorReconciler.cs`
+- Added `src/Exceptions.cs`
 
-No protected files were changed. `docs/`, `SyntheticMonitorTests.cs`, `SyntheticMonitor.csproj`, `.gitignore`, and `src/MonitorModels.cs` are unchanged. No temporary files were left behind.
+No protected files were changed. `docs/`, `SyntheticMonitorTests.cs`, `SyntheticMonitor.csproj`, `.gitignore`, and the starter `src/MonitorModels.cs` remain unchanged.
 
-Implementation summary:
+Summary of the implementation:
 
-- `NerdGraphClient` sends NerdGraph requests as `POST` JSON bodies with exactly `query` and `variables`.
-- Authentication uses the documented `API-Key` header.
+- `NerdGraphClient` sends NerdGraph requests as HTTP `POST` with a JSON body containing only `query` and `variables`.
+- It authenticates with the documented `API-Key` header.
 - The API key is never placed in the URL or request body.
 - HTTP 429 responses retry through the injected delay function with 1-second and 2-second delays, for three total attempts.
-- Non-429 non-success HTTP responses fail immediately with `NerdGraphHttpException`.
-- Respons
+- Exhausted retries and other non-2xx responses throw `NerdGrap
 
 [...]
 ```
@@ -154,26 +155,35 @@ Implementation summary:
 Skill-based rewritten:
 
 ```
-`dotnet test` passes. The run passed all 15 tests.
+`dotnet test` passes with 15 passing tests and 0 failing tests.
 
-The only changed files are new source files under `src/`:
+I added the C# reconciler for New Relic scripted API monitors under `src/`, in the `Acme.NewRelic.Synthetics` namespace. The only new files are:
 
 - `src/NerdGraphClient.cs`
 - `src/MonitorReconciler.cs`
 - `src/Exceptions.cs`
 
-All three files use the `Acme.NewRelic.Synthetics` namespace. I did not change `SyntheticMonitorTests.cs`, `SyntheticMonitor.csproj`, `.gitignore`, any file under `docs/`, or `src/MonitorModels.cs`. No temporary files were left behind.
+I did not change `SyntheticMonitorTests.cs`, `SyntheticMonitor.csproj`, `.gitignore`, any file under `docs/`, or `src/MonitorModels.cs`. Git status showed only the three new source files.
 
-Summary: I added a .NET 10 reconciler for New Relic scripted API synthetic monitors. The reconciler discovers existing monitors through NerdGraph entity search, creates missing monitors, updates existing monitors by GUID, preserves stored scripts when no new script is provided, and updates tags through the documented tagging mutation.
+## What changed
 
-The transport code is in `src/NerdGraphClient.cs`. It sends one GraphQL document per request with a JSON body containing only `query` a
+`NerdGraphClient` implements the NerdGraph HTTP transport.
+
+It sends one GraphQL document per request as JSON with exactly these top-level fields:
+
+- `query`
+- `variables`
+
+It sends requests with `Content-Type: application/json` and the documented `API-Key` header. The API key is not placed in the URL or request body.
+
+It retries HTTP 429 responses with the injected delay function. The retry delays ar
 
 [...]
 ```
 
 ### Item 54: `csharp-okta-systemlog-after`
 
-Judge: skill_better=True (9-7-9).
+Judge: skill_better=True (14-4-7).
 
 Raw text:
 
@@ -192,23 +202,22 @@ Implemented the Okta System Log exporter library.
 
 Verification:
 - `dotnet test` passes: 6 passed, 0 failed.
-- Added only these source files:
+- Added only three source files:
   - `SystemLogModels.cs`
   - `SystemLogClient.cs`
   - `SystemLogExporter.cs`
-- All added code is in namespace `OktaSyslog`.
+- All new code is in namespace `OktaSyslog`.
 - Protected files were not modified:
   - `SystemLogTests.cs`
   - `OktaSystemLog.csproj`
   - `.gitignore`
   - everything under `docs/`
-- The temporary OpenAPI spec file used during research was deleted before finishing.
+- The temporary OpenAPI spec file downloaded for research was deleted.
 
 Important documentation mismatch:
-- The current Okta System Log query guide says: “`since` and `after` are mutually exclusive and can't be specified simultaneously.”
-- The pinned project contract requires the opposite for resume behavior: `docs/contract.json` and the tests require resumed sweeps to send both `since` and `after`.
-- I implemented the pinned test contract and did not modify protected files.
-- If t
+- The current Okta System Log query guide says: "`since` and `after` are mutually exclusive and can't be specified simultaneously."
+- The pinned project contract disagrees. `docs/contract.json` and the resume assertions in `SystemLogTests.cs:363-366` require resumed sweeps to send both `since` and `after`.
+- I implemented the pinned contract, as required, and left the protected files unchanged
 
 [...]
 ```
@@ -216,7 +225,7 @@ Important documentation mismatch:
 Skill-based rewritten:
 
 ```
-`dotnet test` passes all 6 tests.
+`dotnet test` passes 6 out of 6 tests.
 
 I added three source files in the `OktaSyslog` namespace:
 
@@ -224,7 +233,7 @@ I added three source files in the `OktaSyslog` namespace:
 - `SystemLogClient.cs`
 - `SystemLogExporter.cs`
 
-I did not modify the protected files:
+I did not change the protected files:
 
 - `SystemLogTests.cs`
 - `OktaSystemLog.csproj`
@@ -233,14 +242,20 @@ I did not modify the protected files:
 
 I also deleted the temporary OpenAPI spec file that I downloaded for research.
 
-Important documentation note: the current official Okta System Log query guide says "`since` and `after` are mutually exclusive and can't be specified simultaneously." The pinned contract in this repo requires different behavior. `docs/contract.json` and the resume assertions in `SystemLogTests.cs` require a resumed sweep to send both `since` and `after`. I followed the pinned contract because the ticket says the tests are the acceptance contract and the protected files must not be changed. If this exporter is later used
+## Documentation conflict
+
+The current Okta System Log query guide says "`since` and `after` are mutually exclusive and can't be specified simultaneously."
+
+The pinned contract in this repository requires different behavior. `docs/contract.json` and the resume assertions in `SystemLogTests.cs` require a resumed sweep to send both `since` and `after`.
+
+I implemented the pinned contract and did not change the protected files. If this exporter is used against a live Okta org, the resume query may need to omit `since` wh
 
 [...]
 ```
 
 ### Item 57: `powershell-meraki-link-pages`
 
-Judge: skill_better=True (10-4-11).
+Judge: skill_better=True (14-2-9).
 
 Raw text:
 
@@ -259,27 +274,27 @@ Done. `pwsh -NoProfile -File test_meraki_pages.ps1` exits 0 with all 50 checks p
 Baseline-rewritten:
 
 ```
-Implemented and verified the Meraki Dashboard API v1 PowerShell module.
+Implemented the Meraki Dashboard API v1 PowerShell module and verified it with the acceptance test.
 
-`pwsh -NoProfile -File test_meraki_pages.ps1` now exits successfully with all 50 checks passing. The protected files were not changed: `test_meraki_pages.ps1` and everything under `docs/` remain untouched. Git status showed only four new module files.
+`pwsh -NoProfile -File test_meraki_pages.ps1` passes with `OK (50 checks)`. I also ran temporary adversarial loopback probes for the prior review issues; they passed, and the probe file was removed. Protected files were not modified: `test_meraki_pages.ps1` and everything under `docs/` are unchanged. The only new files are the module files.
 
 ## Files added
 
 - `MerakiPages.psm1`
-  - Enables `Set-StrictMode -Version Latest`.
+  - Sets `Set-StrictMode -Version Latest`.
   - Dot-sources the implementation files.
-  - Exports the six required functions.
+  - Exports the required functions:
+    - `New-MerakiContext`
+    - `Invoke-MerakiApi`
+    - `ConvertFrom-LinkHeader`
+    - `Get-MerakiPaged`
+    - `Get-MerakiInventory`
+    - `ConvertTo-MerakiInventoryJson`
 
 - `MerakiPages.Transport.ps1`
   - Implements `New-MerakiContext`.
-  - Implements `Invoke-MerakiApi`.
-  - Uses an `HttpClient` with `AllowAutoRedirect = $false`.
-  - Handles redirects manually so the bearer token is preserved only for trusted targets.
-  - Handles 429 responses with `Retry-After` and the injected `SleepAction`.
-  - Redacts the API key from thrown errors.
-
-- `MerakiPages.Paging.ps1`
-  - Impl
+  - Stores `BaseUri` without a trailing slash.
+  - Default
 
 [...]
 ```
@@ -287,31 +302,38 @@ Implemented and verified the Meraki Dashboard API v1 PowerShell module.
 Skill-based rewritten:
 
 ```
-The Meraki PowerShell module is implemented, and the acceptance test passes. I ran `pwsh -NoProfile -File test_meraki_pages.ps1`, and it exited 0 with all 50 checks passing. I also ran separate loopback probes for the prior review findings, and each probe passed. I removed the scratch probe script after verification. The protected files, `test_meraki_pages.ps1` and everything under `docs/`, were not changed. Git status showed only four new module files.
+The Meraki PowerShell module is implemented, and the acceptance test passes. I ran `pwsh -NoProfile -File test_meraki_pages.ps1`, and it passed all 50 checks with exit code 0. I did not edit the protected files, which are `test_meraki_pages.ps1` and everything under `docs/`. The only new files are the four module files.
 
 Summary:
-- Added `MerakiPages.psm1`.
-- Added `MerakiPages.Transport.ps1`.
-- Added `MerakiPages.Paging.ps1`.
-- Added `MerakiPages.Inventory.ps1`.
 
-`MerakiPages.psm1` sets `Set-StrictMode -Version Latest`, dot-sources the three implementation files, and exports the six contract functions.
+- `MerakiPages.psm1`
+  - Sets `Set-StrictMode -Version Latest`.
+  - Dot-sources the three implementation files.
+  - Exports the six required functions.
 
-`MerakiPages.Transport.ps1` contains `New-MerakiContext` and `Invoke-MerakiApi`. `New-MerakiContext` trims the trailing slash from `BaseUri`, defaults `
+- `MerakiPages.Transport.ps1`
+  - Implements `New-MerakiContext`.
+  - Implements `Invoke-MerakiApi`.
+  - Trims the trailing slash from `BaseUri`.
+  - Sets the default `RetryLimit` to 3.
+  - Sets the default trusted host suffixes to `.meraki.com`, `.meraki.ca`, `.meraki.cn`, `.meraki.in`, and `.gov-meraki.com`.
+  - Uses `HttpClient` with `AllowAutoRedirect = $false`, so the module handles redirects itself.
+
+- `M
 
 [...]
 ```
 
 ## Latest items 66 and 67
 
-These two prompts check the chat-context rule and the lists-or-tables rule.
+These two prompts check the chat-context rule and the short-list rule.
 
 | Metric | Result |
 | --- | --- |
 | Items | 2 |
 | Skill wins / baseline wins / ties | 2 / 0 / 0 |
 | Item win rate among decisive | 100% |
-| Criterion skill / baseline / tie | 21 / 3 / 26 |
-| Criterion win rate among decisive | 88% |
+| Criterion skill / baseline / tie | 20 / 3 / 27 |
+| Criterion win rate among decisive | 87% |
 | Errors | 0 |
 | Rewriter / judge | gpt-5.5 / gpt-5.5 |
