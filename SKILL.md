@@ -148,16 +148,15 @@ after. After the rules comes the deslopify command.
     the work done.
     After: To do: validate recall on long queries.
 
-14. **Give a reader the context they need.** Write for a smart reader who does
-    not already know the problem, the project, or the earlier conversation.
-    Say what the system is and what was asked. Then say what the result is, so
-    they can follow the rest without looking something up. Keep the setup
-    short. Do not dump the whole history, and do not skip the facts that make
-    the next sentence make sense.
+14. **In chat, give context on the problem.** When you are chatting back and
+    forth, write for a smart reader who does not have context on the problem,
+    or who forgot it. Give context on the problem and on what was happening
+    before. Then say what changed. Keep the setup short. Do not dump the whole
+    history. If you are writing an essay, you can open on the point.
     Before: The exporter now waits on the reset header, and `dotnet test` is
     green.
-    After: The Okta System Log exporter used to reread whole hours and write
-    the same event twice after a retry. It now waits using the response reset
+    After: The Okta System Log exporter was rereading whole hours, so a retry
+    could write the same event twice. It now waits using the response reset
     header, and the six acceptance tests pass.
 
 ## Punctuation and formatting
