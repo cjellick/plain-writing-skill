@@ -16,7 +16,7 @@ RESULT_DIRS = (
     OUTPUTS / "new_rules",
     OUTPUTS / "all",
 )
-EXCERPT_CHARS = 900
+EXCERPT_CHARS = 1800
 SAMPLES = (
     ("05", "Product launch copy"),
     ("08", "Slide script"),
@@ -67,9 +67,9 @@ def raw_text(item: dict) -> str | None:
     return None
 
 
-def excerpt(text: str, limit: int = EXCERPT_CHARS) -> str:
+def excerpt(text: str, limit: int | None = EXCERPT_CHARS) -> str:
     text = (text or "").strip()
-    if len(text) <= limit:
+    if limit is None or len(text) <= limit:
         return text
     return text[:limit].rstrip() + "\n\n[...]"
 
@@ -278,8 +278,8 @@ def sample_title(item_id: str, item: dict) -> str:
     )
 
 
-def table_cell(text: str) -> str:
-    body = html_escape(excerpt(text)).replace("\n", "<br>")
+def table_cell(text: str, limit: int | None = EXCERPT_CHARS) -> str:
+    body = html_escape(excerpt(text, limit)).replace("\n", "<br>")
     return f'<td valign="top">{body}</td>'
 
 
@@ -328,7 +328,7 @@ def examples_group_table(
                 "</td>",
                 "</tr>",
                 "<tr>",
-                table_cell(source),
+                table_cell(source, limit=None),
                 table_cell(row.get("baseline") or ""),
                 table_cell(row.get("with_skill") or ""),
                 "</tr>",
@@ -474,9 +474,9 @@ def main() -> None:
                     "## Examples",
                     "",
                     "Some tasks rewrite existing text. Some tasks write from scratch.",
-                    "The first column is original writing for a rewrite, and the prompt",
-                    "for a write-from-scratch task. Long texts are cut after about",
-                    f"{EXCERPT_CHARS} characters.",
+                    "The first column is the full original writing for a rewrite, and",
+                    "the prompt for a write-from-scratch task. The baseline and skill",
+                    f"columns are cut after about {EXCERPT_CHARS} characters.",
                     "",
                     examples_tables(dataset, results),
                     "",
