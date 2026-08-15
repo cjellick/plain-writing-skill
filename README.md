@@ -11,6 +11,7 @@ something.
 ## What is in here
 
 - `SKILL.md`: the skill, with the rules and the steps.
+- `evals/`: optional. Only needed if you want to measure the skill.
 
 ## How to use it
 
@@ -20,11 +21,22 @@ instructions, in a rules file or the system prompt.
 
 Some tools have a set place for skills:
 
-- Claude Code reads skills from `~/.claude/skills`. Clone the repo into a folder
-  named `plain-writing`:
+- Claude Code reads skills from `~/.claude/skills`. Install only the skill
+  file, not the evals:
 
 ```
-git clone https://github.com/shreyashankar/plain-writing-skill ~/.claude/skills/plain-writing
+mkdir -p ~/.claude/skills/plain-writing
+curl -fsSL https://raw.githubusercontent.com/shreyashankar/plain-writing-skill/main/SKILL.md \
+  -o ~/.claude/skills/plain-writing/SKILL.md
+```
+
+If you want a git checkout of just the skill files, use a sparse clone. That
+skips the `evals/` folder:
+
+```
+git clone --depth 1 --filter=blob:none --sparse \
+  https://github.com/shreyashankar/plain-writing-skill \
+  ~/.claude/skills/plain-writing
 ```
 
 - Other agents, e.g., Codex or pi, can use the rules too. Paste the rules from
@@ -49,3 +61,14 @@ skill.
 
 You can also put text after the command when you want to rewrite text other than
 the previous response.
+
+## Evals
+
+A skill install does not need the evals. If you want to run them, clone the
+repo as usual, or add the folder to a sparse checkout:
+
+```
+git sparse-checkout add evals
+```
+
+Then see `evals/README.md`.

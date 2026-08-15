@@ -2,12 +2,13 @@
 """Run a small before/after eval of the plain-writing skill.
 
 Usage:
+  cd evals
   uv sync
-  uv run python evals/run_eval.py
-  uv run python evals/run_eval.py --limit 5
-  uv run python evals/run_eval.py --category long_history --limit 1
-  uv run python evals/run_eval.py --category fable_coding
-  uv run python evals/run_eval.py --concurrency 64
+  uv run python run_eval.py
+  uv run python run_eval.py --limit 5
+  uv run python run_eval.py --category long_history --limit 1
+  uv run python run_eval.py --category fable_coding
+  uv run python run_eval.py --concurrency 64
 """
 
 from __future__ import annotations

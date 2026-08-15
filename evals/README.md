@@ -16,9 +16,9 @@ the skill.
   full trace and is asked to rewrite the longest wrap-up.
 - `66`–`67`: chat context and short-list checks.
 
-History items load a conversation from `evals/sources/` and append the
+History items load a conversation from `sources/` and append the
 item prompt as the last user turn. Fable traces are rebuilt with
-`uv run python evals/build_fable_histories.py`.
+`uv run python build_fable_histories.py`.
 
 ### Baseline
 
@@ -49,15 +49,16 @@ The default rewriter and judge are `gpt-5.5`. Override them with
 ## How to run
 
 ```
+cd evals
 uv sync
-uv run python evals/run_eval.py --out evals/outputs/all
-uv run python evals/run_eval.py --category fable_coding --out evals/outputs/fable_coding
-uv run python evals/run_eval.py --ids 66,67 --out evals/outputs/new_rules
-uv run python evals/write_readme.py
+uv run python run_eval.py --out outputs/all
+uv run python run_eval.py --category fable_coding --out outputs/fable_coding
+uv run python run_eval.py --ids 66,67 --out outputs/new_rules
+uv run python write_readme.py
 ```
 
 Put `OPENAI_API_KEY` in a `.env` file at the repo root. Outputs land in
-`evals/outputs/` and are gitignored. `write_readme.py` combines the item
+`outputs/` and are gitignored. `write_readme.py` combines the item
 files from those folders and writes this README.
 
 ## Latest results
