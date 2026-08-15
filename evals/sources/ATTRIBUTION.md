@@ -31,3 +31,25 @@ Each history file records `source_dataset`, `benchmark`, `session_id`, and
 
 Downstream use follows the upstream dataset card and any model-provider usage
 policies noted there.
+
+## Fable coding-agent histories
+
+Files under `fable_histories/` are complete coding-agent conversations sampled
+from
+[greghavens/fable-5-coding-and-debugging-traces](https://huggingface.co/datasets/greghavens/fable-5-coding-and-debugging-traces).
+
+The upstream rows are cumulative prefixes of Claude Fable 5 (`anthropic/claude-fable-5`)
+sessions. We keep the final prefix of each selected task (the full trace,
+including the last wrap-up) and skip seed-authoring rows. Selection prefers
+long traces with a long final assistant message, then caps repeats by language
+and task family.
+
+Each history file records `source_dataset`, `task`, `lang`, `trace_category`,
+and `teacher_model`. Histories are truncated to about 180k characters if
+needed, but the first setup turn and the last wrap-up are always kept.
+
+The eval prompt asks a model to rewrite that last wrap-up in plain writing,
+with the rest of the trace available as context.
+
+Downstream use follows the upstream dataset card and any model-provider usage
+policies noted there.
