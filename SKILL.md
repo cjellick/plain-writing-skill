@@ -43,9 +43,7 @@ after. After the rules comes the deslopify command.
    Before: This result matters, and it carries weight for the design.
    After: The scores barely moved, so we can skip the model on most documents.
 
-4. **Constrain your vocabulary.** Use one word for each idea, and keep using
-   it. This matters most for technical terms. Do not switch to a synonym just
-   to avoid repetition.
+4. **Use consistent terminology and constrain your vocabulary.**
    Before: Upload the document. The file is parsed, and the record is saved.
    After: Upload the document. The document is parsed and saved.
 
