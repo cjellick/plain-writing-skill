@@ -312,7 +312,13 @@ def criterion_rows(summary: dict, limit: int = 8) -> str:
 def sample_block(item_id: str, label: str, dataset: dict[str, dict], row: dict) -> str:
     item = dataset.get(item_id) or {}
     source = item.get("source") or {}
-    title = source.get("task") or source.get("title") or item.get("category") or item_id
+    title = (
+        source.get("task")
+        or source.get("title")
+        or item.get("source_key")
+        or item.get("category")
+        or item_id
+    )
     judgment = row.get("judgment") or {}
     lines = [
         f"### {label}: item {item_id} (`{title}`)",
@@ -414,15 +420,15 @@ def main() -> None:
         "",
         "```",
         "uv sync",
-        "uv run python evals/run_eval.py --out evals/outputs/core",
+        "uv run python evals/run_eval.py --out evals/outputs/all",
         "uv run python evals/run_eval.py --category fable_coding --out evals/outputs/fable_coding",
         "uv run python evals/run_eval.py --ids 66,67 --out evals/outputs/new_rules",
         "uv run python evals/write_readme.py",
         "```",
         "",
         "Put `OPENAI_API_KEY` in a `.env` file at the repo root. Outputs land in",
-        "`evals/outputs/` and are gitignored. This README is updated from those",
-        "outputs by `write_readme.py`.",
+        "`evals/outputs/` and are gitignored. `write_readme.py` combines the item",
+        "files from those folders and writes this README.",
         "",
     ]
 
