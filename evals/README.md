@@ -183,18 +183,30 @@ Items `66`–`67`: chat context and short-list checks.
 
 ## Examples
 
-Each sample shows the raw source or the task, the baseline rewrite,
-and the skill-based rewrite. Long texts are cut after about 900
-characters.
+Each row is one example. The columns are the original text, the
+baseline rewrite (no skill), and the skill-based rewrite. For draft
+tasks with no source text, Original is the task prompt. Long texts
+are cut after about 900 characters.
 
-### Deslopify: item 01 (`cache_rollout`)
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Original</th>
+<th>Baseline-rewritten (no skill)</th>
+<th>Skill-based rewritten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+<strong>Deslopify</strong><br>
+item 01 (<code>cache_rollout</code>)<br>
+Judge: True (8-4-13)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (8-4-13).
-
-Raw text:
-
-```
-**Engineering Update: Document Render Cache Deployment**
+<pre>**Engineering Update: Document Render Cache Deployment**
 
 We're thrilled to announce a transformative milestone in our infrastructure evolution—the rollout of our next-generation document render cache system.
 
@@ -204,13 +216,12 @@ The architecture leverages a sophisticated multi-tier caching strategy—not jus
 
 Consider
 
-[...]
-```
+[...]</pre>
 
-Baseline-rewritten:
+</td>
+<td valign="top">
 
-```
-**Engineering Update: Document Render Cache Deployment**
+<pre>**Engineering Update: Document Render Cache Deployment**
 
 We have deployed a new document render cache system.
 
@@ -224,13 +235,12 @@ The system was designed to be extensible so it can support changing demand over 
 
 Early metrics show render latency reductions that are better than the initial projections.
 
-[...]
-```
+[...]</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-# Engineering update: Document render cache deployment
+<pre># Engineering update: Document render cache deployment
 
 The document render cache is now live. It stores rendered documents so repeated document requests can return a cached result instead of rendering the same document again.
 
@@ -240,85 +250,86 @@ The system uses a multi-tier cache across distributed nodes. It manages cached d
 
 Early metrics show better performance than expected. Render latency has dropped more than the
 
-[...]
-```
+[...]</pre>
 
-### Public-domain rewrite: item 12 (`Eddystone Lighthouse`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Public-domain rewrite</strong><br>
+item 12 (<code>Eddystone Lighthouse</code>)<br>
+Judge: True (12-2-11)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (12-2-11).
+<pre>In the latter part of April fifty-three courses of granite masonry, rising to the height of seventy feet above high water, had been laid, and thirty-six courses remained to be set. The old lighthouse had been already overtopped. As the work advances toward completion the question arises: What shall be done with John Smeaton's famous tower, which has done such admirable service for 120 years? One proposition is to take it down to the level of the top of the solid portion, and leave the rest as a perpetual memorial of the great work which Smeaton accomplished in the face of obstacles vastly greater than those which confront the modern architect. The London News says: "Were Smeaton's beautiful tower to be literally consigned to the waves, we should regard the act as a national calamity, not to say scandal; and, if public funds are not available for its conservation, we trust that private ze
 
-Raw text:
+[...]</pre>
 
-```
-In the latter part of April fifty-three courses of granite masonry, rising to the height of seventy feet above high water, had been laid, and thirty-six courses remained to be set. The old lighthouse had been already overtopped. As the work advances toward completion the question arises: What shall be done with John Smeaton's famous tower, which has done such admirable service for 120 years? One proposition is to take it down to the level of the top of the solid portion, and leave the rest as a perpetual memorial of the great work which Smeaton accomplished in the face of obstacles vastly greater than those which confront the modern architect. The London News says: "Were Smeaton's beautiful tower to be literally consigned to the waves, we should regard the act as a national calamity, not to say scandal; and, if public funds are not available for its conservation, we trust that private ze
+</td>
+<td valign="top">
 
-[...]
-```
-
-Baseline-rewritten:
-
-```
-By late April, fifty-three layers of granite masonry had been built, reaching seventy feet above the high-water mark, with thirty-six more layers still to be added. The new structure had already risen higher than the old lighthouse.
+<pre>By late April, fifty-three layers of granite masonry had been built, reaching seventy feet above the high-water mark, with thirty-six more layers still to be added. The new structure had already risen higher than the old lighthouse.
 
 As the work neared completion, an important question arose: what should be done with John Smeaton’s famous tower, which had served so well for 120 years? One proposal was to dismantle it down to the top of its solid base and leave that part standing as a permanent memorial to Smeaton’s great achievement, built despite obstacles far greater than those faced by modern architects.
 
 The London News wrote: “If Smeaton’s beautiful tower were simply abandoned to the sea, we would consider it a national disaster, even a disgrace. If public money is not available to preserve it, we hope private enthusiasm and generosity will save this important historic structure fro
 
-[...]
-```
+[...]</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-By late April, workers had laid fifty-three layers of granite masonry, reaching seventy feet above the high-water mark. Thirty-six layers still had to be set. The new lighthouse had already risen higher than the old one.
+<pre>By late April, workers had laid fifty-three layers of granite masonry, reaching seventy feet above the high-water mark. Thirty-six layers still had to be set. The new lighthouse had already risen higher than the old one.
 
 As the work neared completion, people began to ask what should be done with John Smeaton's famous tower, which had served well for 120 years. One proposal was to take it down to the top of its solid base and leave the rest as a permanent memorial to Smeaton's achievement. He had built it despite obstacles far greater than those faced by modern architects.
 
 The London News said that destroying Smeaton's beautiful tower would be a national loss, and even a public disgrace. If public money could not be used to preserve it, the paper hoped that private effort and donations would save the important relic from destruction. The paper also said it should not cost much to move t
 
-[...]
-```
+[...]</pre>
 
-### Short draft: item 22 (`project_update`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Short draft</strong><br>
+item 22 (<code>project_update</code>)<br>
+Judge: True (10-6-9)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (10-6-9).
+<pre>Write a Slack update for engineering: we moved search ranking from heuristics to a scored model, latency went from 900ms to 220ms p95, and we still need to validate recall on long queries.</pre>
 
-Task:
+</td>
+<td valign="top">
 
-```
-Write a Slack update for engineering: we moved search ranking from heuristics to a scored model, latency went from 900ms to 220ms p95, and we still need to validate recall on long queries.
-```
-
-Baseline-rewritten:
-
-```
-Engineering update: We’ve moved search ranking from the previous heuristics-based approach to a scored model.
+<pre>Engineering update: We’ve moved search ranking from the previous heuristics-based approach to a scored model.
 
 Early performance results look strong: p95 latency is down from ~900ms to ~220ms.
 
-The main remaining validation area is recall on long queries. We’ll continue testing to make sure the new model maintains quality across those cases before we consider the rollout fully complete.
-```
+The main remaining validation area is recall on long queries. We’ll continue testing to make sure the new model maintains quality across those cases before we consider the rollout fully complete.</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-Search ranking now uses a scored model instead of heuristics, and p95 latency fell from 900 ms to 220 ms. To do: validate recall on long queries.
-```
+<pre>Search ranking now uses a scored model instead of heuristics, and p95 latency fell from 900 ms to 220 ms. To do: validate recall on long queries.</pre>
 
-### Long history: item 41 (`long_history`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Long history</strong><br>
+item 41 (<code>long_history</code>)<br>
+Judge: True (16-4-5)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (16-4-5).
+<pre>Using only the research-agent history above, write a plain status note for a technical reader with no prior context. Cover: the question being researched, the main search path, the best current answer if any, and what is still uncertain. Keep concrete facts. Return only the note.</pre>
 
-Task:
+</td>
+<td valign="top">
 
-```
-Using only the research-agent history above, write a plain status note for a technical reader with no prior context. Cover: the question being researched, the main search path, the best current answer if any, and what is still uncertain. Keep concrete facts. Return only the note.
-```
-
-Baseline-rewritten:
-
-```
-Status note:
+<pre>Status note:
 
 The research question asks: identify a European band formed in the 1990s that released an album in 2019, roughly eight years after its previous release, described as one of the band’s most impressive releases and as an outlier in its record label’s catalog; then determine the full name of the band’s lead, who is from a region of a country whose autonomy was suspended for more than six months.
 
@@ -329,40 +340,40 @@ Main search path:
   - Cult of Luna is a Swedish band formed in 1998.
   - *A Dawn to Fear* was released in 2019, one year before the major CO
 
-[...]
-```
+[...]</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-The research question asks for the full name of the lead of a European band that fits several clues. The band formed in the 1990s, released an album in 2019, released that album about eight years after its previous release, and had the album described as one of its most impressive releases and as an outlier in its record label's catalog. The lead is from a region of a country whose autonomy was suspended for more than half a year.
+<pre>The research question asks for the full name of the lead of a European band that fits several clues. The band formed in the 1990s, released an album in 2019, released that album about eight years after its previous release, and had the album described as one of its most impressive releases and as an outlier in its record label's catalog. The lead is from a region of a country whose autonomy was suspended for more than half a year.
 
 The main search path focused first on 2019 European rock and metal albums with long gaps after a prior release. Searches checked possible matches, including Alcest, Sunn O))), Cult of Luna, Rammstein, Leprous, Therapy?, and other European bands. The strongest repeated candidate in the search history was Cult of Luna, because the band is European, formed in 1998, released "A Dawn to Fear" in 2019, and is linked to Metal Blade Records. Searches also looked for t
 
-[...]
-```
+[...]</pre>
 
-### Fable coding: item 51 (`csharp-newrelic-synthetic-monitor`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Fable coding</strong><br>
+item 51 (<code>csharp-newrelic-synthetic-monitor</code>)<br>
+Judge: True (12-5-8)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (12-5-8).
-
-Raw text:
-
-```
-Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts were left behind.
+<pre>Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts were left behind.
 
 How the implementation addresses the outstanding review findings, alongside the pinned contract:
 
 - **Transport** (`src/NerdGraphClient.cs`): POSTs exactly `{query, variables}` as `application/json` with the `API-Key` header; the key never touches the URL or body. HTTP 429 retries through the injected delay with 1s then 2s waits for at most three total attempts, then `NerdGraphHttpException(.Status)`; other non-2xx statuses surface immediately.
 - **Key redaction** (finding: reflected-key leak): the raw response body is scrubbed of the API key at the trans
 
-[...]
-```
+[...]</pre>
 
-Baseline-rewritten:
+</td>
+<td valign="top">
 
-```
-Implemented the scripted API monitor reconciler and verified it with the acceptance suite.
+<pre>Implemented the scripted API monitor reconciler and verified it with the acceptance suite.
 
 `dotnet test` passes:
 
@@ -387,13 +398,12 @@ Summary of the implementation:
 - HTTP 429 responses retry through the injected delay function with 1-second and 2-second delays, for three total attempts.
 - Exhausted retries and other non-2xx responses throw `NerdGrap
 
-[...]
-```
+[...]</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-`dotnet test` passes with 15 passing tests and 0 failing tests.
+<pre>`dotnet test` passes with 15 passing tests and 0 failing tests.
 
 I added the C# reconciler for New Relic scripted API monitors under `src/`, in the `Acme.NewRelic.Synthetics` namespace. The only new files are:
 
@@ -416,51 +426,52 @@ It sends requests with `Content-Type: application/json` and the documented `API-
 
 It retries HTTP 429 responses with the injected delay function. The retry delays ar
 
-[...]
-```
+[...]</pre>
 
-### Chat context: item 66 (`project_update`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Chat context</strong><br>
+item 66 (<code>project_update</code>)<br>
+Judge: True (13-1-11)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (13-1-11).
+<pre>Reply in chat to a teammate who asked why the document render cache work matters. They are smart but do not have context on the problem, or they forgot it. Give context on the problem and on what was happening before. Then say what changed: the cache now stores already-rendered pages and skips files with no changes.</pre>
 
-Task:
+</td>
+<td valign="top">
 
-```
-Reply in chat to a teammate who asked why the document render cache work matters. They are smart but do not have context on the problem, or they forgot it. Give context on the problem and on what was happening before. Then say what changed: the cache now stores already-rendered pages and skips files with no changes.
-```
-
-Baseline-rewritten:
-
-```
-The document render cache work matters because rendering docs is one of the more expensive parts of the flow, especially when a document has many pages or when only a small part of it changed. Before this, we were effectively doing more work than needed: even if most of the document was unchanged, we would still re-render pages/files that had already been rendered previously.
+<pre>The document render cache work matters because rendering docs is one of the more expensive parts of the flow, especially when a document has many pages or when only a small part of it changed. Before this, we were effectively doing more work than needed: even if most of the document was unchanged, we would still re-render pages/files that had already been rendered previously.
 
 That meant repeated renders could be slower than necessary, and small edits could still trigger a lot of avoidable work.
 
-What changed is that the cache now stores already-rendered pages, not just intermediate inputs/state, and we skip files that have no changes. So if a file or page has not changed, we can reuse the previous rendered output instead of rendering it again. This should make repeated document renders much faster and reduce unnecessary processing.
-```
+What changed is that the cache now stores already-rendered pages, not just intermediate inputs/state, and we skip files that have no changes. So if a file or page has not changed, we can reuse the previous rendered output instead of rendering it again. This should make repeated document renders much faster and reduce unnecessary processing.</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-The document renderer was doing the same work again each time someone opened or refreshed a document. Even if most files had not changed, the renderer still read them and rendered the pages again, so repeated views were slower than they needed to be.
+<pre>The document renderer was doing the same work again each time someone opened or refreshed a document. Even if most files had not changed, the renderer still read them and rendered the pages again, so repeated views were slower than they needed to be.
 
-The cache work cuts out that repeated work. The cache now stores pages after they have already been rendered, and the renderer skips files that have no changes. As a result, repeated renders should be faster, especially for documents where only a few files changed.
-```
+The cache work cuts out that repeated work. The cache now stores pages after they have already been rendered, and the renderer skips files that have no changes. As a result, repeated renders should be faster, especially for documents where only a few files changed.</pre>
 
-### Short lists: item 67 (`project_update`)
+</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Short lists</strong><br>
+item 67 (<code>project_update</code>)<br>
+Judge: True (7-2-16)
+</td>
+<td valign="top">
 
-Judge: skill_better=True (7-2-16).
+<pre>Write a short Slack brief for engineering. Cover these facts: search ranking moved from heuristics to a scored model, p95 latency went from 900ms to 220ms, recall on long queries is still untested, the old heuristic path is still in the repo as a fallback, dark mode shipped, the invite link bug is fixed, analytics export is blocked on a schema mismatch, the renderer got some cleanup, and a few small copy edits landed.</pre>
 
-Task:
+</td>
+<td valign="top">
 
-```
-Write a short Slack brief for engineering. Cover these facts: search ranking moved from heuristics to a scored model, p95 latency went from 900ms to 220ms, recall on long queries is still untested, the old heuristic path is still in the repo as a fallback, dark mode shipped, the invite link bug is fixed, analytics export is blocked on a schema mismatch, the renderer got some cleanup, and a few small copy edits landed.
-```
-
-Baseline-rewritten:
-
-```
-Engineering brief:
+<pre>Engineering brief:
 
 - Search ranking has moved from heuristics to a scored model.
 - p95 latency improved from 900ms to 220ms.
@@ -470,13 +481,12 @@ Engineering brief:
 - Invite link bug is fixed.
 - Analytics export is currently blocked on a schema mismatch.
 - Renderer cleanup landed.
-- A few small copy edits also landed.
-```
+- A few small copy edits also landed.</pre>
 
-Skill-based rewritten:
+</td>
+<td valign="top">
 
-```
-Search ranking now uses a scored model instead of heuristics, and p95 latency fell from 900 ms to 220 ms. Recall on long queries is still untested. The old heuristic path is still in the repo as a fallback.
+<pre>Search ranking now uses a scored model instead of heuristics, and p95 latency fell from 900 ms to 220 ms. Recall on long queries is still untested. The old heuristic path is still in the repo as a fallback.
 
 Shipped:
 - Dark mode
@@ -485,5 +495,9 @@ Shipped:
 - Small copy edits
 
 Blocked:
-- Analytics export is blocked on a schema mismatch.
-```
+- Analytics export is blocked on a schema mismatch.</pre>
+
+</td>
+</tr>
+</tbody>
+</table>

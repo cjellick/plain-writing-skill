@@ -309,55 +309,73 @@ def criterion_rows(summary: dict, limit: int = 8) -> str:
     return "\n".join(lines)
 
 
-def sample_block(item_id: str, label: str, dataset: dict[str, dict], row: dict) -> str:
-    item = dataset.get(item_id) or {}
+def html_escape(text: str) -> str:
+    return (
+        (text or "")
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
+
+
+def sample_title(item_id: str, item: dict) -> str:
     source = item.get("source") or {}
-    title = (
+    return (
         source.get("task")
         or source.get("title")
         or item.get("source_key")
         or item.get("category")
         or item_id
     )
-    judgment = row.get("judgment") or {}
+
+
+def table_cell(text: str) -> str:
+    return (
+        '<td valign="top">\n\n<pre>'
+        + html_escape(excerpt(text))
+        + "</pre>\n\n</td>"
+    )
+
+
+def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
     lines = [
-        f"### {label}: item {item_id} (`{title}`)",
-        "",
-        f"Judge: skill_better={judgment.get('skill_better')} "
-        f"({judgment.get('skill_criteria_wins')}-"
-        f"{judgment.get('baseline_criteria_wins')}-"
-        f"{judgment.get('criteria_ties')}).",
-        "",
+        "<table>",
+        "<thead>",
+        "<tr>",
+        "<th>Example</th>",
+        "<th>Original</th>",
+        "<th>Baseline-rewritten (no skill)</th>",
+        "<th>Skill-based rewritten</th>",
+        "</tr>",
+        "</thead>",
+        "<tbody>",
     ]
-    raw = raw_text(item)
-    if raw:
-        lines.extend(["Raw text:", "", "```", excerpt(raw), "```", ""])
-    else:
+    for item_id, label in SAMPLES:
+        row = results.get(item_id)
+        if not row:
+            continue
+        item = dataset.get(item_id) or {}
+        title = sample_title(item_id, item)
+        judgment = row.get("judgment") or {}
+        original = raw_text(item) or item.get("prompt") or row.get("prompt") or ""
         lines.extend(
             [
-                "Task:",
-                "",
-                "```",
-                excerpt(item.get("prompt") or row.get("prompt") or ""),
-                "```",
-                "",
+                "<tr>",
+                '<td valign="top">',
+                f"<strong>{html_escape(label)}</strong><br>",
+                f"item {item_id} (<code>{html_escape(title)}</code>)<br>",
+                f"Judge: {judgment.get('skill_better')} "
+                f"({judgment.get('skill_criteria_wins')}-"
+                f"{judgment.get('baseline_criteria_wins')}-"
+                f"{judgment.get('criteria_ties')})",
+                "</td>",
+                table_cell(original),
+                table_cell(row.get("baseline") or ""),
+                table_cell(row.get("with_skill") or ""),
+                "</tr>",
             ]
         )
-    lines.extend(
-        [
-            "Baseline-rewritten:",
-            "",
-            "```",
-            excerpt(row.get("baseline") or ""),
-            "```",
-            "",
-            "Skill-based rewritten:",
-            "",
-            "```",
-            excerpt(row.get("with_skill") or ""),
-            "```",
-        ]
-    )
+    lines.extend(["</tbody>", "</table>"])
     return "\n".join(lines)
 
 
@@ -477,22 +495,17 @@ def main() -> None:
                     "",
                 ]
             )
-        sample_parts = []
-        for item_id, label in SAMPLES:
-            if item_id in results:
-                sample_parts.append(
-                    sample_block(item_id, label, dataset, results[item_id])
-                )
-        if sample_parts:
+        if any(item_id in results for item_id, _label in SAMPLES):
             parts.extend(
                 [
                     "## Examples",
                     "",
-                    "Each sample shows the raw source or the task, the baseline rewrite,",
-                    "and the skill-based rewrite. Long texts are cut after about 900",
-                    "characters.",
+                    "Each row is one example. The columns are the original text, the",
+                    "baseline rewrite (no skill), and the skill-based rewrite. For draft",
+                    "tasks with no source text, Original is the task prompt. Long texts",
+                    f"are cut after about {EXCERPT_CHARS} characters.",
                     "",
-                    "\n\n".join(sample_parts),
+                    examples_table(dataset, results),
                     "",
                 ]
             )
