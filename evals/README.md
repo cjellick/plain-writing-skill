@@ -168,15 +168,19 @@ Rules where the baseline won more often:
 
 ## Examples
 
-Each row is one writing task. The columns are the original text, the
-baseline rewrite (no skill), and the skill-based rewrite. For draft
-tasks with no source text, Original is the task prompt. Long texts
-are cut after about 320 characters.
+Some tasks rewrite existing text. Some tasks write from scratch.
+The first column is original writing for a rewrite, and the prompt
+for a write-from-scratch task. Long texts are cut after about
+320 characters.
+
+### Rewrite tasks
+
+These start from existing text. The first column is that original writing.
 
 <table>
 <thead>
 <tr>
-<th>Original</th>
+<th>Original writing</th>
 <th>Baseline (no skill)</th>
 <th>Skill-based</th>
 </tr>
@@ -208,6 +212,35 @@ judge 11-2-12
 </tr>
 <tr>
 <td colspan="3">
+<strong>Fable coding</strong> · task 51 · 
+<code>csharp-newrelic-synthetic-monitor</code> · 
+judge 14-4-7
+</td>
+</tr>
+<tr>
+<td valign="top">Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts<br><br>[...]</td>
+<td valign="top">Implemented the C# reconciler and verified it with the acceptance tests.<br><br>`dotnet test` passes: 15 passed, 0 failed.<br><br>Changed files:<br><br>- Added `src/NerdGraphClient.cs`<br>- Added `src/MonitorReconciler.cs`<br>- Added `src/Exceptions.cs`<br><br>All new code is under the `Acme.NewRelic.Synthetics` namespace. I did not modify protecte<br><br>[...]</td>
+<td valign="top">`dotnet test` passes. The suite ran 15 tests, and all 15 passed.<br><br>The only changed files are new source files under `src/`:<br><br>- `src/NerdGraphClient.cs`<br>- `src/MonitorReconciler.cs`<br>- `src/Exceptions.cs`<br><br>All new code is in the `Acme.NewRelic.Synthetics` namespace. I did not change `SyntheticMonitorTests.cs`, `Synthetic<br><br>[...]</td>
+</tr>
+</tbody>
+</table>
+
+### Write-from-scratch tasks
+
+These start from a prompt. There is no original writing, so the first
+column is the prompt.
+
+<table>
+<thead>
+<tr>
+<th>Prompt</th>
+<th>Baseline (no skill)</th>
+<th>Skill-based</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">
 <strong>Short draft</strong> · task 22 · 
 <code>project_update</code> · 
 judge 12-6-7
@@ -229,18 +262,6 @@ judge 11-4-10
 <td valign="top">Using only the research-agent history above, write a plain status note for a technical reader with no prior context. Cover: the question being researched, the main search path, the best current answer if any, and what is still uncertain. Keep concrete facts. Return only the note.</td>
 <td valign="top">Research question: identify the full name of the lead of a European band formed in the 1990s. Clues: the band released an album in 2019, a year before major COVID lockdowns; the album came roughly eight years after the band’s previous release; it was described as one of the band’s most impressive releases and as an out<br><br>[...]</td>
 <td valign="top">The research question asks for the full name of the lead of a European band. The band was formed in the 1990s, released an album in 2019, released that album about eight years after its previous release, and had the album described as an outlier in its record label's catalog. The lead is from a region of a country whos<br><br>[...]</td>
-</tr>
-<tr>
-<td colspan="3">
-<strong>Fable coding</strong> · task 51 · 
-<code>csharp-newrelic-synthetic-monitor</code> · 
-judge 14-4-7
-</td>
-</tr>
-<tr>
-<td valign="top">Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts<br><br>[...]</td>
-<td valign="top">Implemented the C# reconciler and verified it with the acceptance tests.<br><br>`dotnet test` passes: 15 passed, 0 failed.<br><br>Changed files:<br><br>- Added `src/NerdGraphClient.cs`<br>- Added `src/MonitorReconciler.cs`<br>- Added `src/Exceptions.cs`<br><br>All new code is under the `Acme.NewRelic.Synthetics` namespace. I did not modify protecte<br><br>[...]</td>
-<td valign="top">`dotnet test` passes. The suite ran 15 tests, and all 15 passed.<br><br>The only changed files are new source files under `src/`:<br><br>- `src/NerdGraphClient.cs`<br>- `src/MonitorReconciler.cs`<br>- `src/Exceptions.cs`<br><br>All new code is in the `Acme.NewRelic.Synthetics` namespace. I did not change `SyntheticMonitorTests.cs`, `Synthetic<br><br>[...]</td>
 </tr>
 <tr>
 <td colspan="3">

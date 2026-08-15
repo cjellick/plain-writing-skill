@@ -283,26 +283,39 @@ def table_cell(text: str) -> str:
     return f'<td valign="top">{body}</td>'
 
 
-def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
+def sample_input(item: dict, row: dict) -> tuple[str, str]:
+    """Return (kind, text). kind is rewrite or draft."""
+    source = raw_text(item)
+    if source:
+        return "rewrite", source
+    return "draft", item.get("prompt") or row.get("prompt") or ""
+
+
+def examples_group_table(
+    samples: list[tuple[str, str]],
+    dataset: dict[str, dict],
+    results: dict[str, dict],
+    first_header: str,
+) -> str:
     lines = [
         "<table>",
         "<thead>",
         "<tr>",
-        "<th>Original</th>",
+        f"<th>{html_escape(first_header)}</th>",
         "<th>Baseline (no skill)</th>",
         "<th>Skill-based</th>",
         "</tr>",
         "</thead>",
         "<tbody>",
     ]
-    for item_id, label in SAMPLES:
+    for item_id, label in samples:
         row = results.get(item_id)
         if not row:
             continue
         item = dataset.get(item_id) or {}
         title = sample_title(item_id, item)
         judgment = row.get("judgment") or {}
-        original = raw_text(item) or item.get("prompt") or row.get("prompt") or ""
+        _kind, source = sample_input(item, row)
         lines.extend(
             [
                 "<tr>",
@@ -315,7 +328,7 @@ def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
                 "</td>",
                 "</tr>",
                 "<tr>",
-                table_cell(original),
+                table_cell(source),
                 table_cell(row.get("baseline") or ""),
                 table_cell(row.get("with_skill") or ""),
                 "</tr>",
@@ -323,6 +336,45 @@ def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
         )
     lines.extend(["</tbody>", "</table>"])
     return "\n".join(lines)
+
+
+def examples_tables(dataset: dict[str, dict], results: dict[str, dict]) -> str:
+    rewrite = []
+    draft = []
+    for item_id, label in SAMPLES:
+        if item_id not in results:
+            continue
+        item = dataset.get(item_id) or {}
+        kind, _text = sample_input(item, results[item_id])
+        if kind == "rewrite":
+            rewrite.append((item_id, label))
+        else:
+            draft.append((item_id, label))
+    parts = []
+    if rewrite:
+        parts.extend(
+            [
+                "### Rewrite tasks",
+                "",
+                "These start from existing text. The first column is that original writing.",
+                "",
+                examples_group_table(rewrite, dataset, results, "Original writing"),
+                "",
+            ]
+        )
+    if draft:
+        parts.extend(
+            [
+                "### Write-from-scratch tasks",
+                "",
+                "These start from a prompt. There is no original writing, so the first",
+                "column is the prompt.",
+                "",
+                examples_group_table(draft, dataset, results, "Prompt"),
+                "",
+            ]
+        )
+    return "\n".join(parts).rstrip()
 
 
 def main() -> None:
@@ -421,12 +473,12 @@ def main() -> None:
                 [
                     "## Examples",
                     "",
-                    "Each row is one writing task. The columns are the original text, the",
-                    "baseline rewrite (no skill), and the skill-based rewrite. For draft",
-                    "tasks with no source text, Original is the task prompt. Long texts",
-                    f"are cut after about {EXCERPT_CHARS} characters.",
+                    "Some tasks rewrite existing text. Some tasks write from scratch.",
+                    "The first column is original writing for a rewrite, and the prompt",
+                    "for a write-from-scratch task. Long texts are cut after about",
+                    f"{EXCERPT_CHARS} characters.",
                     "",
-                    examples_table(dataset, results),
+                    examples_tables(dataset, results),
                     "",
                 ]
             )
