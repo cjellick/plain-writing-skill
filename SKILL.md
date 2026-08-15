@@ -188,12 +188,12 @@ after. After the rules comes the deslopify command.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
-19. **Match lists and tables to the kind of writing.** In an essay, a docs
-    page, or other continuous prose, use lists and tables sparingly. Prefer
-    ordinary sentences. In a brief, e.g., a PR description, a status note, or
-    an update, use short lists and short tables for the points a reader needs
-    to act on. Do not make those lists long. Keep only the most important
-    facts.
+19. **If you are writing an essay, use lists and tables sparingly. If you are
+    writing a brief, use lists and tables, but keep them short.** In an essay,
+    a docs page, or other continuous prose, prefer ordinary sentences. In a
+    brief, e.g., a PR description, a status note, or an update, a short list
+    or a short table can hold the points a reader needs to act on. Do not make
+    those lists long. Keep only the most important facts.
     Before (essay): The cache change did three things:
     - cut p95 latency from 900 ms to 220 ms
     - left recall untested on long queries
