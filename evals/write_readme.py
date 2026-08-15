@@ -16,7 +16,7 @@ RESULT_DIRS = (
     OUTPUTS / "new_rules",
     OUTPUTS / "all",
 )
-EXCERPT_CHARS = 900
+EXCERPT_CHARS = 320
 SAMPLES = (
     ("01", "Deslopify"),
     ("12", "Public-domain rewrite"),
@@ -176,19 +176,45 @@ def attach_models(summary: dict, result_dirs: tuple[Path, ...]) -> dict:
     return summary
 
 
+def html_table(headers: list[str], rows: list[list[str]]) -> str:
+    lines = ["<table>", "<thead>", "<tr>"]
+    lines.extend(f"<th>{html_escape(header)}</th>" for header in headers)
+    lines.extend(["</tr>", "</thead>", "<tbody>"])
+    for row in rows:
+        lines.append("<tr>")
+        lines.extend(f"<td>{html_escape(cell)}</td>" for cell in row)
+        lines.append("</tr>")
+    lines.extend(["</tbody>", "</table>"])
+    return "\n".join(lines)
+
+
 def summary_table(summary: dict) -> str:
-    return "\n".join(
+    return html_table(
+        ["Metric", "Result"],
         [
-            "| Metric | Result |",
-            "| --- | --- |",
-            f"| Writing tasks | {summary.get('n', 0)} |",
-            f"| Skill wins / baseline wins / ties | {summary.get('skill_wins', 0)} / {summary.get('baseline_wins', 0)} / {summary.get('ties', 0)} |",
-            f"| Win rate among decisive tasks | {pct(summary.get('skill_win_rate_among_decisive'))} |",
-            f"| Criterion skill / baseline / tie | {summary.get('criterion_skill_wins', 0)} / {summary.get('criterion_baseline_wins', 0)} / {summary.get('criterion_ties', 0)} |",
-            f"| Criterion win rate among decisive | {pct(summary.get('criterion_skill_win_rate_among_decisive'))} |",
-            f"| Errors | {summary.get('errors', 0)} |",
-            f"| Rewriter / judge | {summary.get('model', '?')} / {summary.get('judge_model', '?')} |",
-        ]
+            ["Writing tasks", str(summary.get("n", 0))],
+            [
+                "Skill / baseline / tie",
+                f"{summary.get('skill_wins', 0)} / {summary.get('baseline_wins', 0)} / {summary.get('ties', 0)}",
+            ],
+            [
+                "Win rate among decisive tasks",
+                pct(summary.get("skill_win_rate_among_decisive")),
+            ],
+            [
+                "Rule skill / baseline / tie",
+                f"{summary.get('criterion_skill_wins', 0)} / {summary.get('criterion_baseline_wins', 0)} / {summary.get('criterion_ties', 0)}",
+            ],
+            [
+                "Rule win rate among decisive",
+                pct(summary.get("criterion_skill_win_rate_among_decisive")),
+            ],
+            ["Errors", str(summary.get("errors", 0))],
+            [
+                "Rewriter / judge",
+                f"{summary.get('model', '?')} / {summary.get('judge_model', '?')}",
+            ],
+        ],
     )
 
 
@@ -210,24 +236,26 @@ def criterion_rows(summary: dict, limit: int = 8) -> str:
             )
         )
     rows.sort(key=lambda r: (-(r[3] - r[4]), -r[3], r[1]))
-    lines = [
-        "| Rule | Skill / baseline / tie | Skill win rate |",
-        "| --- | --- | --- |",
-    ]
-    for rate, cid, title, sw, bw, ties in rows[:limit]:
-        lines.append(f"| {cid}. {title} | {sw} / {bw} / {ties} | {pct(rate)} |")
+
+    def rule_table(selected: list) -> str:
+        return html_table(
+            ["Rule", "Skill / baseline / tie"],
+            [
+                [
+                    f"{cid}. {title}",
+                    f"{sw} / {bw} / {ties} ({pct(rate)})",
+                ]
+                for rate, cid, title, sw, bw, ties in selected
+            ],
+        )
+
+    parts = [rule_table(rows[:limit])]
     losses = [r for r in rows if r[4] > r[3]]
     if losses:
-        lines.extend(["", "Rules where the baseline won more often:", ""])
-        lines.extend(
-            [
-                "| Rule | Skill / baseline / tie | Skill win rate |",
-                "| --- | --- | --- |",
-            ]
+        parts.extend(
+            ["", "Rules where the baseline won more often:", "", rule_table(losses[:5])]
         )
-        for rate, cid, title, sw, bw, ties in losses[:5]:
-            lines.append(f"| {cid}. {title} | {sw} / {bw} / {ties} | {pct(rate)} |")
-    return "\n".join(lines)
+    return "\n".join(parts)
 
 
 def html_escape(text: str) -> str:
@@ -251,11 +279,8 @@ def sample_title(item_id: str, item: dict) -> str:
 
 
 def table_cell(text: str) -> str:
-    return (
-        '<td valign="top">\n\n<pre>'
-        + html_escape(excerpt(text))
-        + "</pre>\n\n</td>"
-    )
+    body = html_escape(excerpt(text)).replace("\n", "<br>")
+    return f'<td valign="top">{body}</td>'
 
 
 def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
@@ -263,10 +288,9 @@ def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
         "<table>",
         "<thead>",
         "<tr>",
-        "<th>Example</th>",
         "<th>Original</th>",
-        "<th>Baseline-rewritten (no skill)</th>",
-        "<th>Skill-based rewritten</th>",
+        "<th>Baseline (no skill)</th>",
+        "<th>Skill-based</th>",
         "</tr>",
         "</thead>",
         "<tbody>",
@@ -282,14 +306,15 @@ def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
         lines.extend(
             [
                 "<tr>",
-                '<td valign="top">',
-                f"<strong>{html_escape(label)}</strong><br>",
-                f"task {item_id} (<code>{html_escape(title)}</code>)<br>",
-                f"Judge: {judgment.get('skill_better')} "
-                f"({judgment.get('skill_criteria_wins')}-"
+                '<td colspan="3">',
+                f"<strong>{html_escape(label)}</strong> · task {item_id} · ",
+                f"<code>{html_escape(title)}</code> · ",
+                f"judge {judgment.get('skill_criteria_wins')}-"
                 f"{judgment.get('baseline_criteria_wins')}-"
-                f"{judgment.get('criteria_ties')})",
+                f"{judgment.get('criteria_ties')}",
                 "</td>",
+                "</tr>",
+                "<tr>",
                 table_cell(original),
                 table_cell(row.get("baseline") or ""),
                 table_cell(row.get("with_skill") or ""),
