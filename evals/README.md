@@ -188,39 +188,51 @@ These start from existing text. The first column is that original writing.
 <tbody>
 <tr>
 <td colspan="3">
-<strong>Deslopify</strong> · task 01 · 
-<code>cache_rollout</code> · 
-judge 9-5-11
+<strong>Product launch copy</strong> · task 05 · 
+<code>docs_skill</code> · 
+judge 17-2-6
 </td>
 </tr>
 <tr>
-<td valign="top">**Engineering Update: Document Render Cache Deployment**<br><br>We're thrilled to announce a transformative milestone in our infrastructure evolution—the rollout of our next-generation document render cache system.<br><br>This isn't just an optimization; it's a paradigm shift in how we conceptualize content delivery at scale. By i<br><br>[...]</td>
-<td valign="top">**Engineering Update: Document Render Cache Deployment**<br><br>We have deployed a new document render cache system.<br><br>The system caches rendered versions of documents so repeated requests can be served from cache instead of rendering the document again. This reduces render latency and lowers compute usage.<br><br>The cache uses a<br><br>[...]</td>
-<td valign="top"># Engineering update: document render cache deployment<br><br>The document render cache is now live. It stores rendered documents so repeated document requests can return faster and use less compute.<br><br>Before this change, the system had to render more documents during request handling. The new cache stores rendered output and<br><br>[...]</td>
+<td valign="top">**Introducing CodeClarify™: The Plain-Writing Revolution for Your AI Agents**<br><br>We're not just teaching agents to code—we're teaching them to *communicate*.<br><br>Meet **Semantic Simplicity Engine**, the breakthrough capability that transforms your coding agents from technical translators into plain-language virtuosos. Becau<br><br>[...]</td>
+<td valign="top">**Introducing CodeClarify™: Plain Writing for AI Coding Agents**<br><br>CodeClarify helps AI coding agents explain code clearly, not just write it.<br><br>The **Semantic Simplicity Engine** is a capability that converts technical explanations into plain language. It helps agents describe complex code, logic, and design decisions i<br><br>[...]</td>
+<td valign="top">CodeClarify is a plain writing feature for AI coding agents. It helps agents explain code and technical decisions in clear, everyday language.<br><br>AI coding agents can write working functions, but their explanations can be hard to understand. CodeClarify addresses that problem by making the agent explain what the code doe<br><br>[...]</td>
 </tr>
 <tr>
 <td colspan="3">
-<strong>Public-domain rewrite</strong> · task 12 · 
-<code>Eddystone Lighthouse</code> · 
-judge 11-2-12
+<strong>Slide script</strong> · task 08 · 
+<code>slides_script</code> · 
+judge 17-2-6
 </td>
 </tr>
 <tr>
-<td valign="top">In the latter part of April fifty-three courses of granite masonry, rising to the height of seventy feet above high water, had been laid, and thirty-six courses remained to be set. The old lighthouse had been already overtopped. As the work advances toward completion the question arises: What shall be done with John Sm<br><br>[...]</td>
-<td valign="top">By late April, fifty-three layers of granite masonry had been built, reaching seventy feet above the high-water mark, with thirty-six more layers still to be added. The new lighthouse had already risen higher than the old one.<br><br>As the work neared completion, people began asking what should be done with John Smeaton’s f<br><br>[...]</td>
-<td valign="top">By late April, workers had laid fifty-three layers of granite masonry. The new lighthouse had reached seventy feet above the high water mark, and thirty-six layers still had to be added. It had already risen higher than the old lighthouse.<br><br>As the work nears completion, people are asking what should be done with John S<br><br>[...]</td>
+<td valign="top"># Crushing Eval Costs: The Sampling Revolution<br><br>**The Problem Space**<br>Full dataset evaluation. Expensive. Prohibitive. Your burn rate? Astronomical. Every benchmark run: hundreds of dollars. Thousands. Enterprise scale? Forget it.<br><br>**Enter: Strategic Sampling**<br>We're not testing every grain of sand to understand the be<br><br>[...]</td>
+<td valign="top"># Reducing Evaluation Costs with Strategic Sampling<br><br>## Problem<br><br>Running evaluations on a full dataset can be expensive. A single benchmark run may cost hundreds or thousands of dollars, and at enterprise scale the cost can become prohibitive. This limits how often teams can evaluate models, run experiments, or perform<br><br>[...]</td>
+<td valign="top"># Reduce evaluation costs with sampling<br><br>Full dataset evaluation can be expensive. A benchmark run can cost hundreds or thousands of dollars, and the cost can block frequent evaluation at enterprise scale.<br><br>Sampling reduces evaluation cost by running the evaluation on a representative subset of the dataset instead of t<br><br>[...]</td>
 </tr>
 <tr>
 <td colspan="3">
-<strong>Fable coding</strong> · task 51 · 
-<code>csharp-newrelic-synthetic-monitor</code> · 
-judge 14-4-7
+<strong>Product memo</strong> · task 02 · 
+<code>eval_harness</code> · 
+judge 21-2-2
 </td>
 </tr>
 <tr>
-<td valign="top">Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts<br><br>[...]</td>
-<td valign="top">Implemented the C# reconciler and verified it with the acceptance tests.<br><br>`dotnet test` passes: 15 passed, 0 failed.<br><br>Changed files:<br><br>- Added `src/NerdGraphClient.cs`<br>- Added `src/MonitorReconciler.cs`<br>- Added `src/Exceptions.cs`<br><br>All new code is under the `Acme.NewRelic.Synthetics` namespace. I did not modify protecte<br><br>[...]</td>
-<td valign="top">`dotnet test` passes. The suite ran 15 tests, and all 15 passed.<br><br>The only changed files are new source files under `src/`:<br><br>- `src/NerdGraphClient.cs`<br>- `src/MonitorReconciler.cs`<br>- `src/Exceptions.cs`<br><br>All new code is in the `Acme.NewRelic.Synthetics` namespace. I did not change `SyntheticMonitorTests.cs`, `Synthetic<br><br>[...]</td>
+<td valign="top">**PRODUCT MEMO: PROMETHEAN EVAL HARNESS**<br><br>**RE: Operationalizing PM Intuition Through Systematic LLM Validation**<br><br>We're at an inflection point. Product teams ship features. Engineering teams ship code. But who validates the *intelligence layer*? <br><br>Enter **Promethean**: the first eval harness purpose-built for Product<br><br>[...]</td>
+<td valign="top">**Product Memo: Promethean Eval Harness**<br><br>**Subject: A validation tool for product managers building with LLMs**<br><br>Product teams ship features. Engineering teams ship code. But LLM-based products also need a reliable way to validate model behavior: output quality, safety, reasoning, latency, tone, and fit for the inten<br><br>[...]</td>
+<td valign="top"># Product memo: Promethean eval harness<br><br>Product teams need a consistent way to evaluate LLM outputs before they ship features that depend on them.<br><br>Product managers often compare model outputs in Slack threads or by personal judgment. For example, they may need to decide whether GPT 4 is better than Claude for a speci<br><br>[...]</td>
+</tr>
+<tr>
+<td colspan="3">
+<strong>Fable wrap-up</strong> · task 57 · 
+<code>powershell-meraki-link-pages</code> · 
+judge 13-5-7
+</td>
+</tr>
+<tr>
+<td valign="top">Done. `pwsh -NoProfile -File test_meraki_pages.ps1` exits 0 with all 50 checks passing, and every rejection finding from the prior review is fixed and verified by adversarial loopback probes (probe scripts were scratch and have been removed). Protected files (`test_meraki_pages.ps1`, `docs/`) are untouched — git status<br><br>[...]</td>
+<td valign="top">Implemented and verified the Meraki Dashboard API v1 PowerShell module.<br><br>`pwsh -NoProfile -File test_meraki_pages.ps1` passes with `OK (50 checks)`. I also ran separate loopback probes for the prior review issues; those passed, and the scratch probe file was removed. Protected files were not changed: `test_meraki_pages<br><br>[...]</td>
+<td valign="top">The Meraki PowerShell module is implemented, and the acceptance test passes. I ran `pwsh -NoProfile -File test_meraki_pages.ps1`, and it exited 0 with all 50 checks passing. I did not edit the protected files, including `test_meraki_pages.ps1` and everything under `docs/`. The only new files are the four module files.<br><br>[...]</td>
 </tr>
 </tbody>
 </table>
@@ -241,43 +253,31 @@ column is the prompt.
 <tbody>
 <tr>
 <td colspan="3">
-<strong>Short draft</strong> · task 22 · 
-<code>project_update</code> · 
-judge 12-6-7
+<strong>Slide titles</strong> · task 25 · 
+<code>slides</code> · 
+judge 17-3-5
 </td>
 </tr>
 <tr>
-<td valign="top">Write a Slack update for engineering: we moved search ranking from heuristics to a scored model, latency went from 900ms to 220ms p95, and we still need to validate recall on long queries.</td>
-<td valign="top">Hey team — quick search update:<br><br>We’ve moved search ranking from the previous heuristics-based approach to a scored model. Early performance results look strong: p95 latency is down from ~900ms to ~220ms.<br><br>The main remaining validation area is recall on long queries. We’ll continue testing to make sure the new model pr<br><br>[...]</td>
-<td valign="top">Search ranking now uses a scored model instead of heuristics, and p95 latency fell from 900 ms to 220 ms.<br><br>To do: validate recall on long queries.</td>
+<td valign="top">Write 5 slide titles and one short supporting sentence each for a talk about reducing LLM eval cost with sampling.</td>
+<td valign="top">1. **Why LLM Eval Costs Add Up Fast**  <br>   Large test sets, repeated model runs, and human or model-graded judgments can make evaluation expensive at scale.<br><br>2. **Sampling Preserves Signal While Cutting Spend**  <br>   Evaluating a representative subset can reveal performance trends without running every example every tim<br><br>[...]</td>
+<td valign="top">1. Measure less, but keep the signal  <br>Sampling lets you score a smaller set of examples while still estimating whether model quality changed.<br><br>2. Start with the decision you need to make  <br>Choose the sample size based on the change you need to detect, not on the full size of the test set.<br><br>3. Use random sampling to av<br><br>[...]</td>
 </tr>
 <tr>
 <td colspan="3">
-<strong>Long history</strong> · task 41 · 
-<code>long_history</code> · 
-judge 11-4-10
+<strong>Support reply</strong> · task 32 · 
+<code>faq_support</code> · 
+judge 12-3-10
 </td>
 </tr>
 <tr>
-<td valign="top">Using only the research-agent history above, write a plain status note for a technical reader with no prior context. Cover: the question being researched, the main search path, the best current answer if any, and what is still uncertain. Keep concrete facts. Return only the note.</td>
-<td valign="top">Research question: identify the full name of the lead of a European band formed in the 1990s. Clues: the band released an album in 2019, a year before major COVID lockdowns; the album came roughly eight years after the band’s previous release; it was described as one of the band’s most impressive releases and as an out<br><br>[...]</td>
-<td valign="top">The research question asks for the full name of the lead of a European band. The band was formed in the 1990s, released an album in 2019, released that album about eight years after its previous release, and had the album described as an outlier in its record label's catalog. The lead is from a region of a country whos<br><br>[...]</td>
+<td valign="top">Answer this user question helpfully:<br>Why did my export fail with "schema mismatch" after yesterday's deploy?</td>
+<td valign="top">Your export likely failed because yesterday’s deploy changed the data schema that the export job expects.<br><br>A “schema mismatch” usually means the exporter expected one set of fields, types, or column names, but the data now has something different. Common causes include:<br><br>- A column was renamed, removed, or added<br>- A fi<br><br>[...]</td>
+<td valign="top">Your export likely failed because yesterday's deploy changed the shape of the data that the exporter writes, but the export schema was not updated at the same time.<br><br>A "schema mismatch" means the exporter produced data with fields or types that did not match what the destination expected. For example, the deploy may ha<br><br>[...]</td>
 </tr>
 <tr>
 <td colspan="3">
-<strong>Chat context</strong> · task 66 · 
-<code>project_update</code> · 
-judge 13-2-10
-</td>
-</tr>
-<tr>
-<td valign="top">Reply in chat to a teammate who asked why the document render cache work matters. They are smart but do not have context on the problem, or they forgot it. Give context on the problem and on what was happening before. Then say what changed: the cache now stores already-rendered pages and skips files with no changes.</td>
-<td valign="top">The document render cache work matters because rendering a document is one of the more expensive parts of the flow, especially for larger files or repeated operations on the same file. Before this, we were effectively doing more work than necessary: even if a document had already been rendered, or if a file had not cha<br><br>[...]</td>
-<td valign="top">The document renderer was doing the same work every time, even when the source files had not changed. That made repeated renders slower than they needed to be, especially for larger documents.<br><br>The cache now stores pages after they are rendered. On the next render, it reuses the stored page when the source file has no<br><br>[...]</td>
-</tr>
-<tr>
-<td colspan="3">
-<strong>Short lists</strong> · task 67 · 
+<strong>Engineering brief</strong> · task 67 · 
 <code>project_update</code> · 
 judge 11-3-11
 </td>

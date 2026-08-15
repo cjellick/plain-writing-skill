@@ -18,13 +18,13 @@ RESULT_DIRS = (
 )
 EXCERPT_CHARS = 320
 SAMPLES = (
-    ("01", "Deslopify"),
-    ("12", "Public-domain rewrite"),
-    ("22", "Short draft"),
-    ("41", "Long history"),
-    ("51", "Fable coding"),
-    ("66", "Chat context"),
-    ("67", "Short lists"),
+    ("05", "Product launch copy"),
+    ("08", "Slide script"),
+    ("02", "Product memo"),
+    ("57", "Fable wrap-up"),
+    ("25", "Slide titles"),
+    ("32", "Support reply"),
+    ("67", "Engineering brief"),
 )
 
 
