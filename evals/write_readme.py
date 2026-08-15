@@ -86,13 +86,24 @@ def criterion_rows(summary: dict, limit: int = 8) -> str:
                 bucket.get("ties", 0),
             )
         )
-    rows.sort(key=lambda r: (-r[0], r[1]))
+    rows.sort(key=lambda r: (-(r[3] - r[4]), -r[3], r[1]))
     lines = [
         "| Rule | Skill / baseline / tie | Skill win rate |",
         "| --- | --- | --- |",
     ]
     for rate, cid, title, sw, bw, ties in rows[:limit]:
         lines.append(f"| {cid}. {title} | {sw} / {bw} / {ties} | {pct(rate)} |")
+    losses = [r for r in rows if r[4] > r[3]]
+    if losses:
+        lines.extend(["", "Rules where the baseline won more often:", ""])
+        lines.extend(
+            [
+                "| Rule | Skill / baseline / tie | Skill win rate |",
+                "| --- | --- | --- |",
+            ]
+        )
+        for rate, cid, title, sw, bw, ties in losses[:5]:
+            lines.append(f"| {cid}. {title} | {sw} / {bw} / {ties} | {pct(rate)} |")
     return "\n".join(lines)
 
 
