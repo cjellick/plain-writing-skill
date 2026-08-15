@@ -1,7 +1,41 @@
 # Plain-writing evals
 
-These evals compare a baseline rewrite against a rewrite that is given
-`SKILL.md`. A judge scores each pair on every numbered rule in the skill.
+These evals ask whether giving `SKILL.md` to a writer produces text that
+follows the plain-writing rules better than a writer that does not see
+the skill.
+
+## Eval procedure
+
+Each item in `dataset.jsonl` is one writing task. Some items are a short
+prompt only. History items also load a conversation from
+`evals/sources/` and append the item prompt as the last user turn.
+
+The fable items (`51`–`65`) load a full Claude Fable 5 coding-agent
+trace. The prompt quotes the longest text-only assistant wrap-up from
+that trace and asks the model to rewrite it. The rest of the trace stays
+in the history so the writer can use it.
+
+For every item, the same user messages are sent twice.
+
+First, a baseline writer gets a short system prompt that only asks for a
+clear, complete response. Second, a skill writer gets the full text of
+`SKILL.md` and is told to follow it. Both writers use the same model.
+Neither writer sees the other output.
+
+A judge then compares the two outputs. The numbered rules in `SKILL.md`
+are the criteria. For each rule, the judge sees the task prompt, text A,
+and text B. The A and B labels are shuffled at random so the judge does
+not know which text came from the skill. The judge scores only that one
+rule and returns `a`, `b`, or `tie`. Before and after examples are
+stripped from the rule text before it is sent.
+
+An item counts as a skill win when the skill text wins more rules than
+the baseline. It counts as a baseline win when the baseline wins more
+rules. Equal rule counts are a tie. The summary also adds up wins at the
+rule level across items.
+
+The default rewriter and judge are `gpt-5.5`. You can change them with
+`--model` and `--judge-model`.
 
 ## How to run
 
