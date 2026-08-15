@@ -106,10 +106,11 @@ after. After the rules comes the deslopify command.
 11. **Never write three or more clauses in one sentence, or three or more
     example sentences in a row.** In ordinary prose, a sentence may have one or
     two related clauses. Do not pack three or more clauses into one prose
-    sentence. If you need that many points, use bullet points, or a numbered
-    First / Second / Third sequence under rule 9. If list points are examples
-    and you want to inline them, introduce with "e.g.". Also do not give three
-    or more example sentences back to back to support the same point.
+    sentence. If you need that many points, use a numbered First / Second / Third
+    sequence under rule 9, or short bullet points when you are writing a
+    brief. If list points are examples and you want to inline them, introduce
+    with "e.g.". Also do not give three or more example sentences back to back
+    to support the same point.
     Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
     After: The parser reads the file, and the validator checks the fields. The
@@ -147,16 +148,28 @@ after. After the rules comes the deslopify command.
     the work done.
     After: To do: validate recall on long queries.
 
+14. **Give a reader the context they need.** Write for a smart reader who does
+    not already know the problem, the project, or the earlier conversation.
+    Say what the system is and what was asked. Then say what the result is, so
+    they can follow the rest without looking something up. Keep the setup
+    short. Do not dump the whole history, and do not skip the facts that make
+    the next sentence make sense.
+    Before: The exporter now waits on the reset header, and `dotnet test` is
+    green.
+    After: The Okta System Log exporter used to reread whole hours and write
+    the same event twice after a retry. It now waits using the response reset
+    header, and the six acceptance tests pass.
+
 ## Punctuation and formatting
 
-14. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
+15. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
     number ranges. Join clauses with a period or "and", and write ranges with
     "to". Do not use the middle dot (·) as a separator; use a comma, "and", or
     separate lines instead.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
-15. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
+16. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
     to glue two clauses or to set up a point in essay-like writing. A colon is
     fine when you introduce a list. A colon is also fine as a short label in
     updates, briefs, status notes, and PR descriptions, e.g., "Summary:",
@@ -167,18 +180,39 @@ after. After the rules comes the deslopify command.
     generated docs.
     After (same text is fine): Summary: Replace em dashes in generated docs.
 
-16. **Use straight quotes, not curly quotes.**
+17. **Use straight quotes, not curly quotes.**
     Before: The system logs each “event” as it happens.
     After: The system logs each "event" as it happens.
 
-17. **Keep the formatting plain.** Use sentence case in headings. Do not use
+18. **Keep the formatting plain.** Use sentence case in headings. Do not use
     bold for decoration.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
+19. **Match lists and tables to the kind of writing.** In an essay, a docs
+    page, or other continuous prose, use lists and tables sparingly. Prefer
+    ordinary sentences. In a brief, e.g., a PR description, a status note, or
+    an update, use short lists and short tables for the points a reader needs
+    to act on. Do not make those lists long. Keep only the most important
+    facts.
+    Before (essay): The cache change did three things:
+    - cut p95 latency from 900 ms to 220 ms
+    - left recall untested on long queries
+    - kept the old heuristic path as a fallback
+    After (essay): The cache change cut p95 latency from 900 ms to 220 ms.
+    Recall on long queries is still untested, and the old heuristic path
+    remains as a fallback.
+    Before (brief): We shipped a lot this week, including dark mode, invite
+    link fixes, a schema mismatch that delayed analytics export, some cleanup
+    in the renderer, and a few small copy edits.
+    After (brief): Shipped:
+    - Dark mode
+    - Invite link fix
+    Remaining: analytics export, blocked on a schema mismatch.
+
 ## Patterns to avoid
 
-18. **Do not give inanimate things fake agency.** Do not write as if a system
+20. **Do not give inanimate things fake agency.** Do not write as if a system
     or object transforms, decides, or intends on its own when a person or
     process is the real actor. Ordinary factual verbs for tools and systems are
     fine, e.g., "The API returns JSON", "The job writes the file", or "The
@@ -186,7 +220,7 @@ after. After the rules comes the deslopify command.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
-19. **No analogies or imagery.** Do not explain by comparing to something else,
+21. **No analogies or imagery.** Do not explain by comparing to something else,
     and do not use metaphor. Describe the actual thing in literal terms. Write
     in a boring way.
     Before: The feature index is like a card catalog that the optimizer can flip
@@ -194,7 +228,7 @@ after. After the rules comes the deslopify command.
     After: The feature index is a list of named features. The optimizer can look
     up which feature matches a request.
 
-20. **Never use negative parallelism of the form "not just X, it is Y" or
+22. **Never use negative parallelism of the form "not just X, it is Y" or
     "not only X, but Y".** State what the thing is. A plain refusal or
     correction is fine, including a short quote of a customer's hype phrase
     when you replace it with a concrete fact.
@@ -204,7 +238,7 @@ after. After the rules comes the deslopify command.
     that phrase can mean different things.
     After: The API has a 99.9% monthly uptime SLO.
 
-21. **Do not stack rhetorical questions.** AI writing often asks two or three
+23. **Do not stack rhetorical questions.** AI writing often asks two or three
     rhetorical questions in a row to sound thoughtful. Don't do this. Just state
     the problem directly.
     Before: Does the tool keep the writer's voice? Does it make the argument
@@ -212,14 +246,14 @@ after. After the rules comes the deslopify command.
     After: We do not yet know whether the tool keeps the writer's voice, or
     whether it makes the argument stronger or weaker.
 
-22. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+24. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
     "These", or "Those", especially do not start a sentence with a demonstrative
     pronoun, and never begin a paragraph with a sentence that contains a
     demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
-23. **Do not open with a count of things.** Never start by announcing how many
+25. **Do not open with a count of things.** Never start by announcing how many
     points are coming, e.g., "Two cautions." or "Three things to keep in mind."
     State the first point directly. If you absolutely must present many things,
     use a bullet list instead.
