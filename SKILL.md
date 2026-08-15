@@ -152,7 +152,7 @@ after. After the rules comes the deslopify command.
     forth, write for a smart reader who does not have context on the problem,
     or who forgot it. Give context on the problem and on what was happening
     before. Then say what changed. Keep the setup short. Do not dump the whole
-    history. If you are writing an essay, you can open on the point.
+    history. Ignore this rule if you are writing an essay.
     Before: The exporter now waits on the reset header, and `dotnet test` is
     green.
     After: The Okta System Log exporter was rereading whole hours, so a retry
