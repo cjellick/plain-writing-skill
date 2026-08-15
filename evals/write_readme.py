@@ -16,7 +16,7 @@ RESULT_DIRS = (
     OUTPUTS / "new_rules",
     OUTPUTS / "all",
 )
-EXCERPT_CHARS = 320
+EXCERPT_CHARS = 900
 SAMPLES = (
     ("05", "Product launch copy"),
     ("08", "Slide script"),
@@ -321,10 +321,10 @@ def examples_group_table(
                 "<tr>",
                 '<td colspan="3">',
                 f"<strong>{html_escape(label)}</strong>, task {item_id}, ",
-                f"<code>{html_escape(title)}</code>, ",
-                f"judge {judgment.get('skill_criteria_wins')}-"
-                f"{judgment.get('baseline_criteria_wins')}-"
-                f"{judgment.get('criteria_ties')}",
+                f"<code>{html_escape(title)}</code>. ",
+                f"The skill won {judgment.get('skill_criteria_wins')} rules, "
+                f"the baseline won {judgment.get('baseline_criteria_wins')}, "
+                f"and {judgment.get('criteria_ties')} were ties.",
                 "</td>",
                 "</tr>",
                 "<tr>",
