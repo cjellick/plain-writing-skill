@@ -188,26 +188,29 @@ after. After the rules comes the deslopify command.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
-19. **If you are writing an essay, use lists and tables sparingly. If you are
-    writing a brief, use lists and tables, but keep them short.** In an essay
-    or other continuous prose, prefer ordinary sentences. In a
-    brief, e.g., a PR description, a status note, or an update, a short list
-    or a short table can hold the points a reader needs to act on. Do not make
-    those lists long. Keep only the most important facts.
-    Before (essay): The cache change did three things:
-    - cut p95 latency from 900 ms to 220 ms
-    - left recall untested on long queries
-    - kept the old heuristic path as a fallback
-    After (essay): The cache change cut p95 latency from 900 ms to 220 ms.
-    Recall on long queries is still untested, and the old heuristic path
-    remains as a fallback.
-    Before (brief): We shipped a lot this week, including dark mode, invite
-    link fixes, a schema mismatch that delayed analytics export, some cleanup
-    in the renderer, and a few small copy edits.
-    After (brief): Shipped:
-    - Dark mode
-    - Invite link fix
-    Remaining: analytics export, blocked on a schema mismatch.
+19. **You can use lists, but do not overuse them.** Lists are fine when they
+    help a reader scan. Do not turn every paragraph into a list, and do not
+    write a long flat list. Keep a list to three or four points. If you need
+    more, nest the extra points under those top-level items. Keep tables short
+    too.
+    Before: Shipped this week:
+    - dark mode
+    - an invite link fix
+    - a schema mismatch that blocked analytics export
+    - renderer cleanup
+    - copy edits
+    - a scored ranking model
+    - a p95 drop from 900 ms to 220 ms
+    - untested recall on long queries
+    After: Search ranking now uses a scored model, and p95 latency fell from
+    900 ms to 220 ms. The old heuristic path is still in the repo as a
+    fallback.
+    - Shipped
+      - Dark mode
+      - Invite link fix
+    - Still open
+      - Test recall on long queries
+      - Unblock analytics export
 
 ## Patterns to avoid
 

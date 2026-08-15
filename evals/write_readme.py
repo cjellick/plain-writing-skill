@@ -168,7 +168,7 @@ def main() -> None:
         "- `41`–`50`: long research and support-agent histories.",
         "- `51`–`65`: Claude Fable 5 coding-agent traces. The writer sees the",
         "  full trace and is asked to rewrite the longest wrap-up.",
-        "- `66`–`67`: chat context and lists-or-tables checks.",
+        "- `66`–`67`: chat context and short-list checks.",
         "",
         "History items load a conversation from `evals/sources/` and append the",
         "item prompt as the last user turn. Fable traces are rebuilt with",
@@ -258,7 +258,7 @@ def main() -> None:
             [
                 "## Latest items 66 and 67",
                 "",
-                "These two prompts check the chat-context rule and the lists-or-tables rule.",
+                "These two prompts check the chat-context rule and the short-list rule.",
                 "",
                 summary_table(new_rules_summary),
                 "",
