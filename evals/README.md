@@ -188,8 +188,8 @@ These start from existing text. The first column is that original writing.
 <tbody>
 <tr>
 <td colspan="3">
-<strong>Product launch copy</strong> · task 05 · 
-<code>docs_skill</code> · 
+<strong>Product launch copy</strong>, task 05, 
+<code>docs_skill</code>, 
 judge 17-2-6
 </td>
 </tr>
@@ -200,8 +200,8 @@ judge 17-2-6
 </tr>
 <tr>
 <td colspan="3">
-<strong>Slide script</strong> · task 08 · 
-<code>slides_script</code> · 
+<strong>Slide script</strong>, task 08, 
+<code>slides_script</code>, 
 judge 17-2-6
 </td>
 </tr>
@@ -212,8 +212,8 @@ judge 17-2-6
 </tr>
 <tr>
 <td colspan="3">
-<strong>Product memo</strong> · task 02 · 
-<code>eval_harness</code> · 
+<strong>Product memo</strong>, task 02, 
+<code>eval_harness</code>, 
 judge 21-2-2
 </td>
 </tr>
@@ -224,8 +224,8 @@ judge 21-2-2
 </tr>
 <tr>
 <td colspan="3">
-<strong>Fable wrap-up</strong> · task 57 · 
-<code>powershell-meraki-link-pages</code> · 
+<strong>Fable wrap-up</strong>, task 57, 
+<code>powershell-meraki-link-pages</code>, 
 judge 13-5-7
 </td>
 </tr>
@@ -253,8 +253,8 @@ column is the prompt.
 <tbody>
 <tr>
 <td colspan="3">
-<strong>Slide titles</strong> · task 25 · 
-<code>slides</code> · 
+<strong>Slide titles</strong>, task 25, 
+<code>slides</code>, 
 judge 17-3-5
 </td>
 </tr>
@@ -265,8 +265,8 @@ judge 17-3-5
 </tr>
 <tr>
 <td colspan="3">
-<strong>Support reply</strong> · task 32 · 
-<code>faq_support</code> · 
+<strong>Support reply</strong>, task 32, 
+<code>faq_support</code>, 
 judge 12-3-10
 </td>
 </tr>
@@ -277,8 +277,8 @@ judge 12-3-10
 </tr>
 <tr>
 <td colspan="3">
-<strong>Engineering brief</strong> · task 67 · 
-<code>project_update</code> · 
+<strong>Engineering brief</strong>, task 67, 
+<code>project_update</code>, 
 judge 11-3-11
 </td>
 </tr>

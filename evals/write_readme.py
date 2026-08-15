@@ -320,8 +320,8 @@ def examples_group_table(
             [
                 "<tr>",
                 '<td colspan="3">',
-                f"<strong>{html_escape(label)}</strong> · task {item_id} · ",
-                f"<code>{html_escape(title)}</code> · ",
+                f"<strong>{html_escape(label)}</strong>, task {item_id}, ",
+                f"<code>{html_escape(title)}</code>, ",
                 f"judge {judgment.get('skill_criteria_wins')}-"
                 f"{judgment.get('baseline_criteria_wins')}-"
                 f"{judgment.get('criteria_ties')}",
