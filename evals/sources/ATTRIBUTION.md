@@ -45,8 +45,9 @@ long traces with a long final assistant message, then caps repeats by language
 and task family.
 
 Each history file records `source_dataset`, `task`, `lang`, `trace_category`,
-and `teacher_model`. Histories are truncated to about 180k characters if
-needed, but the first setup turn and the last wrap-up are always kept.
+and `teacher_model`. The stored conversation keeps the full tool calls and
+tool results from the selected trace. Consecutive same-role turns are merged
+only so the chat writer can send them.
 
 The eval prompt asks a model to rewrite that last wrap-up in plain writing,
 with the rest of the trace available as context.

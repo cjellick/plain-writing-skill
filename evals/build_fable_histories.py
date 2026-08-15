@@ -19,7 +19,6 @@ ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "sources" / "fable_histories"
 DATASET = ROOT / "dataset.jsonl"
 SOURCE_NAME = "greghavens/fable-5-coding-and-debugging-traces"
-MAX_CHARS = 180_000
 N_TRACES = 15
 MIN_LAST_CHARS = 2800
 MIN_MESSAGES = 32
@@ -85,7 +84,7 @@ def message_to_text(message: dict) -> str:
         args = fn.get("arguments") or ""
         if not isinstance(args, str):
             args = json.dumps(args, ensure_ascii=False)
-        chunks.append(f"[tool_call {name}] {args[:4000]}")
+        chunks.append(f"[tool_call {name}] {args}")
     return "\n".join(chunks).strip()
 
 
@@ -111,26 +110,6 @@ def raw_messages_to_chat(raw_messages: list) -> list[dict]:
         else:
             cleaned.append({"role": role, "content": content})
     return cleaned
-
-
-def truncate_messages(messages: list[dict], max_chars: int) -> list[dict]:
-    total = sum(len(m["content"]) for m in messages)
-    if total <= max_chars or not messages:
-        return messages
-    # Always keep the first setup turn and the last wrap-up (the rewrite target).
-    head = messages[0]
-    tail = messages[-1]
-    budget = max_chars - len(head["content"]) - len(tail["content"]) - 120
-    middle: list[dict] = []
-    for message in reversed(messages[1:-1]):
-        n = len(message["content"]) + 2
-        if n > budget:
-            break
-        middle.append(message)
-        budget -= n
-    middle.reverse()
-    marker = {"role": "user", "content": "[earlier turns omitted for length]"}
-    return [head, marker, *middle, tail]
 
 
 def pick_rows(complete: list[dict]) -> list[dict]:
@@ -212,7 +191,7 @@ def main() -> None:
 
     new_items: list[dict] = []
     for i, row in enumerate(selected, start=1):
-        messages = truncate_messages(raw_messages_to_chat(row["messages"]), MAX_CHARS)
+        messages = raw_messages_to_chat(row["messages"])
         if not messages or messages[-1]["role"] != "assistant":
             raise SystemExit(f"{row['task']} does not end on an assistant wrap-up")
         hist_name = f"history_{i:02d}.json"
@@ -227,7 +206,6 @@ def main() -> None:
             "assistant_steps": row["assistant_steps"],
             "n_messages_source": row["n_messages"],
             "last_output_chars": row["_last_len"],
-            "truncated_to_chars": MAX_CHARS,
             "message_count": len(messages),
             "messages": messages,
         }
