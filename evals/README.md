@@ -71,35 +71,6 @@ Combined from `67` of `67` items.
 | Errors | 0 |
 | Rewriter / judge | gpt-5.5 / gpt-5.5 |
 
-### By track
-
-| Track | Items | Skill / baseline / tie | Criterion skill / baseline / tie | Item win rate |
-| --- | --- | --- | --- | --- |
-| Short tasks | 40 / 40 | 37 / 1 / 2 | 391 / 130 / 479 | 97% |
-| Long history | 10 / 10 | 9 / 1 / 0 | 124 / 39 / 87 | 90% |
-| Fable coding | 15 / 15 | 14 / 1 / 0 | 172 / 68 / 135 | 93% |
-| Chat and lists | 2 / 2 | 2 / 0 / 0 | 20 / 3 / 27 | 100% |
-
-### By category
-
-| Category | Items | Skill / baseline / tie | Criterion skill / baseline / tie | Item win rate |
-| --- | --- | --- | --- | --- |
-| `fable_coding` | 15 | 14 / 1 / 0 | 172 / 68 / 135 | 93% |
-| `deslopify` | 10 | 10 / 0 / 0 | 131 / 27 / 92 | 100% |
-| `long_history` | 10 | 9 / 1 / 0 | 124 / 39 / 87 | 90% |
-| `project_update` | 5 | 5 / 0 / 0 | 53 / 20 / 52 | 100% |
-| `rewrite_plain` | 4 | 3 / 0 / 1 | 33 / 12 / 55 | 100% |
-| `summarize` | 4 | 4 / 0 / 0 | 33 / 11 / 56 | 100% |
-| `draft_readme` | 3 | 3 / 0 / 0 | 32 / 6 / 37 | 100% |
-| `faq_support` | 3 | 2 / 1 / 0 | 22 / 14 / 39 | 67% |
-| `pr_commit` | 3 | 2 / 0 / 1 | 22 / 12 / 41 | 100% |
-| `explain_workflow` | 2 | 2 / 0 / 0 | 19 / 5 / 26 | 100% |
-| `headings_labels` | 2 | 2 / 0 / 0 | 17 / 2 / 31 | 100% |
-| `mixed_docs` | 2 | 2 / 0 / 0 | 12 / 7 / 31 | 100% |
-| `slides` | 2 | 2 / 0 / 0 | 20 / 8 / 22 | 100% |
-| `long_explanatory` | 1 | 1 / 0 / 0 | 7 / 3 / 15 | 100% |
-| `policy_process` | 1 | 1 / 0 / 0 | 10 / 6 / 9 | 100% |
-
 ### Rules with the largest gap
 
 | Rule | Skill / baseline / tie | Skill win rate |
@@ -121,62 +92,6 @@ Rules where the baseline won more often:
 | 12. Prefer long, explanatory sentences over short, punchy ones. | 31 / 35 / 1 | 47% |
 | 11. Never write three or more clauses in one sentence, or three or more example sentences in a row. | 27 / 32 / 8 | 46% |
 | 5. It's ok to use contractions. | 4 / 10 / 53 | 29% |
-
-## Short tasks
-
-Items `01`–`40`: LLM slop, public-domain excerpts, and short drafts.
-
-| Metric | Result |
-| --- | --- |
-| Items | 40 |
-| Skill wins / baseline wins / ties | 37 / 1 / 2 |
-| Item win rate among decisive | 97% |
-| Criterion skill / baseline / tie | 391 / 130 / 479 |
-| Criterion win rate among decisive | 75% |
-| Errors | 0 |
-| Rewriter / judge | gpt-5.5 / gpt-5.5 |
-
-## Long history
-
-Items `41`–`50`: research and support-agent histories.
-
-| Metric | Result |
-| --- | --- |
-| Items | 10 |
-| Skill wins / baseline wins / ties | 9 / 1 / 0 |
-| Item win rate among decisive | 90% |
-| Criterion skill / baseline / tie | 124 / 39 / 87 |
-| Criterion win rate among decisive | 76% |
-| Errors | 0 |
-| Rewriter / judge | gpt-5.5 / gpt-5.5 |
-
-## Fable coding
-
-Items `51`–`65`: Claude Fable 5 coding-agent traces. The writer sees the full trace and rewrites the longest wrap-up.
-
-| Metric | Result |
-| --- | --- |
-| Items | 15 |
-| Skill wins / baseline wins / ties | 14 / 1 / 0 |
-| Item win rate among decisive | 93% |
-| Criterion skill / baseline / tie | 172 / 68 / 135 |
-| Criterion win rate among decisive | 72% |
-| Errors | 0 |
-| Rewriter / judge | gpt-5.5 / gpt-5.5 |
-
-## Chat and lists
-
-Items `66`–`67`: chat context and short-list checks.
-
-| Metric | Result |
-| --- | --- |
-| Items | 2 |
-| Skill wins / baseline wins / ties | 2 / 0 / 0 |
-| Item win rate among decisive | 100% |
-| Criterion skill / baseline / tie | 20 / 3 / 27 |
-| Criterion win rate among decisive | 87% |
-| Errors | 0 |
-| Rewriter / judge | gpt-5.5 / gpt-5.5 |
 
 ## Examples
 

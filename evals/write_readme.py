@@ -17,28 +17,6 @@ RESULT_DIRS = (
     OUTPUTS / "all",
 )
 EXCERPT_CHARS = 900
-TRACKS = (
-    {
-        "title": "Short tasks",
-        "ids": tuple(f"{i:02d}" for i in range(1, 41)),
-        "blurb": "Items `01`–`40`: LLM slop, public-domain excerpts, and short drafts.",
-    },
-    {
-        "title": "Long history",
-        "ids": tuple(f"{i:02d}" for i in range(41, 51)),
-        "blurb": "Items `41`–`50`: research and support-agent histories.",
-    },
-    {
-        "title": "Fable coding",
-        "ids": tuple(f"{i:02d}" for i in range(51, 66)),
-        "blurb": "Items `51`–`65`: Claude Fable 5 coding-agent traces. The writer sees the full trace and rewrites the longest wrap-up.",
-    },
-    {
-        "title": "Chat and lists",
-        "ids": ("66", "67"),
-        "blurb": "Items `66`–`67`: chat context and short-list checks.",
-    },
-)
 SAMPLES = (
     ("01", "Deslopify"),
     ("12", "Public-domain rewrite"),
@@ -212,63 +190,6 @@ def summary_table(summary: dict) -> str:
             f"| Rewriter / judge | {summary.get('model', '?')} / {summary.get('judge_model', '?')} |",
         ]
     )
-
-
-def track_table(results: dict[str, dict]) -> str:
-    lines = [
-        "| Track | Items | Skill / baseline / tie | Criterion skill / baseline / tie | Item win rate |",
-        "| --- | --- | --- | --- | --- |",
-    ]
-    for track in TRACKS:
-        rows = [results[i] for i in track["ids"] if i in results]
-        if not rows:
-            lines.append(
-                f"| {track['title']} | 0 / {len(track['ids'])} | n/a | n/a | n/a |"
-            )
-            continue
-        summary = summarize(rows)
-        lines.append(
-            "| {title} | {have} / {want} | {sw} / {bw} / {ties} | {csw} / {cbw} / {ct} | {rate} |".format(
-                title=track["title"],
-                have=len(rows),
-                want=len(track["ids"]),
-                sw=summary["skill_wins"],
-                bw=summary["baseline_wins"],
-                ties=summary["ties"],
-                csw=summary["criterion_skill_wins"],
-                cbw=summary["criterion_baseline_wins"],
-                ct=summary["criterion_ties"],
-                rate=pct(summary["skill_win_rate_among_decisive"]),
-            )
-        )
-    return "\n".join(lines)
-
-
-def category_table(results: dict[str, dict], dataset: dict[str, dict]) -> str:
-    buckets: dict[str, list[dict]] = {}
-    for item_id, row in results.items():
-        category = row.get("category") or dataset.get(item_id, {}).get("category") or "?"
-        buckets.setdefault(category, []).append(row)
-    lines = [
-        "| Category | Items | Skill / baseline / tie | Criterion skill / baseline / tie | Item win rate |",
-        "| --- | --- | --- | --- | --- |",
-    ]
-    for category, rows in sorted(buckets.items(), key=lambda kv: (-len(kv[1]), kv[0])):
-        summary = summarize(rows)
-        lines.append(
-            "| `{cat}` | {n} | {sw} / {bw} / {ties} | {csw} / {cbw} / {ct} | {rate} |".format(
-                cat=category,
-                n=summary["n"],
-                sw=summary["skill_wins"],
-                bw=summary["baseline_wins"],
-                ties=summary["ties"],
-                csw=summary["criterion_skill_wins"],
-                cbw=summary["criterion_baseline_wins"],
-                ct=summary["criterion_ties"],
-                rate=pct(summary["skill_win_rate_among_decisive"]),
-            )
-        )
-    return "\n".join(lines)
 
 
 def criterion_rows(summary: dict, limit: int = 8) -> str:
@@ -457,14 +378,6 @@ def main() -> None:
                 "",
                 summary_table(overall),
                 "",
-                "### By track",
-                "",
-                track_table(results),
-                "",
-                "### By category",
-                "",
-                category_table(results, dataset),
-                "",
                 "### Rules with the largest gap",
                 "",
                 criterion_rows(overall),
@@ -475,20 +388,6 @@ def main() -> None:
             parts.extend(
                 [
                     f"Missing item results: {', '.join(missing)}.",
-                    "",
-                ]
-            )
-        for track in TRACKS:
-            track_rows = [results[i] for i in track["ids"] if i in results]
-            if not track_rows:
-                continue
-            parts.extend(
-                [
-                    f"## {track['title']}",
-                    "",
-                    track["blurb"],
-                    "",
-                    summary_table(attach_models(summarize(track_rows), RESULT_DIRS)),
                     "",
                 ]
             )
