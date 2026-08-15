@@ -6,35 +6,44 @@ the skill.
 
 ## Eval procedure
 
-Each item in `dataset.jsonl` is one writing task. Some items are a short
-prompt only. History items also load a conversation from
-`evals/sources/` and append the item prompt as the last user turn.
+### Dataset
 
-The fable items (`51`–`65`) load a full Claude Fable 5 coding-agent
-trace. The prompt quotes the longest text-only assistant wrap-up from
-that trace and asks the model to rewrite it. The rest of the trace stays
-in the history so the writer can use it.
+`dataset.jsonl` has 67 writing tasks.
 
-For every item, the same user messages are sent twice.
+- `01`–`40`: short prompts, public-domain excerpts, and LLM slop.
+- `41`–`50`: long research and support-agent histories.
+- `51`–`65`: Claude Fable 5 coding-agent traces. The writer sees the
+  full trace and is asked to rewrite the longest wrap-up.
+- `66`–`67`: chat context and lists-or-tables checks.
 
-First, a baseline writer gets a short system prompt that only asks for a
-clear, complete response. Second, a skill writer gets the full text of
-`SKILL.md` and is told to follow it. Both writers use the same model.
-Neither writer sees the other output.
+History items load a conversation from `evals/sources/` and append the
+item prompt as the last user turn. Fable traces are rebuilt with
+`uv run python evals/build_fable_histories.py`.
 
-A judge then compares the two outputs. The numbered rules in `SKILL.md`
-are the criteria. For each rule, the judge sees the task prompt, text A,
-and text B. The A and B labels are shuffled at random so the judge does
-not know which text came from the skill. The judge scores only that one
-rule and returns `a`, `b`, or `tie`. Before and after examples are
-stripped from the rule text before it is sent.
+### Baseline
 
-An item counts as a skill win when the skill text wins more rules than
-the baseline. It counts as a baseline win when the baseline wins more
-rules. Equal rule counts are a tie. The summary also adds up wins at the
-rule level across items.
+The same user messages are sent to the writer with a short system prompt:
+write a clear, complete response, and return only the requested writing.
+The writer does not see `SKILL.md`.
 
-The default rewriter and judge are `gpt-5.5`. You can change them with
+### Skill condition
+
+The same user messages are sent again, to the same model, with `SKILL.md`
+in the system prompt. The writer is told to follow those rules. It does
+not see the baseline output.
+
+### How it is judged
+
+A judge compares the two outputs on each numbered rule in `SKILL.md`.
+For each rule it sees the task prompt and two unlabeled texts, A and B.
+The labels are shuffled so the judge does not know which text used the
+skill. It returns `a`, `b`, or `tie` for that rule only.
+
+An item is a skill win if the skill text wins more rules than the
+baseline, a baseline win if the reverse is true, and a tie if the rule
+counts are equal. The summary also totals those rule wins across items.
+
+The default rewriter and judge are `gpt-5.5`. Override them with
 `--model` and `--judge-model`.
 
 ## How to run
@@ -50,18 +59,6 @@ uv run python evals/write_readme.py
 Put `OPENAI_API_KEY` in a `.env` file at the repo root. Outputs land in
 `evals/outputs/` and are gitignored. This README is updated from those
 outputs by `write_readme.py`.
-
-## Dataset
-
-There are 67 items in `dataset.jsonl`.
-
-- `01`–`40`: short prompts, public-domain excerpts, and LLM slop.
-- `41`–`50`: long research and support-agent histories.
-- `51`–`65`: long Claude Fable 5 coding-agent traces. The model sees the
-  full trace and rewrites the longest wrap-up.
-- `66`–`67`: chat context and lists-or-tables checks.
-
-Fable traces are rebuilt with `uv run python evals/build_fable_histories.py`.
 
 ## Latest fable coding results
 
