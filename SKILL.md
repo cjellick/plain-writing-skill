@@ -189,8 +189,8 @@ after. After the rules comes the deslopify command.
     After: ## How to install the skill
 
 19. **If you are writing an essay, use lists and tables sparingly. If you are
-    writing a brief, use lists and tables, but keep them short.** In an essay,
-    a docs page, or other continuous prose, prefer ordinary sentences. In a
+    writing a brief, use lists and tables, but keep them short.** In an essay
+    or other continuous prose, prefer ordinary sentences. In a
     brief, e.g., a PR description, a status note, or an update, a short list
     or a short table can hold the points a reader needs to act on. Do not make
     those lists long. Keep only the most important facts.
