@@ -16,12 +16,12 @@ RESULT_DIRS = (
     OUTPUTS / "new_rules",
     OUTPUTS / "all",
 )
-EXCERPT_CHARS = 1800
+EXCERPT_CHARS = 900
 SAMPLES = (
     ("05", "Product launch copy"),
     ("08", "Slide script"),
     ("02", "Product memo"),
-    ("57", "Fable wrap-up"),
+    ("58", "Fable wrap-up"),
     ("25", "Slide titles"),
     ("32", "Support reply"),
     ("67", "Engineering brief"),
@@ -328,7 +328,7 @@ def examples_group_table(
                 "</td>",
                 "</tr>",
                 "<tr>",
-                table_cell(source, limit=None),
+                table_cell(source),
                 table_cell(row.get("baseline") or ""),
                 table_cell(row.get("with_skill") or ""),
                 "</tr>",
@@ -474,9 +474,9 @@ def main() -> None:
                     "## Examples",
                     "",
                     "Some tasks rewrite existing text. Some tasks write from scratch.",
-                    "The first column is the full original writing for a rewrite, and",
-                    "the prompt for a write-from-scratch task. The baseline and skill",
-                    f"columns are cut after about {EXCERPT_CHARS} characters.",
+                    "The first column is original writing for a rewrite, and the prompt",
+                    "for a write-from-scratch task. Long texts are cut after about",
+                    f"{EXCERPT_CHARS} characters.",
                     "",
                     examples_tables(dataset, results),
                     "",
