@@ -43,9 +43,7 @@ after. After the rules comes the deslopify command.
    Before: This result matters, and it carries weight for the design.
    After: The scores barely moved, so we can skip the model on most documents.
 
-4. **Stick to the same word; repetition is fine.** When the same idea comes up
-   again, use the same word. Do not switch to a synonym just to avoid
-   repetition.
+4. **Use consistent terminology and constrain your vocabulary.**
    Before: Upload the document. The file is parsed, and the record is saved.
    After: Upload the document. The document is parsed and saved.
 
@@ -106,10 +104,11 @@ after. After the rules comes the deslopify command.
 11. **Never write three or more clauses in one sentence, or three or more
     example sentences in a row.** In ordinary prose, a sentence may have one or
     two related clauses. Do not pack three or more clauses into one prose
-    sentence. If you need that many points, use bullet points, or a numbered
-    First / Second / Third sequence under rule 9. If list points are examples
-    and you want to inline them, introduce with "e.g.". Also do not give three
-    or more example sentences back to back to support the same point.
+    sentence. If you need that many points, use a numbered First / Second / Third
+    sequence under rule 9, or short bullet points when you are writing a
+    brief. If list points are examples and you want to inline them, introduce
+    with "e.g.". Also do not give three or more example sentences back to back
+    to support the same point.
     Before: The parser reads the file, the validator checks the fields, and the
     writer saves the record.
     After: The parser reads the file, and the validator checks the fields. The
@@ -147,16 +146,27 @@ after. After the rules comes the deslopify command.
     the work done.
     After: To do: validate recall on long queries.
 
+14. **In chat, give context on the problem.** When you are chatting back and
+    forth, write for a smart reader who does not have context on the problem,
+    or who forgot it. Give context on the problem and on what was happening
+    before. Then say what changed. Keep the setup short. Do not dump the whole
+    history. Ignore this rule if you are writing an essay.
+    Before: The exporter now waits on the reset header, and `dotnet test` is
+    green.
+    After: The Okta System Log exporter was rereading whole hours, so a retry
+    could write the same event twice. It now waits using the response reset
+    header, and the six acceptance tests pass.
+
 ## Punctuation and formatting
 
-14. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
+15. **No dashes or middle dots.** Do not use em dashes or en dashes, including in
     number ranges. Join clauses with a period or "and", and write ranges with
     "to". Do not use the middle dot (·) as a separator; use a comma, "and", or
     separate lines instead.
     Before: The build is fast — it finishes in 10 to 20 seconds.
     After: The build is fast. It finishes in 10 to 20 seconds.
 
-15. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
+16. **Don't use colons to join clauses in ordinary prose.** Do not use a colon
     to glue two clauses or to set up a point in essay-like writing. A colon is
     fine when you introduce a list. A colon is also fine as a short label in
     updates, briefs, status notes, and PR descriptions, e.g., "Summary:",
@@ -167,18 +177,40 @@ after. After the rules comes the deslopify command.
     generated docs.
     After (same text is fine): Summary: Replace em dashes in generated docs.
 
-16. **Use straight quotes, not curly quotes.**
+17. **Use straight quotes, not curly quotes.**
     Before: The system logs each “event” as it happens.
     After: The system logs each "event" as it happens.
 
-17. **Keep the formatting plain.** Use sentence case in headings. Do not use
+18. **Keep the formatting plain.** Use sentence case in headings. Do not use
     bold for decoration.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
+19. **You can use lists, but do not overuse them.** Keep a list to three or
+    four points, and nest extra points if you need more. When you are writing
+    an essay, use lists and tables very sparingly.
+    Before: Shipped this week:
+    - dark mode
+    - an invite link fix
+    - a schema mismatch that blocked analytics export
+    - renderer cleanup
+    - copy edits
+    - a scored ranking model
+    - a p95 drop from 900 ms to 220 ms
+    - untested recall on long queries
+    After: Search ranking now uses a scored model, and p95 latency fell from
+    900 ms to 220 ms. The old heuristic path is still in the repo as a
+    fallback.
+    - Shipped
+      - Dark mode
+      - Invite link fix
+    - Still open
+      - Test recall on long queries
+      - Unblock analytics export
+
 ## Patterns to avoid
 
-18. **Do not give inanimate things fake agency.** Do not write as if a system
+20. **Do not give inanimate things fake agency.** Do not write as if a system
     or object transforms, decides, or intends on its own when a person or
     process is the real actor. Ordinary factual verbs for tools and systems are
     fine, e.g., "The API returns JSON", "The job writes the file", or "The
@@ -186,7 +218,7 @@ after. After the rules comes the deslopify command.
     Before: The logs become searchable records, once the job finishes.
     After: You can search the logs, once the job finishes.
 
-19. **No analogies or imagery.** Do not explain by comparing to something else,
+21. **No analogies or imagery.** Do not explain by comparing to something else,
     and do not use metaphor. Describe the actual thing in literal terms. Write
     in a boring way.
     Before: The feature index is like a card catalog that the optimizer can flip
@@ -194,7 +226,7 @@ after. After the rules comes the deslopify command.
     After: The feature index is a list of named features. The optimizer can look
     up which feature matches a request.
 
-20. **Never use negative parallelism of the form "not just X, it is Y" or
+22. **Never use negative parallelism of the form "not just X, it is Y" or
     "not only X, but Y".** State what the thing is. A plain refusal or
     correction is fine, including a short quote of a customer's hype phrase
     when you replace it with a concrete fact.
@@ -204,7 +236,7 @@ after. After the rules comes the deslopify command.
     that phrase can mean different things.
     After: The API has a 99.9% monthly uptime SLO.
 
-21. **Do not stack rhetorical questions.** AI writing often asks two or three
+23. **Do not stack rhetorical questions.** AI writing often asks two or three
     rhetorical questions in a row to sound thoughtful. Don't do this. Just state
     the problem directly.
     Before: Does the tool keep the writer's voice? Does it make the argument
@@ -212,14 +244,14 @@ after. After the rules comes the deslopify command.
     After: We do not yet know whether the tool keeps the writer's voice, or
     whether it makes the argument stronger or weaker.
 
-22. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
+24. **Do not use vague demonstrative pronouns.** Do not use "This", "That",
     "These", or "Those", especially do not start a sentence with a demonstrative
     pronoun, and never begin a paragraph with a sentence that contains a
     demonstrative anywhere in it.
     Before: That context carries into the next turn.
     After: The agent applies the rules you saved on the next turn.
 
-23. **Do not open with a count of things.** Never start by announcing how many
+25. **Do not open with a count of things.** Never start by announcing how many
     points are coming, e.g., "Two cautions." or "Three things to keep in mind."
     State the first point directly. If you absolutely must present many things,
     use a bullet list instead.
