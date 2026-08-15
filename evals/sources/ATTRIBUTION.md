@@ -39,17 +39,16 @@ from
 [greghavens/fable-5-coding-and-debugging-traces](https://huggingface.co/datasets/greghavens/fable-5-coding-and-debugging-traces).
 
 The upstream rows are cumulative prefixes of Claude Fable 5 (`anthropic/claude-fable-5`)
-sessions. We keep the final prefix of each selected task (the full trace,
-including the last wrap-up) and skip seed-authoring rows. Selection prefers
-long traces with a long final assistant message, then caps repeats by language
-and task family.
+sessions. We keep the final prefix of each selected task (the full trace)
+and skip seed-authoring rows. Selection prefers the longest assistant wrap-up,
+then caps repeats by language and task family.
 
 Each history file records `source_dataset`, `task`, `lang`, `trace_category`,
 and `teacher_model`. The stored conversation keeps the full tool calls and
 tool results from the selected trace. Consecutive same-role turns are merged
 only so the chat writer can send them.
 
-The eval prompt asks a model to rewrite that last wrap-up in plain writing,
+The eval prompt asks a model to rewrite the longest wrap-up in plain writing,
 with the rest of the trace available as context.
 
 Downstream use follows the upstream dataset card and any model-provider usage

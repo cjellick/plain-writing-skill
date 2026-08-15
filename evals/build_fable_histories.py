@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Sample long Claude Fable 5 coding traces into fable_histories/.
 
-Each item keeps the full coding-agent trace, including the last wrap-up, so
-the eval can ask a model to rewrite that last fable-style output in plain
-writing.
+Each item keeps the full coding-agent trace. The eval asks a model to rewrite
+the longest assistant wrap-up in that trace, not necessarily the last message.
 """
 
 from __future__ import annotations
@@ -20,19 +19,19 @@ OUT_DIR = ROOT / "sources" / "fable_histories"
 DATASET = ROOT / "dataset.jsonl"
 SOURCE_NAME = "greghavens/fable-5-coding-and-debugging-traces"
 N_TRACES = 15
-MIN_LAST_CHARS = 2800
-MIN_MESSAGES = 32
+MIN_WRAPUP_CHARS = 2800
+MIN_MESSAGES = 28
 SKIP_CATEGORIES = {"seed-authoring"}
 LANG_CAP = 4
 FAMILY_CAP = 8
 
 FABLE_REWRITE_PROMPT = (
-    "The last assistant message in the coding-agent history above is a wrap-up "
-    "written in a fable-style voice. Rewrite that last assistant message so a "
-    "sharp technical reader with no project context can understand it. Follow "
-    "the plain-writing guidelines. Keep the concrete facts from the last "
-    "message and the rest of the trace. Do not invent work that is not in the "
-    "history. Return only the rewrite."
+    "The coding-agent history above includes a long wrap-up written in a "
+    "fable-style voice. Rewrite the wrap-up below so a sharp technical reader "
+    "with no project context can understand it. Follow the plain-writing "
+    "guidelines. Keep the concrete facts from that wrap-up and the rest of "
+    "the trace. Do not invent work that is not in the history. Return only "
+    "the rewrite.\n\nWrap-up:\n{wrapup}"
 )
 
 LANG_ALIASES = {
@@ -61,16 +60,40 @@ def norm_lang(lang: str) -> str:
     return LANG_ALIASES.get(lang, lang)
 
 
-def last_assistant_text(messages: list[dict]) -> str:
-    for message in reversed(messages):
-        if message.get("role") != "assistant":
-            continue
-        if message.get("tool_calls"):
+def is_wrapup_message(message: dict) -> bool:
+    if message.get("role") != "assistant":
+        return False
+    if message.get("tool_calls"):
+        return False
+    return bool((message.get("content") or "").strip())
+
+
+def longest_wrapup(messages: list[dict]) -> tuple[int, str]:
+    best_i = -1
+    best_text = ""
+    for i, message in enumerate(messages):
+        if not is_wrapup_message(message):
             continue
         text = (message.get("content") or "").strip()
-        if text:
-            return text
-    return ""
+        if len(text) > len(best_text):
+            best_i = i
+            best_text = text
+    return best_i, best_text
+
+
+def longest_cleaned_wrapup(messages: list[dict]) -> tuple[int, str]:
+    best_i = -1
+    best_text = ""
+    for i, message in enumerate(messages):
+        if message.get("role") != "assistant":
+            continue
+        text = (message.get("content") or "").strip()
+        if not text or "[tool_call " in text:
+            continue
+        if len(text) > len(best_text):
+            best_i = i
+            best_text = text
+    return best_i, best_text
 
 
 def message_to_text(message: dict) -> str:
@@ -117,16 +140,17 @@ def pick_rows(complete: list[dict]) -> list[dict]:
     for row in complete:
         if row["category"] in SKIP_CATEGORIES:
             continue
-        last = last_assistant_text(row["messages"])
-        if len(last) < MIN_LAST_CHARS:
+        _, wrapup = longest_wrapup(row["messages"])
+        if len(wrapup) < MIN_WRAPUP_CHARS:
             continue
         if row["n_messages"] < MIN_MESSAGES:
             continue
         item = dict(row)
-        item["_last_len"] = len(last)
+        item["_wrapup"] = wrapup
+        item["_wrapup_len"] = len(wrapup)
         candidates.append(item)
     candidates.sort(
-        key=lambda r: (-r["n_messages"], -r["_last_len"], -r["assistant_steps"])
+        key=lambda r: (-r["_wrapup_len"], -r["n_messages"], -r["assistant_steps"])
     )
 
     picked: list[dict] = []
@@ -159,7 +183,7 @@ def pick_rows(complete: list[dict]) -> list[dict]:
                 break
     if len(picked) < N_TRACES:
         raise SystemExit(f"Expected {N_TRACES} fable traces, got {len(picked)}")
-    picked.sort(key=lambda r: (-r["n_messages"], -r["_last_len"], -r["assistant_steps"]))
+    picked.sort(key=lambda r: (-r["_wrapup_len"], -r["n_messages"], -r["assistant_steps"]))
     return picked
 
 
@@ -175,6 +199,7 @@ def rewrite_dataset(new_items: list[dict]) -> None:
                 continue
             kept.append(item)
     kept.extend(new_items)
+    kept.sort(key=lambda item: int(item["id"]))
     DATASET.write_text("".join(json.dumps(item, ensure_ascii=False) + "\n" for item in kept))
     print(f"Wrote {len(kept)} items to {DATASET}")
 
@@ -192,8 +217,9 @@ def main() -> None:
     new_items: list[dict] = []
     for i, row in enumerate(selected, start=1):
         messages = raw_messages_to_chat(row["messages"])
-        if not messages or messages[-1]["role"] != "assistant":
-            raise SystemExit(f"{row['task']} does not end on an assistant wrap-up")
+        wrap_i, wrapup = longest_cleaned_wrapup(messages)
+        if wrap_i < 0 or not wrapup:
+            raise SystemExit(f"{row['task']} has no assistant wrap-up")
         hist_name = f"history_{i:02d}.json"
         payload = {
             "source_dataset": SOURCE_NAME,
@@ -205,7 +231,8 @@ def main() -> None:
             "observed_models": list(row.get("observed_models") or []),
             "assistant_steps": row["assistant_steps"],
             "n_messages_source": row["n_messages"],
-            "last_output_chars": row["_last_len"],
+            "wrapup_index": wrap_i,
+            "wrapup_chars": len(wrapup),
             "message_count": len(messages),
             "messages": messages,
         }
@@ -213,7 +240,7 @@ def main() -> None:
         chars = sum(len(m["content"]) for m in messages)
         print(
             f"{hist_name}: {row['task']} {row['category']} {row['lang']} "
-            f"nmsg={row['n_messages']} last={row['_last_len']} chars={chars}"
+            f"nmsg={row['n_messages']} wrapup={len(wrapup)}@{wrap_i} chars={chars}"
         )
         new_items.append(
             {
@@ -228,10 +255,11 @@ def main() -> None:
                     "teacher_model": payload["teacher_model"],
                     "assistant_steps": row["assistant_steps"],
                     "n_messages": row["n_messages"],
-                    "last_output_chars": row["_last_len"],
+                    "wrapup_chars": len(wrapup),
+                    "wrapup_index": wrap_i,
                 },
                 "history_file": f"fable_histories/{hist_name}",
-                "prompt": FABLE_REWRITE_PROMPT,
+                "prompt": FABLE_REWRITE_PROMPT.format(wrapup=wrapup),
             }
         )
 
