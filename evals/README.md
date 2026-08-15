@@ -98,16 +98,16 @@ Rules where the baseline won more often:
 | 13. Be precise and unambiguous, and cut unnecessary clauses. | 6 / 9 / 0 | 40% |
 | 11. Never write three or more clauses in one sentence, or three or more example sentences in a row. | 0 / 14 / 1 | 0% |
 
-## Fable before and after
+## Fable examples
 
-Each sample is the original longest wrap-up, the baseline rewrite, and
-the rewrite with the skill. Long texts are cut after about 900 characters.
+Each sample shows the raw wrap-up, the baseline-rewritten text, and the
+skill-based rewritten text. Long texts are cut after about 900 characters.
 
 ### Item 51: `csharp-newrelic-synthetic-monitor`
 
 Judge: skill_better=True (11-7-7).
 
-Original wrap-up:
+Raw text:
 
 ```
 Done — `dotnet test` passes 15/15, and the only changes are three new files under `src/`: `NerdGraphClient.cs`, `MonitorReconciler.cs`, and `Exceptions.cs` (all in `Acme.NewRelic.Synthetics`). Every protected file, `docs/`, and the starter `src/MonitorModels.cs` are byte-identical to the seed, and no scratch artifacts were left behind.
@@ -120,7 +120,7 @@ How the implementation addresses the outstanding review findings, alongside the 
 [...]
 ```
 
-Baseline rewrite:
+Baseline-rewritten:
 
 ```
 Implemented the scripted API monitor reconciler and verified it with the acceptance tests.
@@ -151,7 +151,7 @@ Implementation summary:
 [...]
 ```
 
-Rewrite with the skill:
+Skill-based rewritten:
 
 ```
 `dotnet test` passes. The run passed all 15 tests.
@@ -175,7 +175,7 @@ The transport code is in `src/NerdGraphClient.cs`. It sends one GraphQL document
 
 Judge: skill_better=True (9-7-9).
 
-Original wrap-up:
+Raw text:
 
 ```
 Done. `dotnet test` passes 6/6, the workspace contains only the three new source files (`SystemLogModels.cs`, `SystemLogClient.cs`, `SystemLogExporter.cs`, all in namespace `OktaSyslog`), and every protected file — `SystemLogTests.cs`, `OktaSystemLog.csproj`, `.gitignore`, and everything under `docs/` — is untouched. The scratch copy of the OpenAPI spec I downloaded for research was deleted before finishing.
@@ -185,7 +185,7 @@ Done. `dotnet test` passes 6/6, the workspace contains only the three new source
 [...]
 ```
 
-Baseline rewrite:
+Baseline-rewritten:
 
 ```
 Implemented the Okta System Log exporter library.
@@ -213,7 +213,7 @@ Important documentation mismatch:
 [...]
 ```
 
-Rewrite with the skill:
+Skill-based rewritten:
 
 ```
 `dotnet test` passes all 6 tests.
@@ -242,7 +242,7 @@ Important documentation note: the current official Okta System Log query guide s
 
 Judge: skill_better=True (10-4-11).
 
-Original wrap-up:
+Raw text:
 
 ```
 Done. `pwsh -NoProfile -File test_meraki_pages.ps1` exits 0 with all 50 checks passing, and every rejection finding from the prior review is fixed and verified by adversarial loopback probes (probe scripts were scratch and have been removed). Protected files (`test_meraki_pages.ps1`, `docs/`) are untouched — git status shows only the four new module files.
@@ -256,7 +256,7 @@ Done. `pwsh -NoProfile -File test_meraki_pages.ps1` exits 0 with all 50 checks p
 [...]
 ```
 
-Baseline rewrite:
+Baseline-rewritten:
 
 ```
 Implemented and verified the Meraki Dashboard API v1 PowerShell module.
@@ -284,7 +284,7 @@ Implemented and verified the Meraki Dashboard API v1 PowerShell module.
 [...]
 ```
 
-Rewrite with the skill:
+Skill-based rewritten:
 
 ```
 The Meraki PowerShell module is implemented, and the acceptance test passes. I ran `pwsh -NoProfile -File test_meraki_pages.ps1`, and it exited 0 with all 50 checks passing. I also ran separate loopback probes for the prior review findings, and each probe passed. I removed the scratch probe script after verification. The protected files, `test_meraki_pages.ps1` and everything under `docs/`, were not changed. Git status showed only four new module files.
