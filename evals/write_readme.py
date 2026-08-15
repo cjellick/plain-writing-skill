@@ -181,9 +181,9 @@ def summary_table(summary: dict) -> str:
         [
             "| Metric | Result |",
             "| --- | --- |",
-            f"| Items | {summary.get('n', 0)} |",
+            f"| Writing tasks | {summary.get('n', 0)} |",
             f"| Skill wins / baseline wins / ties | {summary.get('skill_wins', 0)} / {summary.get('baseline_wins', 0)} / {summary.get('ties', 0)} |",
-            f"| Item win rate among decisive | {pct(summary.get('skill_win_rate_among_decisive'))} |",
+            f"| Win rate among decisive tasks | {pct(summary.get('skill_win_rate_among_decisive'))} |",
             f"| Criterion skill / baseline / tie | {summary.get('criterion_skill_wins', 0)} / {summary.get('criterion_baseline_wins', 0)} / {summary.get('criterion_ties', 0)} |",
             f"| Criterion win rate among decisive | {pct(summary.get('criterion_skill_win_rate_among_decisive'))} |",
             f"| Errors | {summary.get('errors', 0)} |",
@@ -284,7 +284,7 @@ def examples_table(dataset: dict[str, dict], results: dict[str, dict]) -> str:
                 "<tr>",
                 '<td valign="top">',
                 f"<strong>{html_escape(label)}</strong><br>",
-                f"item {item_id} (<code>{html_escape(title)}</code>)<br>",
+                f"task {item_id} (<code>{html_escape(title)}</code>)<br>",
                 f"Judge: {judgment.get('skill_better')} "
                 f"({judgment.get('skill_criteria_wins')}-"
                 f"{judgment.get('baseline_criteria_wins')}-"
@@ -325,8 +325,8 @@ def main() -> None:
         "  full trace and is asked to rewrite the longest wrap-up.",
         "- `66`–`67`: chat context and short-list checks.",
         "",
-        "History items load a conversation from `sources/` and append the",
-        "item prompt as the last user turn. Fable traces are rebuilt with",
+        "For a history task, we load a conversation from `sources/` and append",
+        "the prompt as the last user turn. Fable traces are rebuilt with",
         "`uv run python build_fable_histories.py`.",
         "",
         "### Baseline",
@@ -343,10 +343,10 @@ def main() -> None:
         "",
         "### How it is judged",
         "",
-        "For each piece of writing, we compare the two texts on every rule in",
+        "For each writing task, we compare the two texts on every rule in",
         "`SKILL.md`. The judge does not know which text used the skill. The skill",
-        "wins the item if it wins more rules. We also add up those rule wins",
-        "across items.",
+        "wins that task if it wins more rules. We also add up those rule wins",
+        "across tasks.",
         "",
         "The default rewriter and judge are `gpt-5.5`. Override them with",
         "`--model` and `--judge-model`.",
@@ -363,7 +363,7 @@ def main() -> None:
         "```",
         "",
         "Put `OPENAI_API_KEY` in a `.env` file at the repo root. Outputs land in",
-        "`outputs/` and are gitignored. `write_readme.py` combines the item",
+        "`outputs/` and are gitignored. `write_readme.py` combines the result",
         "files from those folders and writes this README.",
         "",
     ]
@@ -374,7 +374,7 @@ def main() -> None:
             [
                 "## Latest results",
                 "",
-                f"Combined from `{len(results)}` of `{len(dataset)}` items.",
+                f"Combined from `{len(results)}` of `{len(dataset)}` writing tasks.",
                 "",
                 summary_table(overall),
                 "",
@@ -387,7 +387,7 @@ def main() -> None:
         if missing:
             parts.extend(
                 [
-                    f"Missing item results: {', '.join(missing)}.",
+                    f"Missing task results: {', '.join(missing)}.",
                     "",
                 ]
             )
@@ -396,7 +396,7 @@ def main() -> None:
                 [
                     "## Examples",
                     "",
-                    "Each row is one example. The columns are the original text, the",
+                    "Each row is one writing task. The columns are the original text, the",
                     "baseline rewrite (no skill), and the skill-based rewrite. For draft",
                     "tasks with no source text, Original is the task prompt. Long texts",
                     f"are cut after about {EXCERPT_CHARS} characters.",
@@ -410,7 +410,7 @@ def main() -> None:
             [
                 "## Latest results",
                 "",
-                "No item outputs yet. Run the commands in How to run, then",
+                "No task outputs yet. Run the commands in How to run, then",
                 "`uv run python write_readme.py`.",
                 "",
             ]

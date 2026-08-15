@@ -16,8 +16,8 @@ the skill.
   full trace and is asked to rewrite the longest wrap-up.
 - `66`–`67`: chat context and short-list checks.
 
-History items load a conversation from `sources/` and append the
-item prompt as the last user turn. Fable traces are rebuilt with
+For a history task, we load a conversation from `sources/` and append
+the prompt as the last user turn. Fable traces are rebuilt with
 `uv run python build_fable_histories.py`.
 
 ### Baseline
@@ -34,10 +34,10 @@ not see the baseline output.
 
 ### How it is judged
 
-For each piece of writing, we compare the two texts on every rule in
+For each writing task, we compare the two texts on every rule in
 `SKILL.md`. The judge does not know which text used the skill. The skill
-wins the item if it wins more rules. We also add up those rule wins
-across items.
+wins that task if it wins more rules. We also add up those rule wins
+across tasks.
 
 The default rewriter and judge are `gpt-5.5`. Override them with
 `--model` and `--judge-model`.
@@ -54,18 +54,18 @@ uv run python write_readme.py
 ```
 
 Put `OPENAI_API_KEY` in a `.env` file at the repo root. Outputs land in
-`outputs/` and are gitignored. `write_readme.py` combines the item
+`outputs/` and are gitignored. `write_readme.py` combines the result
 files from those folders and writes this README.
 
 ## Latest results
 
-Combined from `67` of `67` items.
+Combined from `67` of `67` writing tasks.
 
 | Metric | Result |
 | --- | --- |
-| Items | 67 |
+| Writing tasks | 67 |
 | Skill wins / baseline wins / ties | 62 / 3 / 2 |
-| Item win rate among decisive | 95% |
+| Win rate among decisive tasks | 95% |
 | Criterion skill / baseline / tie | 707 / 240 / 728 |
 | Criterion win rate among decisive | 75% |
 | Errors | 0 |
@@ -95,7 +95,7 @@ Rules where the baseline won more often:
 
 ## Examples
 
-Each row is one example. The columns are the original text, the
+Each row is one writing task. The columns are the original text, the
 baseline rewrite (no skill), and the skill-based rewrite. For draft
 tasks with no source text, Original is the task prompt. Long texts
 are cut after about 900 characters.
@@ -113,7 +113,7 @@ are cut after about 900 characters.
 <tr>
 <td valign="top">
 <strong>Deslopify</strong><br>
-item 01 (<code>cache_rollout</code>)<br>
+task 01 (<code>cache_rollout</code>)<br>
 Judge: True (8-4-13)
 </td>
 <td valign="top">
@@ -169,7 +169,7 @@ Early metrics show better performance than expected. Render latency has dropped 
 <tr>
 <td valign="top">
 <strong>Public-domain rewrite</strong><br>
-item 12 (<code>Eddystone Lighthouse</code>)<br>
+task 12 (<code>Eddystone Lighthouse</code>)<br>
 Judge: True (12-2-11)
 </td>
 <td valign="top">
@@ -205,7 +205,7 @@ The London News said that destroying Smeaton's beautiful tower would be a nation
 <tr>
 <td valign="top">
 <strong>Short draft</strong><br>
-item 22 (<code>project_update</code>)<br>
+task 22 (<code>project_update</code>)<br>
 Judge: True (10-6-9)
 </td>
 <td valign="top">
@@ -231,7 +231,7 @@ The main remaining validation area is recall on long queries. We’ll continue t
 <tr>
 <td valign="top">
 <strong>Long history</strong><br>
-item 41 (<code>long_history</code>)<br>
+task 41 (<code>long_history</code>)<br>
 Judge: True (16-4-5)
 </td>
 <td valign="top">
@@ -268,7 +268,7 @@ The main search path focused first on 2019 European rock and metal albums with l
 <tr>
 <td valign="top">
 <strong>Fable coding</strong><br>
-item 51 (<code>csharp-newrelic-synthetic-monitor</code>)<br>
+task 51 (<code>csharp-newrelic-synthetic-monitor</code>)<br>
 Judge: True (12-5-8)
 </td>
 <td valign="top">
@@ -345,7 +345,7 @@ It retries HTTP 429 responses with the injected delay function. The retry delays
 <tr>
 <td valign="top">
 <strong>Chat context</strong><br>
-item 66 (<code>project_update</code>)<br>
+task 66 (<code>project_update</code>)<br>
 Judge: True (13-1-11)
 </td>
 <td valign="top">
@@ -373,7 +373,7 @@ The cache work cuts out that repeated work. The cache now stores pages after the
 <tr>
 <td valign="top">
 <strong>Short lists</strong><br>
-item 67 (<code>project_update</code>)<br>
+task 67 (<code>project_update</code>)<br>
 Judge: True (7-2-16)
 </td>
 <td valign="top">
