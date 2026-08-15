@@ -188,11 +188,9 @@ after. After the rules comes the deslopify command.
     Before: ## How To Install The Skill
     After: ## How to install the skill
 
-19. **You can use lists, but do not overuse them.** Lists are fine when they
-    help a reader scan. Do not turn every paragraph into a list, and do not
-    write a long flat list. Keep a list to three or four points. If you need
-    more, nest the extra points under those top-level items. Keep tables short
-    too.
+19. **You can use lists, but do not overuse them.** Keep a list to three or
+    four points, and nest extra points if you need more. When you are writing
+    an essay, use lists and tables very sparingly.
     Before: Shipped this week:
     - dark mode
     - an invite link fix
